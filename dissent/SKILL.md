@@ -1,11 +1,11 @@
 ---
 name: dissent
-description: Devil's advocate. Seek contrary evidence before you commit. Use when about to make a significant decision, when confidence is high but stakes are higher, or when the team is converging too quickly.
+description: Devil's advocate. Seek contrary evidence before locking in. Use when about to make a significant decision, when confidence is high but stakes are higher, or when the team is converging too quickly.
 ---
 
 # /dissent
 
-Structured disagreement that strengthens decisions. The insight: **the time to find flaws is before you commit, not after.**
+Structured disagreement that strengthens decisions. The insight: **find flaws before the one-way door closes.**
 
 Dissent is not attack. It's the practice of actively seeking reasons you might be wrong. The devil's advocate is a role, not a personality.
 
@@ -13,7 +13,7 @@ Dissent is not attack. It's the practice of actively seeking reasons you might b
 
 Invoke `/dissent` when:
 
-- **About to commit to a significant decision** - before the PR merge, before the architecture choice, before the hire
+- **About to lock in a one-way door** - architecture choices, major hires, public API contracts, anything hard to reverse
 - **Confidence is high but stakes are higher** - feeling certain is when you need dissent most
 - **Team is converging too quickly** - unanimous agreement without debate is a warning sign
 - **You're defending a position** - advocacy mode is the enemy of truth-seeking
