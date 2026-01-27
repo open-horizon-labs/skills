@@ -83,17 +83,49 @@ Always include the reasoning:
 
 > "PROCEED: The strongest counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
 
-### When to Recommend an ADR
+### ADR Generation
 
-If the decision is a **one-way door** (hard to reverse) and you recommend PROCEED, suggest creating an Architecture Decision Record (ADR). Future team members will ask "why did we do it this way?" - the dissent report is the raw material for the ADR.
+If the decision is a **one-way door** (hard to reverse) and you recommend PROCEED or ADJUST, offer to create an Architecture Decision Record (ADR). Future team members will ask "why did we do it this way?"
 
-Recommend an ADR when:
+**Offer to create an ADR when:**
 - The decision affects system architecture
 - Multiple valid approaches were considered and rejected
 - The reasoning depends on current context that might not be obvious later
 - Someone will likely question this in 6 months
 
-The dissent report's **Steel-Man Position**, **Contrary Evidence**, and **Hidden Assumptions** sections map directly to ADR sections (Context, Considered Options, Decision).
+**The dissent report maps directly to ADR format:**
+
+| Dissent Section | ADR Section |
+|-----------------|-------------|
+| Decision under review | Title |
+| Steel-Man Position | Context |
+| Contrary Evidence + Pre-Mortem | Options Considered |
+| Hidden Assumptions | Consequences |
+| Decision + Reasoning | Decision |
+
+**If user accepts, write to:** `docs/adr/NNNN-<decision-slug>.md` (or project's ADR location)
+
+```markdown
+# ADR NNNN: [Decision Title]
+
+## Status
+Accepted
+
+## Context
+[From Steel-Man Position - why this decision needed to be made]
+
+## Decision
+[From Decision section - what we decided and why]
+
+## Options Considered
+[From Contrary Evidence - what alternatives were evaluated]
+
+## Consequences
+[From Hidden Assumptions - what we're accepting by making this decision]
+
+## Notes
+Generated from /dissent on [date]
+```
 
 ## Output Format
 
@@ -135,7 +167,7 @@ Always produce a dissent report in this structure:
 
 **Confidence after dissent:** [HIGH/MEDIUM/LOW]
 
-**ADR recommended:** [Yes/No] - [If yes, why this decision needs documentation]
+**Create ADR?** [Yes - offer to write docs/adr/NNNN-slug.md / No - not a one-way door]
 ```
 
 ## Examples
@@ -193,7 +225,7 @@ us the code organization benefits without the operational complexity.
 
 **Confidence after dissent:** HIGH (clear mismatch)
 
-**ADR recommended:** No - we're reconsidering, not committing
+**Create ADR?** No - we're reconsidering, not committing
 ```
 
 ### Example 2: Feature Decision
@@ -252,7 +284,7 @@ validation. Risk is manageable with modifications.
 
 **Confidence after dissent:** MEDIUM (reduced risk with A/B)
 
-**ADR recommended:** Yes - documents why we chose A/B testing approach and what success metrics we committed to. Future team will ask why we didn't launch to 100%.
+**Create ADR?** Yes - shall I write `docs/adr/0012-recommendation-system-rollout.md`? Documents why we chose A/B testing and what success metrics we committed to.
 ```
 
 ## Session Persistence
