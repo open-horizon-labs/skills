@@ -14,6 +14,16 @@ Or install specific skills:
 npx skills add open-horizon-labs/skills --skill aim --skill salvage
 ```
 
+## Updating
+
+Re-run the install command to pull the latest version:
+
+```bash
+npx skills add open-horizon-labs/skills -g -a claude-code -y
+```
+
+> **Tip:** Skills are updated frequently. Re-run this after pulling framework updates.
+
 ## The Framework
 
 9 commands that form the language of strategic execution:
@@ -39,7 +49,7 @@ npx skills add open-horizon-labs/skills --skill aim --skill salvage
 | Skill | Description |
 |-------|-------------|
 | `/review` | Check work and detect drift. A second opinion before committing |
-| `/dissent` | Devil's advocate. Seek contrary evidence before you commit |
+| `/dissent` | Devil's advocate. Seek contrary evidence before locking in |
 | `/salvage` | Extract learning before restarting. Code is a draft; learning is the asset |
 
 ## The Loop
@@ -59,11 +69,24 @@ SALVAGE ──► back to Problem Space with new understanding
 
 ## Adaptive Skills
 
-Each skill works at three levels:
+Each skill works at multiple levels:
 
 1. **Base** - Works with just the prompt (no dependencies)
-2. **With .wm/** - Reads/writes working memory for persistence
-3. **With OH MCP** - Full integration with Open Horizons graph database
+2. **With .oh/ session** - Reads/writes `.oh/<session>.md` for context handoff between skills
+3. **With .wm/** - Reads/writes working memory for persistence
+4. **With OH MCP** - Full integration with Open Horizons graph database
+
+### Session Persistence
+
+Skills can share context via session files:
+
+```bash
+/aim feature-auth           # Creates .oh/feature-auth.md
+/problem-statement feature-auth  # Reads aim, writes problem statement
+/solution-space feature-auth     # Reads aim + problem statement, writes solution
+```
+
+Name sessions meaningfully: PR numbers (`PR-123`), feature names (`feature-auth`), or any identifier.
 
 ## Learn More
 
