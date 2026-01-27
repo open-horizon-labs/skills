@@ -1,11 +1,11 @@
 ---
 name: teach-oh
-description: One-time project setup. Explore the codebase, ask about strategy and aims, write persistent context to CLAUDE.md.
+description: Project setup. Explore the codebase, ask about strategy and aims, write persistent context to CLAUDE.md. Run when starting or when aims shift.
 ---
 
 # /teach-oh
 
-One-time setup that gathers project context and saves it to your AI config file. Run once to establish persistent guidelines for all future sessions.
+Setup that gathers project context and saves it to your AI config file. Run when starting on a project or when strategy/aims have shifted.
 
 ## When to Use
 
@@ -200,11 +200,10 @@ With project context established:
 
 ## Notes
 
-- Run once per project, re-run after major shifts
 - Context lives in CLAUDE.md so it persists across sessions
 - Keep it focused—this isn't documentation, it's working context
-- Update manually as the project evolves
+- Re-run when aims shift, constraints change, or context feels stale
 
 ---
 
-**Remember:** This is setup, not ongoing work. Invest 10 minutes once, save context-setting in every future session.
+**Remember:** This is setup, not ongoing work. Invest 10 minutes when starting or when things have shifted.

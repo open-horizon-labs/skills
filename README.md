@@ -28,11 +28,11 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 
 10 commands that form the language of strategic execution:
 
-### Setup (Run once per project)
+### Setup (When starting or when aims shift)
 
 | Skill | Description |
 |-------|-------------|
-| `/teach-oh` | One-time setup. Explore codebase, ask about strategy/aims, write context to CLAUDE.md |
+| `/teach-oh` | Project setup. Explore codebase, ask about strategy/aims, write context to CLAUDE.md |
 
 ### Grounding (Understand the problem)
 
