@@ -260,7 +260,7 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 
 ### With Open Horizons MCP
 - Queries graph for similar problems and their eventual framings
-- Retrieves local practices about framing patterns that worked/failed
+- Retrieves tribal knowledge about framing patterns that worked/failed
 - Logs the problem statement as a decision point in the endeavor
 - Session file serves as local cache
 

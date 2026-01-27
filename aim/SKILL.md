@@ -246,7 +246,7 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 
 ### With Open Horizons MCP
 - Queries related endeavors to see if aim already exists
-- Pulls relevant local practices that might inform mechanism choice
+- Pulls relevant tribal knowledge that might inform mechanism choice
 - Logs aim statement to graph database
 - Links aim to active endeavors
 - Session file serves as local cache for MCP data

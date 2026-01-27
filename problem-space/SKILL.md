@@ -252,7 +252,7 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 
 ### With Open Horizons MCP
 - Queries graph for related past decisions and their outcomes
-- Pulls relevant local practices about similar problem spaces
+- Pulls relevant tribal knowledge about similar problem spaces
 - Retrieves guardrails that apply to this domain
 - Session file serves as local cache
 

@@ -72,7 +72,7 @@ Local practices = practical wisdom, the kind you can only get from experience.
 - What would help future-you (or future teammates) in similar situations?
 - What patterns should be captured?
 
-Good local practices are:
+Good tribal knowledge is:
 - Specific enough to be actionable
 - General enough to apply beyond this exact case
 - Non-obvious (not "write tests" but "this API silently returns 200 on auth failure")
@@ -117,7 +117,7 @@ Synthesize the extraction into a restart kit:
 If working memory (`.wm/`) or Open Horizons is available:
 
 1. **Add to state.md** - Update working memory with key learnings
-2. **Log to OH** - If OH MCP tools available, log local practices and guardrails
+2. **Log to OH** - If OH MCP tools available, log tribal knowledge and guardrails
 3. **Update CLAUDE.md** - If learnings are project-wide, suggest additions
 
 If no persistent storage is available, output the salvage summary for the user to capture manually.

@@ -319,7 +319,7 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 
 ### With Open Horizons MCP
 - Queries past decisions on similar topics
-- Retrieves relevant guardrails and local practices
+- Retrieves relevant guardrails and tribal knowledge
 - Logs dissent decision for future reference
 - Session file serves as local cache
 
