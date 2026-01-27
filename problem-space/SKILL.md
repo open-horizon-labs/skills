@@ -221,23 +221,40 @@ We are optimizing for: Page load time under 2 seconds for 95th percentile users.
 No - Need performance profiling to identify actual bottleneck before optimizing anything.
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/problem-space <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read prior skill outputs—especially **Aim** and **Problem Statement**—to ground the exploration.
+
+**Writing:** After producing output, write the problem space map to the session file:
+
+```markdown
+## Problem Space
+**Updated:** <timestamp>
+
+[problem space map content]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces problem space map through questioning. Forces explicit constraint documentation.
+Works anywhere. Produces problem space map through questioning. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for prior context (aim, problem statement)
+- Writes problem space map to the session file
+- Subsequent skills can read constraints and terrain
 
 ### With .wm/ (working memory)
-- Reads recent session context from `.wm/sessions/`
-- Checks `.wm/state.md` for existing constraints and assumptions
-- Cross-references with past problem space maps
-- Updates working memory with new constraints discovered
+- Also reads/writes `.wm/sessions/` and `.wm/state.md`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries graph for related past decisions and their outcomes
-- Pulls relevant metis (tribal knowledge) about similar problem spaces
+- Pulls relevant local practices about similar problem spaces
 - Retrieves guardrails that apply to this domain
-- Links problem space map to current endeavor
-- Suggests constraints based on historical patterns
+- Session file serves as local cache
 
 ## Leads To
 

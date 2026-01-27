@@ -227,24 +227,42 @@ The original ask revealed a missing capability, not a feature to add.
 - Hacking dark mode without addressing the underlying issue (band-aid)
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/problem-statement <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. If found, read prior skill outputs—especially the **Aim** section—for context. The aim informs what problem we're actually trying to solve.
+
+**Writing:** After producing output, write the problem statement to the session file:
+
+```markdown
+## Problem Statement
+**Updated:** <timestamp>
+
+[problem statement content]
+```
+
+If the section exists, replace it. If not, append it after the Aim section.
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
+Works anywhere. Produces problem statement for discussion. No persistence.
 
-Works anywhere. Produces problem statement for discussion and iteration.
+### With .oh/ session file
+- Reads `.oh/<session>.md` for prior context (especially aim)
+- Writes problem statement to the session file
+- Subsequent skills can read the framing
 
 ### With .wm/ (working memory)
-
-- Reads context from `.wm/state.md` to understand prior framing attempts
-- Writes validated problem statement to `.wm/dive_context.md`
-- Surfaces related past problems that had similar framings
+- Also reads/writes `.wm/state.md` and `.wm/dive_context.md`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
-
 - Queries graph for similar problems and their eventual framings
-- Retrieves metis about framing patterns that worked/failed
+- Retrieves local practices about framing patterns that worked/failed
 - Logs the problem statement as a decision point in the endeavor
-- Links to related guardrails that might inform constraints
+- Session file serves as local cache
 
 ## Leads To
 

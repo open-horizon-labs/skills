@@ -237,26 +237,45 @@ validation. Risk is manageable with modifications.
 **Confidence after dissent:** MEDIUM (reduced risk with A/B)
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/dissent <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand the decision being challenged.
+
+**Writing:** After producing the dissent report:
+
+```markdown
+## Dissent
+**Updated:** <timestamp>
+**Decision:** [PROCEED | ADJUST | RECONSIDER]
+
+[dissent report content]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces dissent report for manual review.
+Works anywhere. Produces dissent report for manual review. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for context on the decision
+- Writes dissent report to the session file
+- Subsequent skills see that dissent was performed
 
 ### With .wm/ (working memory)
-- Reads recent decision context from `.wm/sessions/`
-- Checks for related past decisions that failed
-- Writes dissent findings to session log
+- Also reads/writes `.wm/sessions/`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries past decisions on similar topics
-- Retrieves relevant guardrails and metis
+- Retrieves relevant guardrails and local practices
 - Logs dissent decision for future reference
-- Links to related endeavors for context
+- Session file serves as local cache
 
 ### With Team Input
 - Aggregates dissent from multiple reviewers
 - Tracks which assumptions different team members question
-- Surfaces disagreements that might otherwise go unspoken
 
 ## Leads To
 

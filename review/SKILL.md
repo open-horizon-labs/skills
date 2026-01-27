@@ -255,25 +255,40 @@ Stop. The approach has reversed multiple times. Extract what was learned about t
 4. Start fresh with clear hypothesis
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/review <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Problem Statement**, **Solution Space** (approach taken), and **Execute** status. This is essential for detecting drift.
+
+**Writing:** After review, write the assessment:
+
+```markdown
+## Review
+**Updated:** <timestamp>
+**Verdict:** [ALIGNED | DRIFTED | BLOCKED]
+
+[review findings, drift analysis, recommendations]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces review summary based on conversation context. Relies on user to provide status of work.
+Works anywhere. Produces review summary based on conversation context. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for aim, constraints, selected solution
+- Compares actual work against session aim
+- Writes review verdict and findings to the session file
 
 ### With git diff
 - Compares actual changes against stated aim
 - Detects file count, complexity signals
-- Identifies incomplete changes (added field, missing initialization)
+- Identifies incomplete changes
 
-```
-git diff --stat  # See what changed
-git diff HEAD~1  # Compare against last commit
-```
-
-### With Working Memory (.wm/)
-- Reads original aim from `.wm/dive_context.md`
-- Compares current state to session goals
-- Logs review decisions to session history
+### With .wm/ (working memory)
+- Also reads `.wm/dive_context.md`
+- Session file and working memory can coexist
 
 ### With CI Integration
 - Checks if tests pass before marking complete
@@ -283,8 +298,7 @@ git diff HEAD~1  # Compare against last commit
 ### With Open Horizons MCP
 - Pulls related past decisions for context
 - Logs review outcomes to graph
-- Queries guardrails that might apply
-- Checks alignment against endeavor-level aims
+- Session file serves as local cache
 
 ## Completion Gate (Before "Done")
 

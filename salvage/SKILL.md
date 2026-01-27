@@ -64,15 +64,15 @@ Trigger: [when to revisit this constraint]
 
 > "If I had known about [X], I would have [Y] instead."
 
-#### 4. Metis Candidates (Hard-won lessons worth encoding)
+#### 4. Local Practices (Hard-won lessons worth encoding)
 
-Metis = practical wisdom, the kind you can only get from experience.
+Local practices = practical wisdom, the kind you can only get from experience.
 
 - What tribal knowledge did this work surface?
 - What would help future-you (or future teammates) in similar situations?
 - What patterns should be captured?
 
-Good metis is:
+Good local practices are:
 - Specific enough to be actionable
 - General enough to apply beyond this exact case
 - Non-obvious (not "write tests" but "this API silently returns 200 on auth failure")
@@ -117,7 +117,7 @@ Synthesize the extraction into a restart kit:
 If working memory (`.wm/`) or Open Horizons is available:
 
 1. **Add to state.md** - Update working memory with key learnings
-2. **Log to OH** - If OH MCP tools available, log metis and guardrails
+2. **Log to OH** - If OH MCP tools available, log local practices and guardrails
 3. **Update CLAUDE.md** - If learnings are project-wide, suggest additions
 
 If no persistent storage is available, output the salvage summary for the user to capture manually.
@@ -142,7 +142,7 @@ Always produce a salvage summary in this structure:
 ### Missing Context
 [What would have helped]
 
-### Metis
+### Local Practices
 [Hard-won wisdom to encode]
 
 ### Reusable Fragments
@@ -185,7 +185,7 @@ the flow, now it's more complex than before.
 - The original auth was complex for a reason (provider edge cases)
 - Should have read the PR that introduced each provider
 
-### Metis
+### Local Practices
 OAuth providers aren't interchangeable. The abstraction leak is the feature.
 
 ### Fresh Start Recommendation
@@ -224,7 +224,7 @@ theme system doesn't exist yet.
 - Should have grepped for color usage before starting
 - No design tokens or CSS variables in codebase
 
-### Metis
+### Local Practices
 "Add [feature]" is not the same as "build [feature]." Check if the
 infrastructure exists before estimating.
 
@@ -238,21 +238,43 @@ infrastructure exists before estimating.
 3. The toggle is the easy part—do it last
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/salvage <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read **everything**—Aim, Problem Statement, Problem Space, Solution Space, Execute, Review—to understand what was attempted and what happened.
+
+**Writing:** After producing the salvage report:
+
+```markdown
+## Salvage
+**Updated:** <timestamp>
+**Outcome:** [extracted learnings, ready for restart]
+
+[salvage report: learnings, guardrails, context for fresh start]
+```
+
+The salvage section is the capstone—it captures what was learned before the session ends or restarts.
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces salvage summary for manual capture.
+Works anywhere. Produces salvage summary for manual capture. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for full session context
+- Writes salvage report to the session file
+- The salvage report can seed the next session
 
 ### With .wm/ (working memory)
-- Reads recent session context from `.wm/sessions/`
-- Writes learnings to `.wm/state.md`
-- Updates `.wm/dive_context.md` for next session
+- Also reads/writes `.wm/state.md` and `.wm/dive_context.md`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related past decisions before salvaging
-- Logs metis to graph database
+- Logs learnings to graph database
 - Creates dive pack for restart session
-- Links salvage to relevant endeavors
+- Session file serves as local cache
 
 ## Leads To
 

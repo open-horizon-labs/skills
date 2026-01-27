@@ -231,23 +231,42 @@ Need to deploy the firmware update to the test device. No CI for this.
 - Consider PR builds that produce flashable artifacts
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/ship <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Solution Space** (what approach we took), and **Execute** status.
+
+**Writing:** After shipping, write the deployment status:
+
+```markdown
+## Ship
+**Updated:** <timestamp>
+**Status:** [staged | deployed | verified | rolled-back]
+
+[shipping notes, verification results, etc.]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces ship checklist and recommendations for manual execution.
+Works anywhere. Produces ship checklist for manual execution. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for context on what was built and why
+- Writes deployment status to the session file
+- `/review` can check if shipping achieved the aim
 
 ### With CI/CD Configuration
 - Reads pipeline definitions (GitHub Actions, CircleCI, etc.)
 - References specific workflow files
 - Triggers appropriate pipelines via labels or commands
-- Reports pipeline status
 
 ### With Full Pipeline Integration (MCP tools)
 - Directly triggers deployments
 - Monitors pipeline progress in real-time
 - Queries deployment status from infrastructure
-- Runs verification tests against deployed services
-- Stores delivery metrics in graph for trend analysis
+- Session file serves as local cache for deployment state
 
 ## The Intent -> Execution -> Review Loop
 

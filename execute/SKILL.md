@@ -250,37 +250,49 @@ The approach has reversed multiple times:
 Invoking /salvage to extract learning before restart.
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/execute <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand what we're building and why. This is essential for drift detection.
+
+**Writing:** After pre-flight and during execution, write status to the session file:
+
+```markdown
+## Execute
+**Updated:** <timestamp>
+**Status:** [pre-flight | in-progress | drift-detected | complete]
+
+[execution notes, drift observations, etc.]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
+Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No persistence.
 
-Works anywhere. Manual pre-flight checklist, drift detection by reasoning through the questions.
+### With .oh/ session file
+- Reads `.oh/<session>.md` for aim, constraints, selected solution
+- Writes execution status and notes to the session file
+- Drift detection compares current work against session aim
 
 ### With .wm/ (working memory)
-
-- Reads dive context from `.wm/dive_context.md` for aim and constraints
-- Writes execution notes to `.wm/sessions/`
-- Tracks drift across conversation turns
+- Also reads/writes `.wm/dive_context.md` and `.wm/sessions/`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
-
-- Queries related past decisions and learnings before starting
+- Queries related past decisions and learnings
 - Logs execution decisions to graph database
-- Pulls relevant guardrails and metis automatically
-- Links execution to endeavors and aims
+- Session file serves as local cache
 
 ### With task management (ba, GitHub issues)
-
 - Creates subtasks for non-trivial findings
 - Updates task status as work progresses
 - Links commits to tasks
-- Manages the claim/work/finish cycle
 
 ### With code review (sg, CodeRabbit)
-
 - Runs automated review on staged changes
-- Triages findings by severity (P1-P3 fix, P4 discard)
-- Creates tasks for non-trivial review findings
+- Triages findings by severity
 - Iterates until review passes
 
 ## Leads To

@@ -302,22 +302,40 @@ config flag we're adding to work around notification timing issues.
 **Next step:** Map all notification trigger points. If >3 paths trigger the same notification, the problem isn't timing - it's architecture.
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/solution-space <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. Read prior skill outputs—**Aim**, **Problem Statement**, **Problem Space**—to understand what we're solving and the constraints.
+
+**Writing:** After producing output, write the solution space analysis to the session file:
+
+```markdown
+## Solution Space
+**Updated:** <timestamp>
+
+[solution space analysis and recommendation]
+```
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces solution space analysis for discussion with team.
+Works anywhere. Produces solution space analysis for discussion. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
+- Writes solution analysis and recommendation to the session file
+- `/execute` can read the selected approach
 
 ### With .wm/ (working memory)
-- Reads past decisions from `.wm/state.md`
-- Checks for similar problems solved before
-- Writes selected approach and rationale to session context
+- Also reads/writes `.wm/state.md`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related past solution decisions
 - Finds similar problems across endeavors
 - Logs the solution space exploration and decision
-- Links to relevant metis about what worked before
-- Suggests approaches that worked in similar contexts
+- Session file serves as local cache
 
 ## Leads To
 

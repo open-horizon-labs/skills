@@ -209,22 +209,47 @@ Without clear answers, consider `/salvage` to extract what you've learned, then 
 **Red flag:** If "simplify" is the aim, you need a measurable definition. Simplicity is a mechanism, not an outcome. What does simpler auth enable that complex auth blocks?
 ```
 
+## Session Persistence
+
+When invoked with a session name (`/aim <session>`), this skill reads and writes to `.oh/<session>.md`.
+
+**Reading:** Check for existing session file. If found, read prior skill outputs (problem-statement, problem-space, etc.) for context.
+
+**Writing:** After producing output, write the aim statement to the session file:
+
+```markdown
+# Session: <session>
+
+## Aim
+**Updated:** <timestamp>
+
+[aim statement content]
+```
+
+If the file exists, replace the `## Aim` section. If it doesn't exist, create it.
+
+**Session naming:** User provides the session name - could be a PR number (`PR-123`), feature name (`feature-auth`), or any identifier meaningful to them.
+
 ## Adaptive Enhancement
 
 ### Base Skill (prompt only)
-Works anywhere. Produces aim statement for discussion and manual capture.
+Works anywhere. Produces aim statement for discussion. No persistence.
+
+### With .oh/ session file
+- Reads `.oh/<session>.md` for prior context from other skills
+- Writes aim statement to the session file
+- Subsequent skills (`/problem-statement`, `/solution-space`, etc.) can read the aim
 
 ### With .wm/ (working memory)
-- Reads recent session context from `.wm/sessions/`
-- Checks `.wm/state.md` for existing aims and how this relates
-- Writes aim statement to `.wm/dive_context.md` for session grounding
+- Also reads/writes `.wm/sessions/` and `.wm/state.md`
+- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related endeavors to see if aim already exists
-- Pulls relevant metis that might inform mechanism choice
+- Pulls relevant local practices that might inform mechanism choice
 - Logs aim statement to graph database
 - Links aim to active endeavors
-- Creates dive pack with aim as first element
+- Session file serves as local cache for MCP data
 
 ## Relationship to Other Commands
 
