@@ -26,7 +26,13 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 
 ## The Framework
 
-9 commands that form the language of strategic execution:
+10 commands that form the language of strategic execution:
+
+### Setup (When starting or when aims shift)
+
+| Skill | Description |
+|-------|-------------|
+| `/teach-oh` | Project setup. Explore codebase, ask about strategy/aims, write context to AGENTS.md |
 
 ### Grounding (Understand the problem)
 
