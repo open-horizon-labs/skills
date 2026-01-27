@@ -1,11 +1,11 @@
 ---
 name: teach-oh
-description: Project setup. Explore the codebase, ask about strategy and aims, write persistent context to CLAUDE.md. Run when starting or when aims shift.
+description: Project setup. Explore the codebase, ask about strategy and aims, write persistent context to AGENTS.md. Run when starting or when aims shift.
 ---
 
 # /teach-oh
 
-Setup that gathers project context and saves it to your AI config file. Run when starting on a project or when strategy/aims have shifted.
+Setup that gathers project context and saves it to AGENTS.md (the cross-agent standard). Run when starting on a project or when strategy/aims have shifted.
 
 ## When to Use
 
@@ -30,7 +30,7 @@ Before asking questions, scan the project independently:
 - Build configuration, CI/CD setup
 
 **Existing Context**
-- CLAUDE.md, README, CONTRIBUTING
+- AGENTS.md, CLAUDE.md, README, CONTRIBUTING
 - `.oh/`, `.wm/`, `docs/adr/` directories
 - Any existing project documentation
 
@@ -69,7 +69,7 @@ After exploration, ask targeted questions about what couldn't be inferred. Focus
 
 ### Step 3: Write Persistent Context
 
-Synthesize findings into a structured section and offer to append to CLAUDE.md (or create it if missing).
+Synthesize findings into a structured section and offer to append to AGENTS.md (or create it if missing).
 
 ```markdown
 # Project Context
@@ -113,19 +113,19 @@ Present findings for user approval before writing:
 
 ---
 
-After your answers, I'll draft a CLAUDE.md section for your approval.
+After your answers, I'll draft a AGENTS.md section for your approval.
 ```
 
 After user answers:
 
 ```
-## Proposed CLAUDE.md Addition
+## Proposed AGENTS.md Addition
 
 [Draft the Project Context section]
 
 ---
 
-**Write to CLAUDE.md?** [Yes/No - show what will be added/updated]
+**Write to AGENTS.md?** [Yes/No - show what will be added/updated]
 ```
 
 ## Example
@@ -142,7 +142,7 @@ After user answers:
 ### What I Discovered
 - Stack: TypeScript, React, Node.js, PostgreSQL
 - Structure: Monorepo with apps/ and packages/
-- Existing context: README exists, no CLAUDE.md
+- Existing context: README exists, no AGENTS.md or CLAUDE.md
 - Recent focus: Auth refactor (last 12 commits)
 
 ### Questions I Have
@@ -155,7 +155,7 @@ After user answers:
 **User answers, agent drafts:**
 
 ```
-## Proposed CLAUDE.md Addition
+## Proposed AGENTS.md Addition
 
 # Project Context
 
@@ -185,7 +185,7 @@ Tech lead approves architecture changes. PRs need one review. "Done" = deployed 
 
 ---
 
-**Write to CLAUDE.md?** This will create a new file at ./CLAUDE.md
+**Write to AGENTS.md?** This will create a new file at ./AGENTS.md
 ```
 
 ## What This Enables
@@ -200,7 +200,7 @@ With project context established:
 
 ## Notes
 
-- Context lives in CLAUDE.md so it persists across sessions
+- Context lives in AGENTS.md so it persists across sessions
 - Keep it focused—this isn't documentation, it's working context
 - Re-run when aims shift, constraints change, or context feels stale
 
