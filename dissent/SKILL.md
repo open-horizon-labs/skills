@@ -83,6 +83,18 @@ Always include the reasoning:
 
 > "PROCEED: The strongest counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
 
+### When to Recommend an ADR
+
+If the decision is a **one-way door** (hard to reverse) and you recommend PROCEED, suggest creating an Architecture Decision Record (ADR). Future team members will ask "why did we do it this way?" - the dissent report is the raw material for the ADR.
+
+Recommend an ADR when:
+- The decision affects system architecture
+- Multiple valid approaches were considered and rejected
+- The reasoning depends on current context that might not be obvious later
+- Someone will likely question this in 6 months
+
+The dissent report's **Steel-Man Position**, **Contrary Evidence**, and **Hidden Assumptions** sections map directly to ADR sections (Context, Considered Options, Decision).
+
 ## Output Format
 
 Always produce a dissent report in this structure:
@@ -122,6 +134,8 @@ Always produce a dissent report in this structure:
 **If ADJUST:** [Specific modifications]
 
 **Confidence after dissent:** [HIGH/MEDIUM/LOW]
+
+**ADR recommended:** [Yes/No] - [If yes, why this decision needs documentation]
 ```
 
 ## Examples
@@ -178,6 +192,8 @@ scaling) has no evidence supporting the need. A modular monolith gives
 us the code organization benefits without the operational complexity.
 
 **Confidence after dissent:** HIGH (clear mismatch)
+
+**ADR recommended:** No - we're reconsidering, not committing
 ```
 
 ### Example 2: Feature Decision
@@ -235,6 +251,8 @@ validation. Risk is manageable with modifications.
 3. Define success metric (revenue lift, not clicks) before launch
 
 **Confidence after dissent:** MEDIUM (reduced risk with A/B)
+
+**ADR recommended:** Yes - documents why we chose A/B testing approach and what success metrics we committed to. Future team will ask why we didn't launch to 100%.
 ```
 
 ## Session Persistence
