@@ -211,7 +211,16 @@ Without clear answers, consider `/salvage` to extract what you've learned, then 
 
 ## Session Persistence
 
-When invoked with a session name (`/aim <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/aim auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/aim`):
+- After producing the aim statement, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch (e.g., `feature/auth-flow` → `auth-flow`) or the aim content
+- If user accepts, create `.oh/<session>.md`
 
 **Reading:** Check for existing session file. If found, read prior skill outputs (problem-statement, problem-space, etc.) for context.
 
@@ -226,9 +235,7 @@ When invoked with a session name (`/aim <session>`), this skill reads and writes
 [aim statement content]
 ```
 
-If the file exists, replace the `## Aim` section. If it doesn't exist, create it.
-
-**Session naming:** User provides the session name - could be a PR number (`PR-123`), feature name (`feature-auth`), or any identifier meaningful to them.
+If the section exists, replace it. If not, create it.
 
 ## Adaptive Enhancement
 
@@ -239,10 +246,6 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 - Reads `.oh/<session>.md` for prior context from other skills
 - Writes aim statement to the session file
 - Subsequent skills (`/problem-statement`, `/solution-space`, etc.) can read the aim
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/sessions/` and `.wm/state.md`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related endeavors to see if aim already exists

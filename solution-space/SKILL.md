@@ -304,7 +304,15 @@ config flag we're adding to work around notification timing issues.
 
 ## Session Persistence
 
-When invoked with a session name (`/solution-space <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/solution-space auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/solution-space`):
+- After producing the solution space analysis, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the problem being solved
 
 **Reading:** Check for existing session file. Read prior skill outputs—**Aim**, **Problem Statement**, **Problem Space**—to understand what we're solving and the constraints.
 
@@ -326,10 +334,6 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 - Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
 - Writes solution analysis and recommendation to the session file
 - `/execute` can read the selected approach
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/state.md`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related past solution decisions

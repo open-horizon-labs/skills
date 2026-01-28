@@ -233,7 +233,15 @@ Need to deploy the firmware update to the test device. No CI for this.
 
 ## Session Persistence
 
-When invoked with a session name (`/ship <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/ship auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/ship`):
+- After producing the ship report, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the work being shipped
 
 **Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Solution Space** (what approach we took), and **Execute** status.
 

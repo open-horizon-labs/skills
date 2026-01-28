@@ -112,13 +112,11 @@ Synthesize the extraction into a restart kit:
 [Any code, patterns, or approaches worth keeping]
 ```
 
-### Step 4: Update Persistent Memory (if available)
+### Step 4: Persist Learnings (if available)
 
-If working memory (`.wm/`) or Open Horizons is available:
-
-1. **Add to state.md** - Update working memory with key learnings
-2. **Log to OH** - If OH MCP tools available, log tribal knowledge and guardrails
-3. **Update CLAUDE.md** - If learnings are project-wide, suggest additions
+If Open Horizons MCP is available:
+1. **Log to OH** - Log tribal knowledge and guardrails to the graph
+2. **Update AGENTS.md** - If learnings are project-wide, suggest additions
 
 If no persistent storage is available, output the salvage summary for the user to capture manually.
 
@@ -240,7 +238,15 @@ infrastructure exists before estimating.
 
 ## Session Persistence
 
-When invoked with a session name (`/salvage <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/salvage auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/salvage`):
+- After producing the salvage report, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the work being salvaged
 
 **Reading:** Check for existing session file. Read **everything**—Aim, Problem Statement, Problem Space, Solution Space, Execute, Review—to understand what was attempted and what happened.
 
@@ -265,10 +271,6 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Reads `.oh/<session>.md` for full session context
 - Writes salvage report to the session file
 - The salvage report can seed the next session
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/state.md` and `.wm/dive_context.md`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related past decisions before salvaging

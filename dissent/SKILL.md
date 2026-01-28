@@ -289,7 +289,15 @@ validation. Risk is manageable with modifications.
 
 ## Session Persistence
 
-When invoked with a session name (`/dissent <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/dissent auth-decision`):
+- Reads/writes `.oh/auth-decision.md` directly
+
+**If no session name provided** (`/dissent`):
+- After producing the dissent report, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the decision topic
 
 **Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand the decision being challenged.
 
@@ -312,10 +320,6 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 - Reads `.oh/<session>.md` for context on the decision
 - Writes dissent report to the session file
 - Subsequent skills see that dissent was performed
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/sessions/`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries past decisions on similar topics

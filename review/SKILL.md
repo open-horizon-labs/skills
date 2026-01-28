@@ -257,7 +257,15 @@ Stop. The approach has reversed multiple times. Extract what was learned about t
 
 ## Session Persistence
 
-When invoked with a session name (`/review <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/review auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/review`):
+- After producing the review summary, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the work being reviewed
 
 **Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Problem Statement**, **Solution Space** (approach taken), and **Execute** status. This is essential for detecting drift.
 
@@ -285,10 +293,6 @@ Works anywhere. Produces review summary based on conversation context. No persis
 - Compares actual changes against stated aim
 - Detects file count, complexity signals
 - Identifies incomplete changes
-
-### With .wm/ (working memory)
-- Also reads `.wm/dive_context.md`
-- Session file and working memory can coexist
 
 ### With CI Integration
 - Checks if tests pass before marking complete

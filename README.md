@@ -79,20 +79,25 @@ Each skill works at multiple levels:
 
 1. **Base** - Works with just the prompt (no dependencies)
 2. **With .oh/ session** - Reads/writes `.oh/<session>.md` for context handoff between skills
-3. **With .wm/** - Reads/writes working memory for persistence
-4. **With OH MCP** - Full integration with Open Horizons graph database
+3. **With OH MCP** - Full integration with Open Horizons graph database
 
 ### Session Persistence
 
-Skills can share context via session files:
+Skills can share context via session files. When invoked without a session name, skills will offer to save:
 
-```bash
-/aim feature-auth           # Creates .oh/feature-auth.md
-/problem-statement feature-auth  # Reads aim, writes problem statement
-/solution-space feature-auth     # Reads aim + problem statement, writes solution
+```
+> Save to session? [auth-refactor] [custom] [skip]
 ```
 
-Name sessions meaningfully: PR numbers (`PR-123`), feature names (`feature-auth`), or any identifier.
+The suggested name is derived from the current git branch. You can also provide a session name explicitly:
+
+```bash
+/aim auth-refactor           # Creates .oh/auth-refactor.md
+/problem-statement auth-refactor  # Reads aim, writes problem statement
+/solution-space auth-refactor     # Reads aim + problem statement, writes solution
+```
+
+Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
 
 ## Learn More
 

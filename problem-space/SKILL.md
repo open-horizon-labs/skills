@@ -223,7 +223,15 @@ No - Need performance profiling to identify actual bottleneck before optimizing 
 
 ## Session Persistence
 
-When invoked with a session name (`/problem-space <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/problem-space auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/problem-space`):
+- After producing the problem space map, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the exploration topic
 
 **Reading:** Check for existing session file. Read prior skill outputs—especially **Aim** and **Problem Statement**—to ground the exploration.
 
@@ -245,10 +253,6 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 - Reads `.oh/<session>.md` for prior context (aim, problem statement)
 - Writes problem space map to the session file
 - Subsequent skills can read constraints and terrain
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/sessions/` and `.wm/state.md`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries graph for related past decisions and their outcomes
