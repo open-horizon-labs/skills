@@ -229,7 +229,15 @@ The original ask revealed a missing capability, not a feature to add.
 
 ## Session Persistence
 
-When invoked with a session name (`/problem-statement <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/problem-statement auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/problem-statement`):
+- After producing the problem statement, offer to save it:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the problem topic
 
 **Reading:** Check for existing session file. If found, read prior skill outputs—especially the **Aim** section—for context. The aim informs what problem we're actually trying to solve.
 
@@ -253,10 +261,6 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 - Reads `.oh/<session>.md` for prior context (especially aim)
 - Writes problem statement to the session file
 - Subsequent skills can read the framing
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/state.md` and `.wm/dive_context.md`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries graph for similar problems and their eventual framings

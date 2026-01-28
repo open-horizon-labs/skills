@@ -252,7 +252,15 @@ Invoking /salvage to extract learning before restart.
 
 ## Session Persistence
 
-When invoked with a session name (`/execute <session>`), this skill reads and writes to `.oh/<session>.md`.
+This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+
+**If session name provided** (`/execute auth-refactor`):
+- Reads/writes `.oh/auth-refactor.md` directly
+
+**If no session name provided** (`/execute`):
+- After pre-flight, offer to save execution context:
+  > "Save to session? [suggested-name] [custom] [skip]"
+- Suggest a name based on git branch or the task description
 
 **Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand what we're building and why. This is essential for drift detection.
 
@@ -275,10 +283,6 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 - Reads `.oh/<session>.md` for aim, constraints, selected solution
 - Writes execution status and notes to the session file
 - Drift detection compares current work against session aim
-
-### With .wm/ (working memory)
-- Also reads/writes `.wm/dive_context.md` and `.wm/sessions/`
-- Session file and working memory can coexist
 
 ### With Open Horizons MCP
 - Queries related past decisions and learnings

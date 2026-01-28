@@ -31,7 +31,7 @@ Before asking questions, scan the project independently:
 
 **Existing Context**
 - AGENTS.md, CLAUDE.md, README, CONTRIBUTING
-- `.oh/`, `.wm/`, `docs/adr/` directories
+- `.oh/`, `docs/adr/` directories
 - Any existing project documentation
 
 **Patterns & Conventions**
