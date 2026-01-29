@@ -1,6 +1,10 @@
 # Open Horizons Skills
 
-Agent skills for the Open Horizons strategic execution framework.
+AI agents thrash without context. They accelerate the wrong things. Knowledge walks out the door with every session.
+
+These skills fix that. They ground your agents in strategic context, capture learning that persists, and help you ship outcomes—not just outputs.
+
+**One framework. Nine skills. A shared vocabulary that actually sticks.**
 
 ## Installation
 
