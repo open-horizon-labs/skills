@@ -101,9 +101,9 @@ Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor
 
 ## Learn More
 
-- [Open Horizons Website](https://open-horizon-labs.github.io/web/)
-- [Framework Documentation](https://open-horizon-labs.github.io/web/for-builders.html)
-- [Command Reference](https://open-horizon-labs.github.io/web/commands.html)
+- [Open Horizons Website](https://openhorizonlabs.ai)
+- [Framework Documentation](https://openhorizonlabs.ai/for-builders.html)
+- [Skills Reference](https://openhorizonlabs.ai/skills.html)
 
 ## License
 
