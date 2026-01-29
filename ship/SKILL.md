@@ -23,15 +23,40 @@ Invoke `/ship` when:
 
 ## The Ship Process
 
-### Step 1: Identify the Delivery Path
+### Step 1: Check Available Reviewers
 
-Before shipping, map the path from code to working install:
+Before shipping, check if reviewers could catch issues:
+
+**Read AGENTS.md** for the "Available Reviewers" section. For each reviewer:
+- Has it been leveraged for this change?
+- Would it be valuable given the change characteristics?
+
+**Suggest reviewers that might help:**
+
+```
+Pre-ship Review Check:
+
+| Reviewer | Status | Suggestion |
+|----------|--------|------------|
+| CodeRabbit | PR has no review | Request automated review? |
+| /review | Session has no review | Check alignment before shipping? |
+| /dissent | Auth change (one-way door) | Stress-test assumptions? |
+| Human review | Not yet approved | Required for auth changes |
+
+[proceed] [leverage reviewers first]
+```
+
+**Don't block—suggest.** The user decides whether to leverage reviewers or proceed.
+
+### Step 2: Identify the Delivery Path
+
+Map the path from code to working install:
 
 > "The delivery path for this change is: [local] -> [PR/review] -> [merge] -> [CI/CD] -> [staging/prod] -> [user install]."
 
 Be specific. Name each step and who/what owns it.
 
-### Step 2: Assess the Delivery-Path Tax
+### Step 3: Assess the Delivery-Path Tax
 
 The delivery-path tax is the friction that slows velocity. Identify where time is lost:
 
@@ -60,7 +85,7 @@ The delivery-path tax is the friction that slows velocity. Identify where time i
 - Is rollback fast if needed?
 - Are there manual steps?
 
-### Step 3: Execute the Ship
+### Step 4: Execute the Ship
 
 Based on context available, execute the appropriate shipping actions:
 
@@ -80,7 +105,7 @@ If shipping manually or without pipeline access:
 3. **Verify each stage** - Confirm success before proceeding
 4. **Report final status** - Confirm user-facing change is live
 
-### Step 4: Post-Ship Verification
+### Step 5: Post-Ship Verification
 
 Shipping isn't done until you verify:
 
@@ -100,6 +125,11 @@ Always produce a ship report in this structure:
 **Shipped:** [what was shipped]
 **Target:** [where it was shipped to]
 **Path:** [the delivery path taken]
+
+### Pre-Ship Review Check
+| Reviewer | Status | Action |
+|----------|--------|--------|
+| [Reviewer] | [Used/Skipped] | [What was done or why skipped] |
 
 ### Delivery-Path Tax Identified
 - [Friction point 1]: [time/effort cost]
@@ -136,6 +166,13 @@ PR #247 is approved. Need to get it deployed to production.
 **Shipped:** PR #247 - Add dark mode toggle
 **Target:** Production (users)
 **Path:** Approved PR -> Merge -> CI build -> Staging auto-deploy -> Prod deploy
+
+### Pre-Ship Review Check
+| Reviewer | Status | Action |
+|----------|--------|--------|
+| CodeRabbit | Reviewed | 2 suggestions addressed |
+| /review | Skipped | UI-only change, low risk |
+| Human review | Approved | 1 approval from @teammate |
 
 ### Delivery-Path Tax Identified
 - Review time: 2 hours (acceptable)
@@ -176,6 +213,12 @@ We've had 3 PRs sitting for a week. What's blocking us?
 **Shipped:** Analysis only (no deployment)
 **Target:** Identifying delivery friction
 
+### Pre-Ship Review Check
+| Reviewer | Status | Action |
+|----------|--------|--------|
+| CodeRabbit | Not configured | Consider adding for faster feedback |
+| Human review | Bottleneck | 5-7 day wait (see below) |
+
 ### Delivery-Path Tax Identified
 - Review time: 5-7 days average (CRITICAL)
   - Only 2 reviewers for 8 developers
@@ -208,6 +251,12 @@ Need to deploy the firmware update to the test device. No CI for this.
 **Shipped:** Firmware v2.3.1
 **Target:** Test device (ESP32)
 **Path:** Local build -> USB flash -> Device verification
+
+### Pre-Ship Review Check
+| Reviewer | Status | Action |
+|----------|--------|--------|
+| /review | Used | Confirmed power-save logic aligned with spec |
+| Manual test | Used | Verified on breadboard before flash |
 
 ### Ship Actions Taken
 1. Built firmware: `pio run -e esp32`
@@ -260,8 +309,14 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 ### Base Skill (prompt only)
 Works anywhere. Produces ship checklist for manual execution. No persistence.
 
+### With AGENTS.md
+- Reads "Available Reviewers" section to know what review capabilities exist
+- Suggests leveraging reviewers that haven't been used
+- Adapts suggestions based on change characteristics (auth changes → suggest human review)
+
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for context on what was built and why
+- Checks if `/review` or `/dissent` sections exist
 - Writes deployment status to the session file
 - `/review` can check if shipping achieved the aim
 

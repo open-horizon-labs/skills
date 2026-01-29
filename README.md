@@ -32,7 +32,7 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 
 | Skill | Description |
 |-------|-------------|
-| `/teach-oh` | Project setup. Explore codebase, ask about strategy/aims, write context to AGENTS.md |
+| `/teach-oh` | Project setup. Explore codebase, ask about strategy/aims/reviewers/practices, write context to AGENTS.md |
 
 ### Grounding (Understand the problem)
 

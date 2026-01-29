@@ -65,6 +65,16 @@ After exploration, ask targeted questions about what couldn't be inferred. Focus
 - Patterns that look tempting but don't fit
 - Areas of the codebase that are sensitive
 
+#### Reviewers & Quality Gates
+- What review tools/processes do you use? (CodeRabbit, human review requirements, etc.)
+- What must pass before shipping? (CI checks, security scans, approvals)
+- Any reviewers that are optional but valuable for certain changes?
+
+#### Execution Practices
+- What's your typical build/test/verify cycle?
+- Any project-specific commands or workflows during development?
+- What should always happen before committing?
+
 **Ask only what you couldn't discover.** Respect the user's time.
 
 ### Step 3: Write Persistent Context
@@ -92,6 +102,12 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 
 ## Decision Context
 [How the team makes decisions, what "done" means]
+
+## Available Reviewers
+- [Reviewer]: [When to use, how to invoke]
+
+## Execution Practices
+- [Practice]: [When/how to apply]
 ```
 
 ## Output Format
@@ -183,6 +199,17 @@ Customer portal for B2B SaaS. Users are account admins managing their organizati
 ## Decision Context
 Tech lead approves architecture changes. PRs need one review. "Done" = deployed to staging with passing E2E tests.
 
+## Available Reviewers
+- CodeRabbit: Automated review on PRs (configured in .coderabbit.yaml)
+- `/review`: Alignment checking before commits
+- `/dissent`: For one-way-door decisions (architecture, public APIs)
+- Human review: Required for auth changes (SOC2)
+
+## Execution Practices
+- Run `npm test` before committing
+- Run `npm run lint:fix` to auto-fix style issues
+- E2E tests via `npm run e2e` for auth-related changes
+
 ---
 
 **Write to AGENTS.md?** This will create a new file at ./AGENTS.md
@@ -196,7 +223,8 @@ With project context established:
 - `/problem-space` knows which constraints are real
 - `/dissent` understands your risk tolerance
 - `/review` checks against your definition of done
-- `/execute` follows your patterns
+- `/execute` follows your patterns and execution practices
+- `/ship` suggests leveraging your available reviewers before delivery
 
 ## Notes
 
