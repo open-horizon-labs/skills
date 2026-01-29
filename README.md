@@ -1,10 +1,10 @@
 # Open Horizons Skills
 
-AI agents thrash without context. They accelerate the wrong things. Knowledge walks out the door with every session.
+Nine skills that ground your AI agents in strategic context.
 
-These skills fix that. They ground your agents in strategic context, capture learning that persists, and help you ship outcomes—not just outputs.
+Agents thrash without context. They talk themselves out of constraints, accelerate the wrong things, and lose everything when the session ends. These skills fix that: frame the problem before solving it, capture learning that persists, ship outcomes instead of just outputs.
 
-**One framework. Nine skills. A shared vocabulary that actually sticks.**
+[See the full framework](https://openhorizonlabs.ai/for-builders.html) or just install and start using them.
 
 ## Installation
 
