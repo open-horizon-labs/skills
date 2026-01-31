@@ -341,12 +341,18 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 - Logs the solution space exploration and decision
 - Session file serves as local cache
 
+## Position in Framework
+
+**Comes after:** `/problem-statement` (you need a framed problem to evaluate solutions against).
+**Leads to:** `/execute` to implement, or `/dissent` to challenge the recommendation.
+**Can loop back to:** `/problem-statement` (if exploration reveals the problem is mis-framed).
+
 ## Leads To
 
 After solution-space, typically:
 - `/execute` - Implement the selected approach
-- `/problem-statement` - If exploration revealed the problem is mis-framed
 - `/dissent` - If the recommendation feels too easy
+- `/problem-statement` - If exploration revealed the problem is mis-framed
 
 ---
 

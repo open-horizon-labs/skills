@@ -254,29 +254,16 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 - Links aim to active endeavors
 - Session file serves as local cache for MCP data
 
-## Relationship to Other Commands
+## Position in Framework
 
-**Aim vs Problem-Statement:**
-- Aim is the WHY - what outcome do you want?
-- Problem-Statement is the WHAT - how do you frame what needs solving?
-- Aim comes first. Problem-statement is derived from aim.
-
-**Aim vs Problem-Space:**
-- Aim is the destination
-- Problem-space maps the territory and constraints
-- You can't navigate effectively without knowing where you're going
-
-**Flow:**
-```
-/aim → /problem-statement → /problem-space → /solution-space → /execute
-         ↑                                                         |
-         └──────────────── /review, /salvage ──────────────────────┘
-```
+**Comes after:** Nothing—aim is the entry point.
+**Leads to:** `/problem-space` to map the terrain, or `/solution-space` if the problem is already clear.
+**Can loop back from:** `/salvage` (restart with learning), `/review` (if aim has drifted).
 
 ## Leads To
 
 After establishing aim, typically:
-- `/problem-statement` - Frame what needs solving to achieve the aim
+- `/problem-space` - Map the terrain and constraints
 - `/problem-space` - Map constraints and what you're optimizing
 - `/review` - Check if current work still serves the aim
 

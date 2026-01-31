@@ -331,6 +331,12 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 - Aggregates dissent from multiple reviewers
 - Tracks which assumptions different team members question
 
+## Position in Framework
+
+**Combines with:** `/solution-space` (challenge the recommendation), `/problem-statement` (challenge the framing), `/execute` (before one-way doors).
+**Leads to:** PROCEED (continue with confidence), ADJUST (modify approach), or RECONSIDER (back to solution-space).
+**This is not a phase:** Dissent is an overlay you invoke when stakes are high.
+
 ## Leads To
 
 After dissent, typically:

@@ -260,6 +260,12 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 - Retrieves guardrails that apply to this domain
 - Session file serves as local cache
 
+## Position in Framework
+
+**Comes after:** `/aim` (you need to know your destination before mapping the terrain).
+**Leads to:** `/problem-statement` to frame the specific challenge, or `/solution-space` if already well-framed.
+**Can loop back from:** `/salvage` (constraints were wrong), `/review` (keeps hitting same blockers).
+
 ## Leads To
 
 After problem space mapping, typically:

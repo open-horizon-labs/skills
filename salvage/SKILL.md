@@ -278,11 +278,17 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Creates dive pack for restart session
 - Session file serves as local cache
 
+## Position in Framework
+
+**Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing).
+**Leads to:** `/aim` or `/problem-space` with fresh understanding—you climb back up.
+**This is the feedback loop:** Salvage is how learning flows back to the top of the framework.
+
 ## Leads To
 
 After salvage, typically:
-- `/problem-space` - Fresh start with new understanding
 - `/aim` - Reclarify what we're actually trying to achieve
+- `/problem-space` - Fresh start with new understanding
 - Create new task/issue with salvage context attached
 
 ---

@@ -36,14 +36,11 @@ Pre-flight Checklist:
 [ ] Context loaded - do I have the codebase understanding I need?
 [ ] Scope bounded - what am I specifically doing (and NOT doing)?
 [ ] Success criteria - how will I know when I'm done?
-[ ] Execution practices loaded - what should happen during build?
 ```
-
-**Check AGENTS.md** for the "Execution Practices" section. These are project-specific practices to follow during the build phase (test commands, lint checks, pre-commit steps).
 
 If any box can't be checked, stop and address it before proceeding. Ask clarifying questions if requirements are ambiguous.
 
-> "The task is [task]. The aim is [aim]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]. Execution practices: [practices from AGENTS.md or 'none specified']."
+> "The task is [task]. The aim is [aim]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]."
 
 ### Step 2: Build
 
@@ -58,11 +55,10 @@ Do the work. Keep it focused.
 **During build:**
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
-3. Run execution practices from AGENTS.md (test commands, lint checks, etc.)
-4. Stage changes
-5. Run review if available (`sg review` or equivalent)
-6. Handle review findings (fix trivial, create tasks for non-trivial)
-7. Commit with clear message
+3. Stage changes
+4. Run review if available (`sg review` or equivalent)
+5. Handle review findings (fix trivial, create tasks for non-trivial)
+6. Commit with clear message
 
 ### Step 3: Detect Drift
 
@@ -283,11 +279,6 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 ### Base Skill (prompt only)
 Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No persistence.
 
-### With AGENTS.md
-- Reads "Execution Practices" section for project-specific build/test/verify steps
-- Incorporates practices into the build phase automatically
-- Examples: `npm test`, `npm run lint:fix`, E2E tests for certain change types
-
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for aim, constraints, selected solution
 - Writes execution status and notes to the session file
@@ -308,13 +299,18 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 - Triages findings by severity
 - Iterates until review passes
 
+## Position in Framework
+
+**Comes after:** `/solution-space` (you need a chosen approach to execute).
+**Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
+**Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.
+
 ## Leads To
 
 After execute, typically:
 - `/review` - Verify the work before committing
 - `/ship` - Deploy the change to users
 - `/salvage` - If drift was detected and restart needed
-- Create new tasks for discovered work
 
 ---
 

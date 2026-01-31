@@ -268,11 +268,17 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 - Logs the problem statement as a decision point in the endeavor
 - Session file serves as local cache
 
+## Position in Framework
+
+**Comes after:** `/aim` and `/problem-space` (know where you're going and what terrain you're in).
+**Leads to:** `/solution-space` to explore approaches, or `/dissent` if the framing feels too easy.
+**Can loop back from:** `/solution-space` (if exploration reveals the problem is mis-framed).
+
 ## Leads To
 
 After problem statement, typically:
 - `/solution-space` - Explore candidate solutions given this framing
-- `/problem-space` - If you need to map the broader landscape first
+- `/dissent` - Challenge the framing before committing
 - `/aim` - If the outcome itself is unclear (go back to clarify)
 
 ---

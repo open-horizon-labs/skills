@@ -65,23 +65,40 @@ After exploration, ask targeted questions about what couldn't be inferred. Focus
 - Patterns that look tempting but don't fit
 - Areas of the codebase that are sensitive
 
-#### Reviewers & Quality Gates
-- What review tools/processes do you use? (CodeRabbit, human review requirements, etc.)
-- What must pass before shipping? (CI checks, security scans, approvals)
-- Any reviewers that are optional but valuable for certain changes?
-
-#### Execution Practices
-- What's your typical build/test/verify cycle?
-- Any project-specific commands or workflows during development?
-- What should always happen before committing?
-
 **Ask only what you couldn't discover.** Respect the user's time.
 
 ### Step 3: Write Persistent Context
 
 Synthesize findings into a structured section and offer to append to AGENTS.md (or create it if missing).
 
+**Offer two sections:**
+
+1. **Open Horizons Framework** - The strategic framework for AI-assisted work (offer to include if user uses OH skills)
+2. **Project Context** - Project-specific aims, constraints, and patterns (always include)
+
 ```markdown
+# Open Horizons Framework
+
+**The shift:** Action is cheap. Knowing what to do is scarce.
+
+**The sequence:** aim → problem-space → problem-statement → solution-space → execute → ship
+
+**Where to start (triggers):**
+- Can't explain why you're building this → `/aim`
+- Keep hitting the same blockers → `/problem-space`
+- Solutions feel forced → `/problem-statement`
+- About to start coding → `/solution-space`
+- Work is drifting or reversing → `/salvage`
+
+**Reflection skills (use anytime):**
+- `/review` - Check alignment before committing
+- `/dissent` - Seek contrary evidence before one-way doors
+- `/salvage` - Extract learning, restart clean
+
+**Key insight:** Enter at the altitude you need. Climb back up when you drift.
+
+---
+
 # Project Context
 
 ## Purpose
@@ -102,12 +119,6 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 
 ## Decision Context
 [How the team makes decisions, what "done" means]
-
-## Available Reviewers
-- [Reviewer]: [When to use, how to invoke]
-
-## Execution Practices
-- [Practice]: [When/how to apply]
 ```
 
 ## Output Format
@@ -173,6 +184,25 @@ After user answers:
 ```
 ## Proposed AGENTS.md Addition
 
+# Open Horizons Framework
+
+**The shift:** Action is cheap. Knowing what to do is scarce.
+
+**The sequence:** aim → problem-space → problem-statement → solution-space → execute → ship
+
+**Where to start (triggers):**
+- Can't explain why you're building this → `/aim`
+- Keep hitting the same blockers → `/problem-space`
+- Solutions feel forced → `/problem-statement`
+- About to start coding → `/solution-space`
+- Work is drifting or reversing → `/salvage`
+
+**Reflection skills:** `/review`, `/dissent`, `/salvage`
+
+**Key insight:** Enter at the altitude you need. Climb back up when you drift.
+
+---
+
 # Project Context
 
 ## Purpose
@@ -199,17 +229,6 @@ Customer portal for B2B SaaS. Users are account admins managing their organizati
 ## Decision Context
 Tech lead approves architecture changes. PRs need one review. "Done" = deployed to staging with passing E2E tests.
 
-## Available Reviewers
-- CodeRabbit: Automated review on PRs (configured in .coderabbit.yaml)
-- `/review`: Alignment checking before commits
-- `/dissent`: For one-way-door decisions (architecture, public APIs)
-- Human review: Required for auth changes (SOC2)
-
-## Execution Practices
-- Run `npm test` before committing
-- Run `npm run lint:fix` to auto-fix style issues
-- E2E tests via `npm run e2e` for auth-related changes
-
 ---
 
 **Write to AGENTS.md?** This will create a new file at ./AGENTS.md
@@ -223,8 +242,7 @@ With project context established:
 - `/problem-space` knows which constraints are real
 - `/dissent` understands your risk tolerance
 - `/review` checks against your definition of done
-- `/execute` follows your patterns and execution practices
-- `/ship` suggests leveraging your available reviewers before delivery
+- `/execute` follows your patterns
 
 ## Notes
 

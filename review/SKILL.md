@@ -316,6 +316,12 @@ When the user or agent claims work is complete, verify:
 If incomplete:
 > "Completion gate: [missing step]. Run the check before marking complete."
 
+## Position in Framework
+
+**Comes after:** `/execute` (natural checkpoint after building).
+**Leads to:** `/ship` if aligned, `/salvage` if drifted, back to `/aim` if fundamentals are unclear.
+**This is the gate:** Review decides whether to continue, adjust, or restart.
+
 ## Leads To
 
 After review, typically:
