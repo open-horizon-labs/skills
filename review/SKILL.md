@@ -316,6 +316,30 @@ When the user or agent claims work is complete, verify:
 If incomplete:
 > "Completion gate: [missing step]. Run the check before marking complete."
 
+## Why This Skill
+
+**Drift compounds. Review catches it early.**
+
+The failure mode of fast execution is drifting off course without noticing. Review closes the Intent → Execution → Review loop by checking alignment before you commit. Five minutes of review saves hours of wrong-direction work.
+
+## Position in Framework
+
+```
+/aim → /problem-space → /problem-statement → /solution-space
+                                                    ↓
+                                              /execute
+                                                    ↓
+                                              /review  ←── YOU ARE HERE
+                                              ↙     ↘
+                                      (aligned)    (drift)
+                                           ↓           ↓
+                                        /ship      /salvage → back to /aim
+```
+
+**Comes after:** `/execute` (natural checkpoint after building)
+**Leads to:** `/ship` if aligned, `/salvage` if drifted, back to `/aim` if fundamentals are unclear.
+**This is the gate:** Review decides whether to continue, adjust, or restart.
+
 ## Leads To
 
 After review, typically:

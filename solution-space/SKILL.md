@@ -341,12 +341,36 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 - Logs the solution space exploration and decision
 - Session file serves as local cache
 
+## Why This Skill
+
+**Exploration is cheap. The failure mode is defending the first idea.**
+
+LLMs collapse the cost of exploring alternatives. The hardest part of design is no longer coming up with ideas—it's letting go of the first workable idea to look for better ones. This skill forces you to generate options before evaluating, so you don't get stuck on a local maximum.
+
+## Position in Framework
+
+```
+/aim  (know what outcome you want)
+  ↓
+/problem-space  (map the terrain)
+  ↓
+/problem-statement  (frame the specific problem)
+  ↓
+/solution-space  ←── YOU ARE HERE
+  ↓
+/execute → /ship
+```
+
+**Comes after:** `/problem-statement` (you need a framed problem to evaluate solutions against)
+**Leads to:** `/execute` to implement, or `/dissent` to challenge the recommendation.
+**Can loop back to:** `/problem-statement` (if exploration reveals the problem is mis-framed).
+
 ## Leads To
 
 After solution-space, typically:
 - `/execute` - Implement the selected approach
-- `/problem-statement` - If exploration revealed the problem is mis-framed
 - `/dissent` - If the recommendation feels too easy
+- `/problem-statement` - If exploration revealed the problem is mis-framed
 
 ---
 

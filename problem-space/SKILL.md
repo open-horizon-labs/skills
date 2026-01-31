@@ -260,6 +260,28 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 - Retrieves guardrails that apply to this domain
 - Session file serves as local cache
 
+## Why This Skill
+
+**Action is cheap. Knowing what to do is scarce.**
+
+The problem space is the terrain where solutions live. Get it wrong and you'll optimize the wrong thing fast. Mapping constraints—which are real, which are assumed, which can be challenged—is the work that makes execution worthwhile.
+
+## Position in Framework
+
+```
+/aim  (know what outcome you want)
+  ↓
+/problem-space  ←── YOU ARE HERE
+  ↓
+/problem-statement  (frame the specific problem)
+  ↓
+/solution-space → /execute → /ship
+```
+
+**Comes after:** `/aim` (you need to know your destination before mapping the terrain)
+**Leads to:** `/problem-statement` to frame the specific challenge, or `/solution-space` if the problem is already well-framed.
+**Can loop back from:** `/salvage` (when you discover your constraints were wrong), `/review` (when work keeps hitting the same blockers).
+
 ## Leads To
 
 After problem space mapping, typically:

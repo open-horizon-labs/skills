@@ -268,11 +268,33 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 - Logs the problem statement as a decision point in the endeavor
 - Session file serves as local cache
 
+## Why This Skill
+
+**Change the statement, change the solution space.**
+
+A problem statement is a lens. Different framings make different solutions visible—or invisible. The right framing makes good solutions obvious; the wrong framing makes them impossible to see. This is where you articulate the specific challenge, after you know your aim and have mapped the terrain.
+
+## Position in Framework
+
+```
+/aim  (know what outcome you want)
+  ↓
+/problem-space  (map the terrain)
+  ↓
+/problem-statement  ←── YOU ARE HERE
+  ↓
+/solution-space → /execute → /ship
+```
+
+**Comes after:** `/aim` and `/problem-space` (you need to know where you're going and what terrain you're in)
+**Leads to:** `/solution-space` to explore approaches, or `/dissent` if the framing feels too easy.
+**Can loop back from:** `/solution-space` (if exploration reveals the problem is mis-framed).
+
 ## Leads To
 
 After problem statement, typically:
 - `/solution-space` - Explore candidate solutions given this framing
-- `/problem-space` - If you need to map the broader landscape first
+- `/dissent` - Challenge the framing before committing
 - `/aim` - If the outcome itself is unclear (go back to clarify)
 
 ---
