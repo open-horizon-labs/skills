@@ -270,17 +270,7 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 
 ## Position in Framework
 
-```
-/aim  (know what outcome you want)
-  ↓
-/problem-space  (map the terrain)
-  ↓
-/problem-statement  ←── YOU ARE HERE
-  ↓
-/solution-space → /execute → /ship
-```
-
-**Comes after:** `/aim` and `/problem-space` (you need to know where you're going and what terrain you're in)
+**Comes after:** `/aim` and `/problem-space` (know where you're going and what terrain you're in).
 **Leads to:** `/solution-space` to explore approaches, or `/dissent` if the framing feels too easy.
 **Can loop back from:** `/solution-space` (if exploration reveals the problem is mis-framed).
 

@@ -291,19 +291,7 @@ After shipping, the outer loop continues:
 
 ## Position in Framework
 
-```
-/aim → /problem-space → /problem-statement → /solution-space
-                                                    ↓
-                                              /execute
-                                                    ↓
-                                                /ship  ←── YOU ARE HERE
-                                                    ↓
-                                            (value delivered)
-                                                    ↓
-                                        /review → next /aim
-```
-
-**Comes after:** `/execute` (the work is done, now deliver it)
+**Comes after:** `/execute` (the work is done, now deliver it).
 **Leads to:** `/review` (did the shipped change achieve the aim?), then back to `/aim` for the next outcome.
 **This is the end of the line:** Ship is where code becomes value. Everything before this is potential; ship makes it real.
 

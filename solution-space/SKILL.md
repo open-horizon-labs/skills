@@ -343,19 +343,7 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 
 ## Position in Framework
 
-```
-/aim  (know what outcome you want)
-  ↓
-/problem-space  (map the terrain)
-  ↓
-/problem-statement  (frame the specific problem)
-  ↓
-/solution-space  ←── YOU ARE HERE
-  ↓
-/execute → /ship
-```
-
-**Comes after:** `/problem-statement` (you need a framed problem to evaluate solutions against)
+**Comes after:** `/problem-statement` (you need a framed problem to evaluate solutions against).
 **Leads to:** `/execute` to implement, or `/dissent` to challenge the recommendation.
 **Can loop back to:** `/problem-statement` (if exploration reveals the problem is mis-framed).
 

@@ -256,33 +256,9 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 
 ## Position in Framework
 
-```
-/aim  ←── YOU ARE HERE (start here)
-  ↓
-/problem-space  (map the terrain)
-  ↓
-/problem-statement  (frame the specific problem)
-  ↓
-/solution-space → /execute → /ship
-  ↑                            |
-  └── /review, /salvage ───────┘
-```
-
-**Comes after:** Nothing. Aim is the entry point.
+**Comes after:** Nothing—aim is the entry point.
 **Leads to:** `/problem-space` to map the terrain, or `/solution-space` if the problem is already clear.
 **Can loop back from:** `/salvage` (restart with learning), `/review` (if aim has drifted).
-
-## Relationship to Other Skills
-
-**Aim vs Problem-Space:**
-- Aim is the destination (what outcome do you want?)
-- Problem-space maps the territory and constraints
-- You can't navigate effectively without knowing where you're going
-
-**Aim vs Problem-Statement:**
-- Aim is the WHY - what outcome do you want?
-- Problem-Statement is the WHAT - how do you frame the specific challenge?
-- Aim comes first, then you map the terrain, then you frame the problem.
 
 ## Leads To
 

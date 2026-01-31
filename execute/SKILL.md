@@ -301,17 +301,7 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 
 ## Position in Framework
 
-```
-/aim → /problem-space → /problem-statement → /solution-space
-                                                    ↓
-                                              /execute  ←── YOU ARE HERE
-                                                    ↓
-                                                 /ship
-                                                    ↑
-                              /review, /salvage ────┘
-```
-
-**Comes after:** `/solution-space` (you need a chosen approach to execute)
+**Comes after:** `/solution-space` (you need a chosen approach to execute).
 **Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
 **Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.
 

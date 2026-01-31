@@ -333,17 +333,7 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 
 ## Position in Framework
 
-```
-/aim → /problem-space → /problem-statement
-                                ↓
-                        /solution-space ←→ /dissent  ←── USE HERE
-                                ↓
-                          /execute ←→ /dissent  ←── OR HERE (before commit)
-                                ↓
-                             /ship
-```
-
-**Combines with:** `/solution-space` (challenge the recommendation), `/problem-statement` (challenge the framing), `/execute` (before one-way doors)
+**Combines with:** `/solution-space` (challenge the recommendation), `/problem-statement` (challenge the framing), `/execute` (before one-way doors).
 **Leads to:** PROCEED (continue with confidence), ADJUST (modify approach), or RECONSIDER (back to solution-space).
 **This is not a phase:** Dissent is an overlay you invoke when stakes are high.
 

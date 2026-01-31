@@ -280,21 +280,7 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 
 ## Position in Framework
 
-```
-/aim ← ← ← ← ← ← ← ← ← ← ← ← ← ← ←
-  ↓                                 ↑
-/problem-space ← ← ← ← ← ← ← ←     |
-  ↓                            ↑    |
-/problem-statement             |    |
-  ↓                            |    |
-/solution-space                |    |
-  ↓                            |    |
-/execute ──→ /review ──→ /salvage ──┘
-  ↓               ↓
-/ship         (drift detected)
-```
-
-**Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing)
+**Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing).
 **Leads to:** `/aim` or `/problem-space` with fresh understanding—you climb back up.
 **This is the feedback loop:** Salvage is how learning flows back to the top of the framework.
 

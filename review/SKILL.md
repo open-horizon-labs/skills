@@ -318,19 +318,7 @@ If incomplete:
 
 ## Position in Framework
 
-```
-/aim → /problem-space → /problem-statement → /solution-space
-                                                    ↓
-                                              /execute
-                                                    ↓
-                                              /review  ←── YOU ARE HERE
-                                              ↙     ↘
-                                      (aligned)    (drift)
-                                           ↓           ↓
-                                        /ship      /salvage → back to /aim
-```
-
-**Comes after:** `/execute` (natural checkpoint after building)
+**Comes after:** `/execute` (natural checkpoint after building).
 **Leads to:** `/ship` if aligned, `/salvage` if drifted, back to `/aim` if fundamentals are unclear.
 **This is the gate:** Review decides whether to continue, adjust, or restart.
 
