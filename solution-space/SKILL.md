@@ -341,12 +341,6 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 - Logs the solution space exploration and decision
 - Session file serves as local cache
 
-## Why This Skill
-
-**Exploration is cheap. The failure mode is defending the first idea.**
-
-LLMs collapse the cost of exploring alternatives. The hardest part of design is no longer coming up with ideas—it's letting go of the first workable idea to look for better ones. This skill forces you to generate options before evaluating, so you don't get stuck on a local maximum.
-
 ## Position in Framework
 
 ```

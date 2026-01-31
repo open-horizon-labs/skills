@@ -260,12 +260,6 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 - Retrieves guardrails that apply to this domain
 - Session file serves as local cache
 
-## Why This Skill
-
-**Action is cheap. Knowing what to do is scarce.**
-
-The problem space is the terrain where solutions live. Get it wrong and you'll optimize the wrong thing fast. Mapping constraints—which are real, which are assumed, which can be challenged—is the work that makes execution worthwhile.
-
 ## Position in Framework
 
 ```

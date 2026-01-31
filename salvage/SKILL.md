@@ -278,12 +278,6 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Creates dive pack for restart session
 - Session file serves as local cache
 
-## Why This Skill
-
-**Code is a draft. Learning is the asset.**
-
-AI made code cheap to produce but didn't make learning cheap to preserve. When you thrash, the instinct is to protect the code you've invested in. But the code isn't the value—the understanding is. Salvage extracts what you learned so you can restart clean without losing the insight.
-
 ## Position in Framework
 
 ```

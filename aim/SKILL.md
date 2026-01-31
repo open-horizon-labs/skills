@@ -254,12 +254,6 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 - Links aim to active endeavors
 - Session file serves as local cache for MCP data
 
-## Why This Skill
-
-**Action is cheap. Knowing what to do is scarce.**
-
-AI made execution fast, but verification and judgment stayed expensive. The bottleneck moved from "can we build it?" to "should we build it?" Aim is the first step in answering that question. Without a clear aim, you'll ship features that don't move outcomes.
-
 ## Position in Framework
 
 ```

@@ -289,12 +289,6 @@ After shipping, the outer loop continues:
 - `/salvage` - If shipping revealed problems, capture learnings
 - Back to `/aim` - What's the next outcome to pursue?
 
-## Why This Skill
-
-**When execution is cheap, delivery is the work.**
-
-Code that isn't in users' hands isn't delivering value. The bottleneck has moved from "can we build it" to "can we get it to users." Ship identifies friction in the delivery path and removes it.
-
 ## Position in Framework
 
 ```

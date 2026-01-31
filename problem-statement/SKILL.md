@@ -268,12 +268,6 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 - Logs the problem statement as a decision point in the endeavor
 - Session file serves as local cache
 
-## Why This Skill
-
-**Change the statement, change the solution space.**
-
-A problem statement is a lens. Different framings make different solutions visible—or invisible. The right framing makes good solutions obvious; the wrong framing makes them impossible to see. This is where you articulate the specific challenge, after you know your aim and have mapped the terrain.
-
 ## Position in Framework
 
 ```

@@ -299,12 +299,6 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 - Triages findings by severity
 - Iterates until review passes
 
-## Why This Skill
-
-**Code is cheap now. Thrashing is expensive.**
-
-Execution used to be the hard part. Now the hard part is staying aligned while you build. Execute embeds drift detection into the build loop so you catch misalignment before it compounds. The pre-flight check ensures you're grounded; the drift signals tell you when to stop and salvage.
-
 ## Position in Framework
 
 ```

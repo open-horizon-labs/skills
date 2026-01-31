@@ -331,12 +331,6 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 - Aggregates dissent from multiple reviewers
 - Tracks which assumptions different team members question
 
-## Why This Skill
-
-**Find flaws before the one-way door closes.**
-
-Confidence is highest right before you commit to an approach. That's exactly when you need dissent most. The devil's advocate role forces you to seek contrary evidence, surface hidden assumptions, and stress-test decisions before they become expensive to reverse.
-
 ## Position in Framework
 
 ```
