@@ -71,10 +71,10 @@ After exploration, ask targeted questions about what couldn't be inferred. Focus
 
 Synthesize findings into a structured section and offer to append to AGENTS.md (or create it if missing).
 
-**Always include two sections:**
+**Offer two sections:**
 
-1. **Open Horizons Framework** - The strategic framework for AI-assisted work (standard across projects)
-2. **Project Context** - Project-specific aims, constraints, and patterns
+1. **Open Horizons Framework** - The strategic framework for AI-assisted work (offer to include if user uses OH skills)
+2. **Project Context** - Project-specific aims, constraints, and patterns (always include)
 
 ```markdown
 # Open Horizons Framework
