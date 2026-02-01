@@ -1,6 +1,6 @@
 # Open Horizons Skills
 
-Nine skills that ground your AI agents in strategic context.
+Ten skills that ground your AI agents in strategic context.
 
 Agents thrash without context. They talk themselves out of constraints, accelerate the wrong things, and lose everything when the session ends. These skills fix that: frame the problem before solving it, capture learning that persists, ship outcomes instead of just outputs.
 
@@ -30,7 +30,7 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 
 ## The Framework
 
-10 commands that form the language of strategic execution:
+11 commands that form the language of strategic execution:
 
 ### Setup (When starting or when aims shift)
 
@@ -51,6 +51,7 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 | Skill | Description |
 |-------|-------------|
 | `/solution-space` | Explore candidate solutions. Band-aid, optimize, reframe, or redesign? |
+| `/plan` | Transform session context into trackable issues. Outputs to GitHub by default |
 | `/execute` | Do the work. Pre-flight, build, detect drift, salvage if needed |
 | `/ship` | Deliver to users. Optimize the path from code to working install |
 
@@ -68,7 +69,7 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 Intent (aim, problem-space, problem-statement)
     │
     ▼
-Execution (solution-space, execute, ship)
+Execution (solution-space, plan, execute, ship)
     │
     ▼
 Review (review, dissent)
@@ -99,6 +100,7 @@ The suggested name is derived from the current git branch. You can also provide 
 /aim auth-refactor           # Creates .oh/auth-refactor.md
 /problem-statement auth-refactor  # Reads aim, writes problem statement
 /solution-space auth-refactor     # Reads aim + problem statement, writes solution
+/plan auth-refactor               # Reads all above, creates GitHub issues
 ```
 
 Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
