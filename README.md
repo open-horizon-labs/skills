@@ -43,8 +43,8 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 | Skill | Description |
 |-------|-------------|
 | `/aim` | Clarify the outcome you want—a change in behavior, not a feature |
-| `/problem-statement` | Define the framing. Change the statement, change the solution space |
 | `/problem-space` | Map what we're optimizing and what constraints we treat as real |
+| `/problem-statement` | Define the framing. Change the statement, change the solution space |
 
 ### Execution (Build & ship)
 
