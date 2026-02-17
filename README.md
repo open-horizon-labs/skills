@@ -9,13 +9,7 @@ Agents thrash without context. They talk themselves out of constraints, accelera
 ## Installation
 
 ```bash
-npx skills add open-horizon-labs/skills
-```
-
-Or install specific skills:
-
-```bash
-npx skills add open-horizon-labs/skills --skill aim --skill salvage
+npx skills add open-horizon-labs/skills -g -a claude-code -y
 ```
 
 ## Updating
