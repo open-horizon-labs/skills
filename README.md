@@ -12,15 +12,7 @@ Agents thrash without context. They talk themselves out of constraints, accelera
 npx skills add open-horizon-labs/skills -g -a claude-code -y
 ```
 
-## Updating
-
-Re-run the install command to pull the latest version:
-
-```bash
-npx skills add open-horizon-labs/skills -g -a claude-code -y
-```
-
-> **Tip:** Skills are updated frequently. Re-run this after pulling framework updates.
+Re-run the install command to pull the latest version.
 
 ## The Framework
 
