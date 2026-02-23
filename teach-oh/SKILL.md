@@ -244,6 +244,38 @@ With project context established:
 - `/review` checks against your definition of done
 - `/execute` follows your patterns
 
+## Step 4 (Optional): Phase-Aware Hook
+
+If the user is running OMP (oh-my-pi), offer to install the phase-aware skills hook. This hook makes the framework self-guiding — it detects where the user is in the development cycle and suggests the right skill before each prompt.
+
+**When to offer:** After writing AGENTS.md, if the project uses OMP.
+
+**What to ask:**
+> "Install the phase-aware skills hook? It reads your `.oh/` session files and suggests the right OH skill at the right moment. Copies `oh-skills-phase.ts` to `.omp/hooks/` for auto-discovery."
+
+**If accepted:**
+
+1. Copy `hooks-omp/oh-skills-phase.ts` from the skills installation directory to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed).
+
+2. Optionally create `.oh/skills-config.json` based on what you learned about the project:
+
+```json
+{
+  "projectSkills": ["aim", "problem-space", "solution-space", "execute", "review"],
+  "disabledSkills": [],
+  "phaseOverrides": {
+    "execute": ["dissent"]
+  }
+}
+```
+
+**Customization guidance:**
+- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`.
+- `disabledSkills`: Skills that don't fit this project (e.g., `ship` for a library that publishes via CI).
+- `phaseOverrides`: Extra skills to suggest during specific phases. Common: adding `dissent` during `execute` for security-sensitive projects.
+
+**If declined:** Skip. The skills work fine without it — this is an enhancement, not a requirement.
+
 ## Notes
 
 - Context lives in AGENTS.md so it persists across sessions

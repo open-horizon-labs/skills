@@ -89,6 +89,41 @@ The suggested name is derived from the current git branch. You can also provide 
 
 Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
 
+## Phase-Aware Hook (OMP)
+
+For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook makes the framework self-guiding at runtime. Instead of remembering which skill to invoke, the hook detects where you are in the development cycle and suggests the right one.
+
+**How it works:**
+1. Reads your `.oh/` session files to detect completed phases (state)
+2. Scans your prompt for intent signals (intent)
+3. Injects a `<oh-phase-context>` block recommending the next skill
+
+**Install manually:**
+
+```bash
+cp hooks-omp/oh-skills-phase.ts .omp/hooks/
+```
+
+**Or via `/teach-oh`:** The teach-oh skill offers to install and configure the hook during project setup, including a `.oh/skills-config.json` for project-specific customization.
+
+**Configuration** (`.oh/skills-config.json`, optional):
+
+```json
+{
+  "projectSkills": ["aim", "solution-space", "execute", "review"],
+  "disabledSkills": ["ship"],
+  "phaseOverrides": {
+    "execute": ["dissent"]
+  }
+}
+```
+
+- `projectSkills` — limit which skills get suggested (default: all)
+- `disabledSkills` — skills to never suggest
+- `phaseOverrides` — extra skills to suggest during specific phases
+
+The hook is entirely optional. Skills work the same with or without it.
+
 ## Learn More
 
 - [Open Horizons Website](https://openhorizonlabs.ai)
