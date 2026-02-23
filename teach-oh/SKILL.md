@@ -234,6 +234,40 @@ Tech lead approves architecture changes. PRs need one review. "Done" = deployed 
 **Write to AGENTS.md?** This will create a new file at ./AGENTS.md
 ```
 
+## Step 4 (Optional, OMP only): Phase-Aware Hook
+
+If the user is running OMP (oh-my-pi), offer to install the phase-aware skills hook. This hook makes the framework self-guiding — it detects where the user is in the development cycle and suggests the right skill before each prompt.
+
+**When to offer:** After writing AGENTS.md, if the project uses OMP. Detect OMP by checking for `.omp/` directory or `omp` in the shell path.
+
+**What to ask:**
+> "Install the phase-aware skills hook? It reads your `.oh/` session files and suggests the right OH skill at the right moment. Copies `oh-skills-phase.ts` to `.omp/hooks/` for auto-discovery."
+
+**If accepted:**
+
+1. Copy `hooks-omp/oh-skills-phase.ts` from the skills installation directory to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed).
+
+2. Optionally create `.oh/skills-config.json` based on what you learned about the project. The config is loaded once at session start (changes require restarting OMP):
+
+```json
+{
+  "projectSkills": ["aim", "problem-space", "solution-space", "execute", "review", "dissent"],
+  "disabledSkills": [],
+  "phaseOverrides": {
+    "execute": ["dissent"]
+  }
+}
+```
+
+**Customization guidance:**
+- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`. **Note:** `phaseOverrides` targets must be included in `projectSkills` — override skills are filtered by the same allow list.
+- `disabledSkills`: Skills that don't fit this project (e.g., `ship` for a library that publishes via CI).
+- `phaseOverrides`: Extra skills to suggest during specific phases. Common: adding `dissent` during `execute` for security-sensitive projects.
+
+**If declined:** Skip. The skills work fine without it — this is an enhancement, not a requirement.
+
+**If the user is not running OMP:** Skip this step entirely. The hook requires the OMP hook API and will not work with other agents. Users can still install it manually later by copying the file to `.omp/hooks/`.
+
 ## What This Enables
 
 With project context established:
