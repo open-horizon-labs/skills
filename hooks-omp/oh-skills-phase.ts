@@ -113,6 +113,14 @@ const INTENT_SIGNALS: Record<string, RegExp> = {
 // Phase detection from .oh/ session files
 // ---------------------------------------------------------------------------
 
+function stripFencedCodeBlocks(markdown: string): string {
+	// Remove fenced blocks so headings inside examples don't affect phase detection
+	return markdown
+		.replace(/^\s*```[\s\S]*?^\s*```\s*$/gm, "")
+		.replace(/^\s*~~~[\s\S]*?^\s*~~~\s*$/gm, "");
+}
+
+
 async function detectPhaseFromSessions(cwd: string): Promise<SessionPhase> {
 	const result: SessionPhase = {
 		activeSession: null,
@@ -157,9 +165,10 @@ async function detectPhaseFromSessions(cwd: string): Promise<SessionPhase> {
 	}
 
 	// Detect which phases have been written by matching anchored ## headers.
-	// Only matches exact "## Name" on its own line — not substrings or code blocks.
+	// Strip fenced code blocks first so example snippets don't count as completed phases.
+	const scanContent = stripFencedCodeBlocks(content);
 	for (const { pattern, skill } of SECTION_PATTERNS) {
-		if (pattern.test(content)) {
+		if (pattern.test(scanContent)) {
 			result.completedPhases.push(skill);
 		}
 	}
@@ -239,21 +248,23 @@ function computeRecommendations(
 
 	const phaseNote = `Session "${phase.activeSession}" — completed: ${phase.completedPhases.join(", ") || "none"}`;
 
-	// Find the first missing phase in the sequential flow.
-	// This handles out-of-order completion: if Aim + Execute exist but
-	// Problem Space is missing, we recommend Problem Space — not Ship.
+	// Find the first missing phase in the sequential flow among allowed phases.
+	// This supports project-specific subsets (projectSkills) without suppressing
+	// recommendations when earlier phases are intentionally excluded.
 	const completedSet = new Set(phase.completedPhases);
-	const firstMissing = PHASE_ORDER.find((p) => !completedSet.has(p));
+	const firstMissingAllowed = PHASE_ORDER.find(
+		(p) => isAllowed(p) && !completedSet.has(p),
+	);
 
 	// Determine state-based recommendation
 	let statePrimary: string[];
 	let stateNote: string | null = null;
 
-	if (firstMissing) {
-		statePrimary = [firstMissing];
+	if (firstMissingAllowed) {
+		statePrimary = [firstMissingAllowed];
 	} else {
-		// All main phases complete
-		statePrimary = ["review"];
+		// All allowed main phases complete
+		statePrimary = ["review"].filter(isAllowed);
 		stateNote = "Ready for final review before shipping";
 	}
 
@@ -310,7 +321,10 @@ export default function (pi: HookAPI) {
 		try {
 			const configPath = path.join(ctx.cwd, ".oh", "skills-config.json");
 			const data = fs.readFileSync(configPath, "utf-8");
-			config = JSON.parse(data) as PhaseConfig;
+			const parsed: unknown = JSON.parse(data);
+			config = parsed && typeof parsed === "object" && !Array.isArray(parsed)
+				? (parsed as PhaseConfig)
+				: {};
 			pi.logger.info("[oh-skills-phase] Loaded config from .oh/skills-config.json");
 		} catch {
 			// No config file = use defaults, which is fine

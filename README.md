@@ -121,6 +121,8 @@ cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 ```
 
 - `projectSkills` — limit which skills get suggested (default: all)
+  - The hook recommends the first missing **allowed** phase, so it's safe to include only the phases your project actually uses
+  - `phaseOverrides` targets must also be in `projectSkills` or they will be filtered out
 - `disabledSkills` — skills to never suggest
 - `phaseOverrides` — extra skills to suggest during specific phases
 
