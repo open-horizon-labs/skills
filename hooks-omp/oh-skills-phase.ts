@@ -86,20 +86,27 @@ const SECTION_PATTERNS: Array<{ pattern: RegExp; skill: string }> = [
 
 /**
  * Prompt patterns that signal intent toward a specific skill.
- * These are used as enrichment when session state is ambiguous — not as
- * primary signal. Multi-word phrases are preferred over single words to
- * reduce false positives (e.g., "check the tests" should not suggest /review).
+ * Used as enrichment when session state is ambiguous — not as primary signal.
+ *
+ * Design principle: use multi-word phrases where single words are genuinely
+ * ambiguous ("check" could mean anything, "build" could be docker). But use
+ * shorter natural phrases where unambiguous ("what's the goal", "our options").
+ *
+ * Tested against three suites:
+ * - Explicit prompts (should match): target 100%
+ * - Natural dev language / grey zone (should match): target >60%
+ * - Normal dev work (should NOT match): target 0% false positives
  */
 const INTENT_SIGNALS: Record<string, RegExp> = {
-	"aim": /\b(clarify the goal|define the outcome|why are we|what are we trying to achieve|success look)\b/i,
-	"problem-space": /\b(map the constraints|what constraints|what we know about|what assumptions)\b/i,
-	"problem-statement": /\b(reframe the problem|the real problem|x-?y problem|problem is actually)\b/i,
-	"solution-space": /\b(explore approaches|compare options|candidate solutions|evaluate trade.?offs|how should we approach)\b/i,
-	"execute": /\b(start coding|do the work|implement this|build this|start building)\b/i,
-	"ship": /\b(deploy this|push to prod|ship this|release this|publish this)\b/i,
-	"review": /\b(review this|check alignment|before we commit|does this look right|pr ready)\b/i,
-	"dissent": /\b(devil.?s advocate|stress.?test|one.?way door|what could go wrong|challenge this)\b/i,
-	"salvage": /\b(going in circles|start over|not working at all|scrap this|extract the learning)\b/i,
+	"aim": /\b(what.?s the goal|the goal here|define the outcome|why are we|what are we trying|what outcome|success look|who is this for|what problem are we solving)\b/i,
+	"problem-space": /\b(what constraints|what.?s the landscape|what assumptions|what are the tradeoffs|what blockers|what are we dealing with|map the constraints)\b/i,
+	"problem-statement": /\b(the real problem|reframe|really the problem|solving the wrong|problem is actually|x-?y problem|problem isn.?t what)\b/i,
+	"solution-space": /\b(our options|compare options|what approaches|how should we approach|explore approaches|candidate solutions|evaluate trade.?offs|should we use .+ or)\b/i,
+	"execute": /\b(start coding|do the work|implement this|implement the|build this|start building|let.?s do it|write some code|get this done|make the change)\b/i,
+	"ship": /\b(deploy this|push to prod|ship this|release this|publish this|push this live|get this to users|out the door|time to release)\b/i,
+	"review": /\b(review this|check alignment|before we commit|does this look right|is this right|pr ready|sanity check|take a look at this)\b/i,
+	"dissent": /\b(devil.?s advocate|stress.?test|one.?way door|what could go wrong|challenge this|are we sure|what are the risks)\b/i,
+	"salvage": /\b(going in circles|start over|not working at all|scrap this|extract the learning|this isn.?t working|we.?re stuck|back and forth)\b/i,
 };
 
 // ---------------------------------------------------------------------------
@@ -202,9 +209,13 @@ function computeRecommendations(
 	intentSignals: string[],
 	config: PhaseConfig,
 ): Recommendations {
-	const disabled = new Set(config.disabledSkills ?? []);
-	const allowed = config.projectSkills
-		? new Set(config.projectSkills)
+	// Validate config arrays before constructing Sets — malformed JSON
+	// (e.g., "disabledSkills": "execute") would create character-level entries.
+	const disabledArr = Array.isArray(config.disabledSkills) ? config.disabledSkills : [];
+	const allowedArr = Array.isArray(config.projectSkills) ? config.projectSkills : null;
+	const disabled = new Set(disabledArr.filter((s): s is string => typeof s === "string"));
+	const allowed = allowedArr
+		? new Set(allowedArr.filter((s): s is string => typeof s === "string"))
 		: null; // null = all allowed
 	const isAllowed = (s: string) =>
 		!disabled.has(s) && (allowed === null || allowed.has(s));
@@ -228,18 +239,18 @@ function computeRecommendations(
 
 	const phaseNote = `Session "${phase.activeSession}" — completed: ${phase.completedPhases.join(", ") || "none"}`;
 
-	// Find the next phase in the sequential flow
-	const lastIdx = phase.lastPhase
-		? PHASE_ORDER.indexOf(phase.lastPhase as (typeof PHASE_ORDER)[number])
-		: -1;
-	const nextIdx = lastIdx + 1;
+	// Find the first missing phase in the sequential flow.
+	// This handles out-of-order completion: if Aim + Execute exist but
+	// Problem Space is missing, we recommend Problem Space — not Ship.
+	const completedSet = new Set(phase.completedPhases);
+	const firstMissing = PHASE_ORDER.find((p) => !completedSet.has(p));
 
 	// Determine state-based recommendation
 	let statePrimary: string[];
 	let stateNote: string | null = null;
 
-	if (nextIdx < PHASE_ORDER.length) {
-		statePrimary = [PHASE_ORDER[nextIdx]!];
+	if (firstMissing) {
+		statePrimary = [firstMissing];
 	} else {
 		// All main phases complete
 		statePrimary = ["review"];
@@ -264,12 +275,12 @@ function computeRecommendations(
 		.filter(isAllowed);
 
 	// Add phase overrides if configured
-	if (config.phaseOverrides) {
-		for (const skill of primary) {
+	if (config.phaseOverrides && typeof config.phaseOverrides === "object") {
+		for (const skill of [...primary]) {
 			const overrides = config.phaseOverrides[skill];
-			if (overrides) {
+			if (Array.isArray(overrides)) {
 				for (const extra of overrides) {
-					if (isAllowed(extra) && !primary.includes(extra)) {
+					if (typeof extra === "string" && isAllowed(extra) && !primary.includes(extra)) {
 						primary.push(extra);
 					}
 				}

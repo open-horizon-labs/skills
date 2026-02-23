@@ -112,8 +112,8 @@ cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 
 ```json
 {
-  "projectSkills": ["aim", "solution-space", "execute", "review"],
-  "disabledSkills": ["ship"],
+  "projectSkills": ["aim", "solution-space", "execute", "review", "dissent"],
+  "disabledSkills": [],
   "phaseOverrides": {
     "execute": ["dissent"]
   }

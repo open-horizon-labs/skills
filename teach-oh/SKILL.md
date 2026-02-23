@@ -251,7 +251,7 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 
 ```json
 {
-  "projectSkills": ["aim", "problem-space", "solution-space", "execute", "review"],
+  "projectSkills": ["aim", "problem-space", "solution-space", "execute", "review", "dissent"],
   "disabledSkills": [],
   "phaseOverrides": {
     "execute": ["dissent"]
@@ -260,7 +260,7 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 ```
 
 **Customization guidance:**
-- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`.
+- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`. **Note:** `phaseOverrides` targets must be included in `projectSkills` — override skills are filtered by the same allow list.
 - `disabledSkills`: Skills that don't fit this project (e.g., `ship` for a library that publishes via CI).
 - `phaseOverrides`: Extra skills to suggest during specific phases. Common: adding `dissent` during `execute` for security-sensitive projects.
 
