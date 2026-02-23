@@ -1,20 +1,24 @@
 /**
- * OH Skills Phase-Aware Hook
+ * OH Skills Phase-Aware Hook (OMP-specific)
  *
  * Makes the OH skills framework self-guiding at runtime by detecting
  * where you are in the development cycle and suggesting the right skill.
  *
- * Two signals drive recommendations:
- * 1. STATE  — which phases are complete in the active .oh/ session
- * 2. INTENT — what the prompt is asking for
+ * Two signals drive recommendations (state is primary):
+ * 1. STATE  — which phases are complete in the active .oh/ session (primary)
+ * 2. INTENT — prompt keywords as enrichment when state is ambiguous
  *
  * Optionally reads .oh/skills-config.json (written by teach-oh) for
- * project-specific customization.
+ * project-specific customization. Config is loaded once at session start.
  *
  * Install:
  *   - Auto-discovery: copy to ~/.omp/agent/hooks/ or .omp/hooks/
  *   - CLI: omp --hook path/to/oh-skills-phase.ts
  *   - Via teach-oh: /teach-oh offers to install during project setup
+ *
+ * This file lives in the skills repo alongside the skills it serves, but
+ * depends on OMP's hook API at runtime. It cannot be compiled or tested
+ * independently — its runtime home is .omp/hooks/.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -63,30 +67,39 @@ const PHASE_ORDER = [
 /** Cross-cutting skills available at any point */
 const CROSS_CUTTING = ["review", "dissent", "salvage"] as const;
 
-/** Section headers as they appear in .oh/ session files → skill name */
-const SECTION_TO_SKILL: Record<string, string> = {
-	"Aim": "aim",
-	"Problem Space": "problem-space",
-	"Problem Statement": "problem-statement",
-	"Solution Space": "solution-space",
-	"Execute": "execute",
-	"Ship": "ship",
-	"Review": "review",
-	"Dissent": "dissent",
-	"Salvage": "salvage",
-};
+/**
+ * Section headers as they appear in .oh/ session files → skill name.
+ * Matched with anchored regex (^## Name$) to avoid false positives from
+ * substrings (e.g., "## Aim Statement") or content inside code blocks.
+ */
+const SECTION_PATTERNS: Array<{ pattern: RegExp; skill: string }> = [
+	{ pattern: /^## Aim\s*$/m, skill: "aim" },
+	{ pattern: /^## Problem Space\s*$/m, skill: "problem-space" },
+	{ pattern: /^## Problem Statement\s*$/m, skill: "problem-statement" },
+	{ pattern: /^## Solution Space\s*$/m, skill: "solution-space" },
+	{ pattern: /^## Execute\s*$/m, skill: "execute" },
+	{ pattern: /^## Ship\s*$/m, skill: "ship" },
+	{ pattern: /^## Review\s*$/m, skill: "review" },
+	{ pattern: /^## Dissent\s*$/m, skill: "dissent" },
+	{ pattern: /^## Salvage\s*$/m, skill: "salvage" },
+];
 
-/** Prompt patterns that signal intent toward a specific skill */
+/**
+ * Prompt patterns that signal intent toward a specific skill.
+ * These are used as enrichment when session state is ambiguous — not as
+ * primary signal. Multi-word phrases are preferred over single words to
+ * reduce false positives (e.g., "check the tests" should not suggest /review).
+ */
 const INTENT_SIGNALS: Record<string, RegExp> = {
-	"aim": /\b(goal|outcome|why are we|purpose|what are we trying|objective|success look)\b/i,
-	"problem-space": /\b(constraint|terrain|map|what we know|blocker|assumption|trade.?off)\b/i,
-	"problem-statement": /\b(reframe|the real problem|actually about|root cause|x-?y problem)\b/i,
-	"solution-space": /\b(approach|option|candidate|trade.?off|how should we|compare|evaluate)\b/i,
-	"execute": /\b(implement|build|write the|create the|add feature|do the work|start coding)\b/i,
-	"ship": /\b(deploy|release|ship|publish|deliver|push to prod|npm publish)\b/i,
-	"review": /\b(check|review|align|pause|before we commit|does this look|pr ready)\b/i,
-	"dissent": /\b(risk|devil|stress.?test|what if|challenge|one.?way door|what could go wrong)\b/i,
-	"salvage": /\b(stuck|drift|restart|scrap|not working|start over|pivot|going in circles)\b/i,
+	"aim": /\b(clarify the goal|define the outcome|why are we|what are we trying to achieve|success look)\b/i,
+	"problem-space": /\b(map the constraints|what constraints|what we know about|what assumptions)\b/i,
+	"problem-statement": /\b(reframe the problem|the real problem|x-?y problem|problem is actually)\b/i,
+	"solution-space": /\b(explore approaches|compare options|candidate solutions|evaluate trade.?offs|how should we approach)\b/i,
+	"execute": /\b(start coding|do the work|implement this|build this|start building)\b/i,
+	"ship": /\b(deploy this|push to prod|ship this|release this|publish this)\b/i,
+	"review": /\b(review this|check alignment|before we commit|does this look right|pr ready)\b/i,
+	"dissent": /\b(devil.?s advocate|stress.?test|one.?way door|what could go wrong|challenge this)\b/i,
+	"salvage": /\b(going in circles|start over|not working at all|scrap this|extract the learning)\b/i,
 };
 
 // ---------------------------------------------------------------------------
@@ -136,11 +149,23 @@ async function detectPhaseFromSessions(cwd: string): Promise<SessionPhase> {
 		return result;
 	}
 
-	// Detect which phases have been written by looking for ## Section headers
-	for (const [section, skill] of Object.entries(SECTION_TO_SKILL)) {
-		if (content.includes(`## ${section}`)) {
+	// Detect which phases have been written by matching anchored ## headers.
+	// Only matches exact "## Name" on its own line — not substrings or code blocks.
+	for (const { pattern, skill } of SECTION_PATTERNS) {
+		if (pattern.test(content)) {
 			result.completedPhases.push(skill);
-			result.lastPhase = skill;
+		}
+	}
+
+	// Compute lastPhase as the furthest completed phase in PHASE_ORDER,
+	// not the last-iterated match. Cross-cutting skills (review, dissent,
+	// salvage) don't count — they can happen at any point.
+	let furthestIdx = -1;
+	for (const phase of result.completedPhases) {
+		const idx = (PHASE_ORDER as readonly string[]).indexOf(phase);
+		if (idx > furthestIdx) {
+			furthestIdx = idx;
+			result.lastPhase = phase;
 		}
 	}
 
@@ -161,6 +186,17 @@ function detectIntent(prompt: string): string[] {
 // Recommendation engine
 // ---------------------------------------------------------------------------
 
+/**
+ * Compute skill recommendations.
+ *
+ * Priority order:
+ *   1. STATE (session files) — most reliable, knows what's actually done
+ *   2. INTENT (prompt keywords) — used as enrichment or tiebreaker, not override
+ *
+ * State is primary because it reflects reality. Intent is secondary because
+ * keyword matching is ambiguous without context — "build a component" matches
+ * "execute" intent, but if you haven't aimed yet, /aim is what you need.
+ */
 function computeRecommendations(
 	phase: SessionPhase,
 	intentSignals: string[],
@@ -173,92 +209,79 @@ function computeRecommendations(
 	const isAllowed = (s: string) =>
 		!disabled.has(s) && (allowed === null || allowed.has(s));
 
-	// If user is already invoking a skill explicitly, don't inject noise
-	// (skill invocations start with / and the skill name)
-
-	// If intent signals are clear, honor them
-	if (intentSignals.length > 0) {
-		const primary = intentSignals.filter(isAllowed).slice(0, 2);
-
-		// Add phase overrides if configured
-		const extras: string[] = [];
-		if (config.phaseOverrides) {
-			for (const skill of primary) {
-				const overrides = config.phaseOverrides[skill];
-				if (overrides) {
-					extras.push(...overrides.filter(isAllowed));
-				}
-			}
-		}
-
-		return {
-			primary: [...new Set([...primary, ...extras])],
-			available: [...CROSS_CUTTING]
-				.filter((s) => !intentSignals.includes(s))
-				.filter(isAllowed),
-			phaseNote: phase.lastPhase
-				? `Session "${phase.activeSession}" — last phase: ${phase.lastPhase}`
-				: null,
-			note: null,
-		};
-	}
-
-	// No intent signals — recommend based on session state
+	// --- No session: use intent as primary (it's all we have) ---
 
 	if (!phase.activeSession) {
-		// No session at all
+		// Intent can help differentiate "I want to start fresh" vs "quick question"
+		const intentPrimary = intentSignals.filter(isAllowed).slice(0, 2);
 		return {
-			primary: ["aim"].filter(isAllowed),
+			primary: intentPrimary.length > 0 ? intentPrimary : ["aim"].filter(isAllowed),
 			available: ["teach-oh"].filter(isAllowed),
 			phaseNote: "No active .oh/ session",
-			note: "Consider /aim <session-name> to establish intent, or /teach-oh for project setup",
+			note: intentPrimary.length === 0
+				? "Consider /aim <session-name> to establish intent, or /teach-oh for project setup"
+				: null,
 		};
 	}
 
-	// Find next phase in the sequential flow
+	// --- Has session: state is primary ---
+
+	const phaseNote = `Session "${phase.activeSession}" — completed: ${phase.completedPhases.join(", ") || "none"}`;
+
+	// Find the next phase in the sequential flow
 	const lastIdx = phase.lastPhase
 		? PHASE_ORDER.indexOf(phase.lastPhase as (typeof PHASE_ORDER)[number])
 		: -1;
+	const nextIdx = lastIdx + 1;
 
-	if (lastIdx === -1) {
-		// Last phase isn't in the main sequence (e.g., review/dissent/salvage)
-		// Suggest continuing the main flow from where it left off
-		const mainCompleted = phase.completedPhases.filter((p) =>
-			(PHASE_ORDER as readonly string[]).includes(p),
-		);
-		const furthest = mainCompleted.length > 0
-			? PHASE_ORDER.indexOf(mainCompleted[mainCompleted.length - 1] as (typeof PHASE_ORDER)[number])
-			: -1;
-		const nextIdx = furthest + 1;
+	// Determine state-based recommendation
+	let statePrimary: string[];
+	let stateNote: string | null = null;
 
-		if (nextIdx < PHASE_ORDER.length) {
-			return {
-				primary: [PHASE_ORDER[nextIdx]!].filter(isAllowed),
-				available: [...CROSS_CUTTING].filter(isAllowed),
-				phaseNote: `Session "${phase.activeSession}" — completed: ${phase.completedPhases.join(", ")}`,
-				note: null,
-			};
+	if (nextIdx < PHASE_ORDER.length) {
+		statePrimary = [PHASE_ORDER[nextIdx]!];
+	} else {
+		// All main phases complete
+		statePrimary = ["review"];
+		stateNote = "Ready for final review before shipping";
+	}
+
+	// Intent can enrich state recommendations in two ways:
+	// 1. Cross-cutting skills (review/dissent/salvage) — always valid regardless of phase
+	// 2. Agreement — if intent matches the state recommendation, confidence is higher
+	const crossCuttingIntent = intentSignals.filter((s) =>
+		(CROSS_CUTTING as readonly string[]).includes(s),
+	);
+
+	// Build primary: state recommendation + any cross-cutting intent signals
+	const primary = [...new Set([...statePrimary, ...crossCuttingIntent])]
+		.filter(isAllowed)
+		.slice(0, 3);
+
+	// Build available: remaining cross-cutting skills not already in primary
+	const available = [...CROSS_CUTTING]
+		.filter((s) => !primary.includes(s))
+		.filter(isAllowed);
+
+	// Add phase overrides if configured
+	if (config.phaseOverrides) {
+		for (const skill of primary) {
+			const overrides = config.phaseOverrides[skill];
+			if (overrides) {
+				for (const extra of overrides) {
+					if (isAllowed(extra) && !primary.includes(extra)) {
+						primary.push(extra);
+					}
+				}
+			}
 		}
 	}
 
-	const nextIdx = lastIdx + 1;
-
-	if (nextIdx < PHASE_ORDER.length) {
-		const next = PHASE_ORDER[nextIdx]!;
-		return {
-			primary: [next].filter(isAllowed),
-			available: [...CROSS_CUTTING].filter(isAllowed),
-			phaseNote: `Session "${phase.activeSession}" — completed: ${phase.completedPhases.join(", ")}`,
-			note: null,
-		};
-	}
-
-	// All main phases complete
 	return {
-		primary: ["review"].filter(isAllowed),
-		available: ["ship", "dissent"].filter(isAllowed),
-		phaseNote: `Session "${phase.activeSession}" — all phases complete`,
-		note: "Ready for final review before shipping",
+		primary,
+		available,
+		phaseNote,
+		note: stateNote,
 	};
 }
 
@@ -268,8 +291,10 @@ function computeRecommendations(
 
 export default function (pi: HookAPI) {
 	let config: PhaseConfig = {};
+	let lastInjectedContent: string | null = null;
 
-	// Load project-specific config on session start
+	// Load project-specific config once on session start.
+	// Changes to skills-config.json require restarting OMP to take effect.
 	pi.on("session_start", async (_event, ctx) => {
 		try {
 			const configPath = path.join(ctx.cwd, ".oh", "skills-config.json");
@@ -326,6 +351,16 @@ export default function (pi: HookAPI) {
 
 		lines.push("</oh-phase-context>");
 
+		const content = lines.join("\n");
+
+		// Deduplicate: skip injection if recommendation is unchanged from last turn.
+		// This avoids wallpaper — once you know you're in the execute phase,
+		// you don't need to be told again every turn.
+		if (content === lastInjectedContent) {
+			return undefined;
+		}
+		lastInjectedContent = content;
+
 		// Update status bar
 		if (ctx.hasUI && rec.primary.length > 0) {
 			const theme = ctx.ui.theme;
@@ -339,7 +374,7 @@ export default function (pi: HookAPI) {
 		return {
 			message: {
 				customType: "oh-phase-context",
-				content: lines.join("\n"),
+				content,
 				display: true,
 			},
 		};

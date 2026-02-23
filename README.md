@@ -94,13 +94,15 @@ Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor
 For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook makes the framework self-guiding at runtime. Instead of remembering which skill to invoke, the hook detects where you are in the development cycle and suggests the right one.
 
 **How it works:**
-1. Reads your `.oh/` session files to detect completed phases (state)
-2. Scans your prompt for intent signals (intent)
+1. Reads your `.oh/` session files to detect completed phases (state — primary signal)
+2. Scans your prompt for intent signals (enrichment — used when state is ambiguous)
 3. Injects a `<oh-phase-context>` block recommending the next skill
+4. Deduplicates — only injects when the recommendation changes
 
 **Install manually:**
 
 ```bash
+mkdir -p .omp/hooks
 cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 ```
 
@@ -122,7 +124,11 @@ cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 - `disabledSkills` — skills to never suggest
 - `phaseOverrides` — extra skills to suggest during specific phases
 
+Config is loaded once at session start. Changes require restarting OMP.
+
 The hook is entirely optional. Skills work the same with or without it.
+
+> **Note:** This hook requires the OMP hook API (`@oh-my-pi/pi-coding-agent`). It is a TypeScript module that OMP loads at runtime — it cannot be compiled or tested independently within this repo. It lives here alongside the skills it serves, but its runtime home is `.omp/hooks/`.
 
 ## Learn More
 
