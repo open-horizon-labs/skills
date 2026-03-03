@@ -268,6 +268,72 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 
 **If the user is not running OMP:** Skip this step entirely. The hook requires the OMP hook API and will not work with other agents. Users can still install it manually later by copying the file to `.omp/hooks/`.
 
+## Step 5 (Optional, OMP only): Generate Phase Agents
+
+Phase skills benefit from running in isolated context windows with scoped tools —
+formalizing the pattern of clearing sessions between phases. Offer to generate
+agent wrappers that give each phase its own context.
+
+**When to offer:** After Step 4, if OMP detected.
+
+**What to ask:**
+> "Generate OH phase agents? Each phase gets isolated context and scoped tools —
+> aim/problem-space are read-only, execute gets full capabilities. Writes to
+> `.omp/agents/`."
+
+**If accepted:**
+
+For each phase skill (aim, problem-space, problem-statement, solution-space,
+execute, ship):
+
+1. Read the skill's SKILL.md from the skills installation directory
+2. Strip YAML frontmatter from the body
+3. Generate an agent .md file with:
+   - Agent frontmatter (name, description, tools, spawns)
+   - Session handling preamble
+   - MCP integration instructions (conditional)
+   - The skill body as the system prompt
+4. Write to `.omp/agents/oh-<name>.md`
+
+**Agent frontmatter per phase:**
+
+| Agent | `tools` | `spawns` |
+|---|---|---|
+| `oh-aim` | `read, grep, find, fetch, web_search` | — |
+| `oh-problem-space` | `read, grep, find, fetch, web_search, lsp, bash` | `explore` |
+| `oh-problem-statement` | `read, grep, find, fetch, web_search` | — |
+| `oh-solution-space` | `read, grep, find, fetch, web_search, lsp, bash` | `explore` |
+| `oh-execute` | _(all — omit tools field)_ | `task, explore` |
+| `oh-ship` | `read, write, edit, grep, find, bash` | — |
+
+**Session handling preamble** (prepended to every generated agent):
+
+```markdown
+## Session Context
+If the assignment includes a session name or .oh/<name>.md path:
+1. Read the session file to understand prior phase outputs
+2. After completing your analysis, update your section (## <Phase Name>) in the session file
+3. Submit a concise summary as your final output
+
+If no session file is referenced, produce your full output as text for the caller to handle.
+```
+
+**MCP integration preamble** (appended after session context, conditional on OH MCP availability):
+
+```markdown
+## Open Horizons MCP
+If OH MCP tools are available (oh_get_endeavors, oh_log_decision, etc.):
+- Query related endeavors for context before starting analysis
+- Log key outputs (aim statements, problem statements, decisions) to the graph
+- Link session work to active endeavors
+If OH MCP tools are not available, skip this section silently.
+```
+
+Cross-cutting skills (review, dissent, salvage) stay as skills — they need
+conversation context to detect drift.
+
+**If declined:** Skip. Skills continue to work as prompt injections.
+
 ## What This Enables
 
 With project context established:
