@@ -363,15 +363,16 @@ If the assignment includes a session name or .oh/<name>.md path:
 If no session file is referenced, produce your full output as text for the caller to handle.
 ```
 
-**MCP integration preamble** (appended after session context, conditional on OH MCP availability):
+**MCP integration preamble** (only include if OH MCP is configured — check for
+`oh_get_endeavors` in the parent session's available tools, or for `.oh/mcp.json`
+in the project). If MCP is not present, omit this section entirely from the
+generated agent — do not include it with a "skip if absent" instruction.
 
 ```markdown
 ## Open Horizons MCP
-If OH MCP tools are available (oh_get_endeavors, oh_log_decision, etc.):
 - Query related endeavors for context before starting analysis
 - Log key outputs (aim statements, problem statements, decisions) to the graph
 - Link session work to active endeavors
-If OH MCP tools are not available, skip this section silently.
 ```
 
 Cross-cutting skills (review, dissent, salvage) stay as skills — they need
