@@ -339,14 +339,26 @@ execute, ship):
 | `oh-execute` | _(all — omit tools field)_ | `task, explore` |
 | `oh-ship` | `read, write, edit, grep, find, bash` | — |
 
-**Session handling preamble** (prepended to every generated agent):
+**Session handling preamble** (prepended to every generated agent). Use the
+appropriate variant based on whether the agent has write/edit tools:
 
+For agents WITH write tools (oh-execute, oh-ship, oh-solution-space, oh-problem-space):
 ```markdown
 ## Session Context
 If the assignment includes a session name or .oh/<name>.md path:
 1. Read the session file to understand prior phase outputs
 2. After completing your analysis, update your section (## <Phase Name>) in the session file
 3. Submit a concise summary as your final output
+
+If no session file is referenced, produce your full output as text for the caller to handle.
+```
+
+For read-only agents (oh-aim, oh-problem-statement):
+```markdown
+## Session Context
+If the assignment includes a session name or .oh/<name>.md path:
+1. Read the session file to understand prior phase outputs
+2. Submit your full analysis as your final output — the caller will persist it to the session file
 
 If no session file is referenced, produce your full output as text for the caller to handle.
 ```

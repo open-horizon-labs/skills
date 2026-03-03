@@ -210,6 +210,7 @@ function computeRecommendations(
 	phase: SessionPhase,
 	intentSignals: string[],
 	config: PhaseConfig,
+	agentMode: boolean,
 ): Recommendations {
 	// Validate config arrays before constructing Sets — malformed JSON
 	// (e.g., "disabledSkills": "execute") would create character-level entries.
@@ -232,7 +233,9 @@ function computeRecommendations(
 			available: ["teach-oh"].filter(isAllowed),
 			phaseNote: "No active .oh/ session",
 			note: intentPrimary.length === 0
-				? "Consider establishing intent with a session to enable phase tracking"
+				? agentMode
+					? "Consider dispatching oh-aim with a session name to establish intent"
+					: "Consider /aim <session-name> to establish intent, or /teach-oh for project setup"
 				: null,
 		};
 	}
@@ -309,8 +312,8 @@ const AGENT_PHASES = new Set(PHASE_ORDER);
 function detectAgents(cwd: string): boolean {
 	const agentsDir = path.join(cwd, ".omp", "agents");
 	if (!fs.existsSync(agentsDir)) return false;
-	// At least one phase agent file exists
-	return PHASE_ORDER.some((phase) =>
+	// All phase agent files must exist — partial installs stay in skill mode
+	return PHASE_ORDER.every((phase) =>
 		fs.existsSync(path.join(agentsDir, `oh-${phase}.md`)),
 	);
 }
@@ -363,7 +366,7 @@ export default function (pi: HookAPI) {
 		const intentSignals = detectIntent(prompt);
 
 		// 3. Compute recommendations
-		const rec = computeRecommendations(phase, intentSignals, config);
+		const rec = computeRecommendations(phase, intentSignals, config, useAgents);
 
 		// Skip injection when there's nothing useful to say
 		if (rec.primary.length === 0 && !rec.phaseNote && !rec.note) {
