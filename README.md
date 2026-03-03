@@ -130,6 +130,17 @@ The hook is entirely optional. Skills work the same with or without it.
 
 > **Note:** This hook requires the OMP hook API (`@oh-my-pi/pi-coding-agent`). It is a TypeScript module that OMP loads at runtime — it cannot be compiled or tested independently within this repo. It lives here alongside the skills it serves, but its runtime home is `.omp/hooks/`.
 
+## Phase Agents (OMP)
+
+Pre-built agent wrappers in `agents-omp/` give each phase its own isolated context and scoped tools. Install via `/teach-oh` or manually copy to `.omp/agents/`:
+
+```bash
+mkdir -p .omp/agents
+cp agents-omp/oh-*.md .omp/agents/
+```
+
+When agents are installed, the phase-aware hook automatically switches from suggesting `/skill` commands to suggesting agent dispatch.
+
 ## Learn More
 
 - [Open Horizons Website](https://openhorizonlabs.ai)

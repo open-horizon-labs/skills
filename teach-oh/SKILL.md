@@ -305,80 +305,49 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 
 **If the user is not running OMP:** Skip this step entirely. The hook requires the OMP hook API and will not work with other agents. Users can still install it manually later by copying the file to `.omp/hooks/`.
 
-## Step 5 (Optional, OMP only): Generate Phase Agents
+## Step 5 (Optional, OMP only): Install Phase Agents
 
 Phase skills benefit from running in isolated context windows with scoped tools —
-formalizing the pattern of clearing sessions between phases. Offer to generate
-agent wrappers that give each phase its own context.
+formalizing the pattern of clearing sessions between phases. Offer to install
+pre-built agent wrappers that give each phase its own context.
 
 **When to offer:** After Step 4, if OMP detected.
 
 **What to ask:**
-> "Generate OH phase agents? Each phase gets isolated context and scoped tools —
+> "Install OH phase agents? Each phase gets isolated context and scoped tools —
 > aim/problem-space are read-only, execute gets full capabilities. Writes to
 > `.omp/agents/`."
 
 **If accepted:**
 
-For each phase skill (aim, problem-space, problem-statement, solution-space,
-execute, ship):
+Fetch all 6 agent files from GitHub and write each to `.omp/agents/` (create the directory if needed):
 
-1. Fetch the skill's SKILL.md from GitHub:
-   `https://raw.githubusercontent.com/open-horizon-labs/skills/master/<skill-name>/SKILL.md`
-2. Strip YAML frontmatter from the body
-3. Generate an agent .md file with:
-   - Agent frontmatter (name, description, tools, spawns)
-   - Session handling preamble
-   - MCP integration instructions (conditional)
-   - The skill body as the system prompt
-4. Write to `.omp/agents/oh-<name>.md`
-
-**Agent frontmatter per phase:**
-
-| Agent | `tools` | `spawns` |
-|---|---|---|
-| `oh-aim` | `read, grep, find, fetch, web_search` | — |
-| `oh-problem-space` | `read, grep, find, fetch, web_search, lsp, bash` | `explore` |
-| `oh-problem-statement` | `read, grep, find, fetch, web_search` | — |
-| `oh-solution-space` | `read, grep, find, fetch, web_search, lsp, bash` | `explore` |
-| `oh-execute` | _(all — omit tools field)_ | `task, explore` |
-| `oh-ship` | `read, write, edit, grep, find, bash` | — |
-
-**Session handling preamble** (prepended to every generated agent). Use the
-appropriate variant based on whether the agent has write/edit tools:
-
-For agents WITH write tools (oh-execute, oh-ship, oh-solution-space, oh-problem-space):
-```markdown
-## Session Context
-If the assignment includes a session name or .oh/<name>.md path:
-1. Read the session file to understand prior phase outputs
-2. After completing your analysis, update your section (## <Phase Name>) in the session file
-3. Submit a concise summary as your final output
-
-If no session file is referenced, produce your full output as text for the caller to handle.
+```
+Base URL: https://raw.githubusercontent.com/open-horizon-labs/skills/master/agents-omp/
+Files:
+  oh-aim.md
+  oh-problem-space.md
+  oh-problem-statement.md
+  oh-solution-space.md
+  oh-execute.md
+  oh-ship.md
 ```
 
-For read-only agents (oh-aim, oh-problem-statement):
-```markdown
-## Session Context
-If the assignment includes a session name or .oh/<name>.md path:
-1. Read the session file to understand prior phase outputs
-2. Submit your full analysis as your final output — the caller will persist it to the session file
+Do NOT fabricate or rewrite the agent files — always fetch the canonical source.
 
-If no session file is referenced, produce your full output as text for the caller to handle.
-```
-
-**MCP integration preamble** (only include if OH MCP is configured — check for
-`oh_get_endeavors` in the parent session's available tools, or for `.oh/mcp.json`
-in the project). If MCP is not present, omit this section entirely from the
-generated agent — do not include it with a "skip if absent" instruction.
+**MCP preamble** (only if OH MCP is configured — check for `oh_get_endeavors` in
+the parent session's available tools, or for `.oh/mcp.json` in the project):
+After writing all 6 files, append this block to each agent file:
 
 ```markdown
+
 ## Open Horizons MCP
 - Query related endeavors for context before starting analysis
 - Log key outputs (aim statements, problem statements, decisions) to the graph
 - Link session work to active endeavors
 ```
+
+If MCP is not present, skip this step — the agents work without it.
 
 Cross-cutting skills (review, dissent, salvage) stay as skills — they need
 conversation context to detect drift.
