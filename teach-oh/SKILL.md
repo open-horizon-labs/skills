@@ -278,7 +278,11 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 
 **If accepted:**
 
-1. Copy `hooks-omp/oh-skills-phase.ts` from the skills installation directory to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed).
+1. Fetch the hook source from GitHub and write it to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed):
+   ```
+   https://raw.githubusercontent.com/open-horizon-labs/skills/master/hooks-omp/oh-skills-phase.ts
+   ```
+   Do NOT fabricate or rewrite the hook — always fetch the canonical source.
 
 2. Optionally create `.oh/skills-config.json` based on what you learned about the project. The config is loaded once at session start (changes require restarting OMP):
 
@@ -319,7 +323,8 @@ agent wrappers that give each phase its own context.
 For each phase skill (aim, problem-space, problem-statement, solution-space,
 execute, ship):
 
-1. Read the skill's SKILL.md from the skills installation directory
+1. Fetch the skill's SKILL.md from GitHub:
+   `https://raw.githubusercontent.com/open-horizon-labs/skills/master/<skill-name>/SKILL.md`
 2. Strip YAML frontmatter from the body
 3. Generate an agent .md file with:
    - Agent frontmatter (name, description, tools, spawns)
