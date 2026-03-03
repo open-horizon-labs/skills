@@ -76,6 +76,10 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 1. **Open Horizons Framework** - The strategic framework for AI-assisted work (offer to include if user uses OH skills)
 2. **Project Context** - Project-specific aims, constraints, and patterns (always include)
 
+If phase agents were generated in Step 5, use the **agents variant** below.
+Otherwise use the **skills variant**.
+
+**Skills variant** (no agents):
 ```markdown
 # Open Horizons Framework
 
@@ -91,6 +95,35 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 - Work is drifting or reversing → `/salvage`
 
 **Reflection skills (use anytime):**
+- `/review` - Check alignment before committing
+- `/dissent` - Seek contrary evidence before one-way doors
+- `/salvage` - Extract learning, restart clean
+
+**Key insight:** Enter at the altitude you need. Climb back up when you drift.
+```
+
+**Agents variant** (phase agents generated):
+```markdown
+# Open Horizons Framework
+
+**The shift:** Action is cheap. Knowing what to do is scarce.
+
+**The sequence:** aim → problem-space → problem-statement → solution-space → execute → ship
+
+Each phase runs as an agent with isolated context and scoped tools. Dispatch via
+the `task` tool — each agent reads/writes `.oh/<session>.md` to pass context
+between phases.
+
+**Where to start (triggers):**
+- Can't explain why you're building this → dispatch `oh-aim` agent
+- Keep hitting the same blockers → dispatch `oh-problem-space` agent
+- Solutions feel forced → dispatch `oh-problem-statement` agent
+- About to start coding → dispatch `oh-solution-space` agent
+- Ready to implement → dispatch `oh-execute` agent
+- Code complete, need to deliver → dispatch `oh-ship` agent
+- Work is drifting or reversing → `/salvage`
+
+**Reflection skills (use anytime, in main session):**
 - `/review` - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
