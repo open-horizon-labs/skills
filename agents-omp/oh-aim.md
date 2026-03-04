@@ -227,7 +227,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 **If no session name provided** (`/aim`):
 - After producing the aim statement, offer to save it:
   > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch (e.g., `feature/auth-flow` -> `auth-flow`) or the aim content
+- Suggest a name based on git branch (e.g., `feature/auth-flow` → `auth-flow`) or the aim content
 - If user accepts, create `.oh/<session>.md`
 
 **Reading:** Check for existing session file. If found, read prior skill outputs (problem-statement, problem-space, etc.) for context.

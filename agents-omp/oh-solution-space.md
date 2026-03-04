@@ -1,6 +1,6 @@
 ---
 name: oh-solution-space
-description: Explore candidate solutions before committing. Evaluate approaches before picking one.
+description: Explore candidate solutions before committing.
 tools: read, grep, find, fetch, web_search, lsp, bash
 spawns: explore
 ---

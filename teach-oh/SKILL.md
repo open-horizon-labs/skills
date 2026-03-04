@@ -76,7 +76,7 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 1. **Open Horizons Framework** - The strategic framework for AI-assisted work (offer to include if user uses OH skills)
 2. **Project Context** - Project-specific aims, constraints, and patterns (always include)
 
-If phase agents were generated in Step 5, use the **agents variant** below.
+If phase agents were installed in Step 5, use the **agents variant** below.
 Otherwise use the **skills variant**.
 
 **Skills variant** (no agents):
@@ -100,9 +100,32 @@ Otherwise use the **skills variant**.
 - `/salvage` - Extract learning, restart clean
 
 **Key insight:** Enter at the altitude you need. Climb back up when you drift.
+
+---
+
+# Project Context
+
+## Purpose
+[What this project does and why it matters]
+
+## Current Aims
+[Active goals and what success looks like]
+
+## Key Constraints
+- [Constraint 1]: [Why it exists]
+- [Constraint 2]: [Why it exists]
+
+## Patterns to Follow
+- [Pattern]: [When/why to use it]
+
+## Anti-Patterns to Avoid
+- [Anti-pattern]: [Why it's problematic here]
+
+## Decision Context
+[How the team makes decisions, what "done" means]
 ```
 
-**Agents variant** (phase agents generated):
+**Agents variant** (phase agents installed):
 ```markdown
 # Open Horizons Framework
 
@@ -315,7 +338,7 @@ pre-built agent wrappers that give each phase its own context.
 
 **What to ask:**
 > "Install OH phase agents? Each phase gets isolated context and scoped tools —
-> aim/problem-space are read-only, execute gets full capabilities. Writes to
+> aim/problem-statement are read-only, execute gets full capabilities. Writes to
 > `.omp/agents/`."
 
 **If accepted:**
