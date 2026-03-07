@@ -275,6 +275,12 @@ After establishing aim, typically:
 - `/problem-space` - Map constraints and what you're optimizing
 - `/review` - Check if current work still serves the aim
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `oh_get_outcomes` first to see existing outcomes — don't duplicate
+- Call `oh_get_guardrails` to understand current constraints
+- After producing the aim: call `oh_update_outcome` if updating existing, or note that the user should create a new outcome file
+
 ---
 
 **Remember:** The aim IS the abstraction. Features are outputs; behavior changes are outcomes. Start with what you want users to do differently.

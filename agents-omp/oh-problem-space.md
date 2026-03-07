@@ -284,6 +284,12 @@ After problem space mapping, typically:
 - Return to stakeholders - If constraints need challenging
 - Research/investigation - If terrain is insufficiently understood
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `oh_get_context` for a full picture of outcomes, signals, guardrails, and recent work
+- Call `outcome_progress` for each relevant outcome to understand current state
+- Call `search_markdown` to find related documentation and ADRs
+
 ---
 
 **Remember:** Problem space is not about delay. It's about building the right thing. The constraint is alignment, not delivery. When execution is cheap, understanding is the leverage.

@@ -364,6 +364,13 @@ After solution-space, typically:
 - `/dissent` - If the recommendation feels too easy
 - `/problem-statement` - If exploration revealed the problem is mis-framed
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `oh_get_guardrails` to validate candidate solutions against constraints
+- Call `search_code` to understand existing patterns before proposing alternatives
+- Call `outcome_progress` to check what's already been tried for this outcome
+- After selecting a solution: call `oh_record_metis` to capture the decision rationale
+
 ---
 
 **Remember:** The goal isn't to always pick Redesign. It's to know you explored before committing. A deliberate Band-Aid beats an accidental one.

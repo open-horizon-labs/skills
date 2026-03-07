@@ -278,6 +278,12 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Creates dive pack for restart session
 - Session file serves as local cache
 
+### With RNA MCP (repo-native-alignment)
+- Call `oh_record_metis` with extracted learnings (automates Step 4)
+- Call `oh_record_guardrail_candidate` for constraints discovered the hard way
+- Call `outcome_progress` to review what was accomplished before restarting
+- Tag the final commit with `[outcome:X]` if work served a specific outcome
+
 ## Position in Framework
 
 **Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing).

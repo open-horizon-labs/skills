@@ -289,6 +289,12 @@ After problem statement, typically:
 - `/dissent` - Challenge the framing before committing
 - `/aim` - If the outcome itself is unclear (go back to clarify)
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `oh_get_outcomes` to ground the problem statement in declared outcomes
+- Call `oh_get_guardrails` to identify hard constraints vs soft constraints
+- Call `search_commits` to understand recent work context
+
 ---
 
 **Remember:** The problem statement isn't just documentation—it's the leverage point. A different framing doesn't just describe the problem differently; it literally changes what solutions become possible.

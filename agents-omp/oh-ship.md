@@ -310,6 +310,12 @@ After shipping, the outer loop continues:
 - **Delivery-Path Tax:** Friction that slows delivery (review time, merge time, gate time, approval time)
 - **Working Install:** The code is running and users can interact with it
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `outcome_progress` to verify the work maps to a declared outcome
+- Call `oh_record_signal` to record measurable progress after shipping
+- Call `oh_update_outcome` if the outcome status should change (e.g., achieved)
+
 ---
 
 **Remember:** Code that isn't shipped isn't delivering value. When execution is cheap, delivery is the bottleneck. Optimize the path, reduce the tax, get changes to users.

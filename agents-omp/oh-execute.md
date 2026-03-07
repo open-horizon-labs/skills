@@ -321,6 +321,15 @@ After execute, typically:
 - `/ship` - Deploy the change to users
 - `/salvage` - If drift was detected and restart needed
 
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Call `outcome_progress` before starting to understand current state
+- Call `oh_get_guardrails` for pre-flight constraint check
+- During execution: use `search_code` with kind/file filters to understand existing code
+- After completing work: tag commits with `[outcome:X]` for the relevant outcome
+- If discovering constraints: call `oh_record_guardrail_candidate`
+- If learning something worth preserving: call `oh_record_metis`
+
 ---
 
 **Remember:** Execute is the inner loop. Stay focused on the aim. Code is cheap; thrashing is expensive. Detect drift early. Salvage without shame.

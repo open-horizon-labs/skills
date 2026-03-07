@@ -370,7 +370,26 @@ After writing all 6 files, append this block to each agent file:
 - Link session work to active endeavors
 ```
 
-If MCP is not present, skip this step — the agents work without it.
+If OH MCP is not present, skip this block — the agents work without it.
+
+**RNA MCP preamble** (only if repo-native-alignment MCP is configured — check for
+`oh_get_outcomes` in the parent session's available tools, or for `rna-server` in
+`.mcp.json`):
+After writing all 6 files, append this block to each agent file:
+
+```markdown
+
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Before framing: call `oh_get_outcomes` and `oh_get_guardrails` to load business context
+- After producing output: call `oh_record_metis` to capture key learnings
+- When checking progress: call `outcome_progress` with the relevant outcome ID
+- When discovering constraints: call `oh_record_guardrail_candidate`
+- When measuring progress: call `oh_record_signal`
+- After completing work: tag commits with `[outcome:X]`
+```
+
+If RNA MCP is not present, skip this block — the agents work without it.
 
 Cross-cutting skills (review, dissent, salvage) stay as skills — they need
 conversation context to detect drift.
