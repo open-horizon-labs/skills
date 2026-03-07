@@ -1,7 +1,7 @@
 ---
 name: oh-execute
 description: Do the work. Pre-flight, build, detect drift, salvage if needed.
-spawns: task, explore
+tools: Read, Write, Edit, Grep, Glob, Bash, Agent, WebFetch, WebSearch
 ---
 
 ## Session Context

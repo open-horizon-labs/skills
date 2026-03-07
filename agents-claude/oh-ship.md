@@ -1,7 +1,7 @@
 ---
 name: oh-ship
 description: Deliver code to users. Optimize the path from merged code to working install.
-tools: read, write, edit, grep, find, bash
+tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
 ## Session Context

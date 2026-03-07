@@ -370,12 +370,62 @@ After writing all 6 files, append this block to each agent file:
 - Link session work to active endeavors
 ```
 
-If MCP is not present, skip this step — the agents work without it.
+If OH MCP is not present, skip this block — the agents work without it.
+
+**RNA MCP preamble** (only if repo-native-alignment MCP is configured — check for
+`oh_get_outcomes` in the parent session's available tools, or for `rna-server` in
+`.mcp.json`):
+After writing all 6 files, append this block to each agent file:
+
+```markdown
+
+## Repo-Native Alignment MCP
+When rna-server tools are available:
+- Before framing: call `oh_get_outcomes` and `oh_get_guardrails` to load business context
+- After producing output: call `oh_record_metis` to capture key learnings
+- When checking progress: call `outcome_progress` with the relevant outcome ID
+- When discovering constraints: call `oh_record_guardrail_candidate`
+- When measuring progress: call `oh_record_signal`
+- After completing work: tag commits with `[outcome:X]`
+```
+
+If RNA MCP is not present, skip this block — the agents work without it.
 
 Cross-cutting skills (review, dissent, salvage) stay as skills — they need
 conversation context to detect drift.
 
 **If declined:** Skip. Skills continue to work as prompt injections.
+
+## Step 6 (Optional, Claude Code): Install Phase Agents
+
+If the user is running Claude Code (not OMP), offer to install phase agents to `.claude/agents/`.
+
+**When to offer:** After writing AGENTS.md, if Claude Code detected (check for `.claude/` directory or if running as Claude Code).
+
+**What to ask:**
+> "Install OH phase agents for Claude Code? Each phase gets its own agent with scoped tools.
+> Writes to `.claude/agents/`."
+
+**If accepted:**
+
+Fetch all 6 agent files from GitHub and write each to `.claude/agents/` (create the directory if needed):
+
+```
+Base URL: https://raw.githubusercontent.com/open-horizon-labs/skills/master/agents-claude/
+Files:
+  oh-aim.md
+  oh-problem-space.md
+  oh-problem-statement.md
+  oh-solution-space.md
+  oh-execute.md
+  oh-ship.md
+```
+
+Do NOT fabricate or rewrite the agent files — always fetch the canonical source.
+
+**MCP preambles:** The pre-packaged Claude Code agents already include OH MCP and RNA MCP preamble sections. No additional append needed.
+
+**If declined:** Skip. Skills continue to work as slash commands.
 
 ## What This Enables
 
