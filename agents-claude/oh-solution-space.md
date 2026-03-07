@@ -365,9 +365,8 @@ After solution-space, typically:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Call `oh_get_guardrails` to validate candidate solutions against constraints
-- Call `search_code` to understand existing patterns before proposing alternatives
-- Call `outcome_progress` to check what's already been tried for this outcome
+- Call `oh_search_context("solutions tried for [problem]", artifact_types: ["metis"])` for past approaches
+- Call `oh_search_context("constraints for [area]", artifact_types: ["guardrail"])` to validate candidates
 - After selecting a solution: call `oh_record_metis` to capture the decision rationale
 
 ---

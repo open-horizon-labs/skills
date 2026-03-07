@@ -291,9 +291,8 @@ After problem statement, typically:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Call `oh_get_outcomes` to ground the problem statement in declared outcomes
-- Call `oh_get_guardrails` to identify hard constraints vs soft constraints
-- Call `search_commits` to understand recent work context
+- Call `oh_search_context` with the problem description to find relevant outcomes and guardrails
+- Call `oh_search_context("constraints for [area]", artifact_types: ["guardrail"])` for hard constraints
 
 ---
 

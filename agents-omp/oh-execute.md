@@ -323,10 +323,10 @@ After execute, typically:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Call `outcome_progress` before starting to understand current state
-- Call `oh_get_guardrails` for pre-flight constraint check
-- During execution: use `search_code` with kind/file filters to understand existing code
-- After completing work: tag commits with `[outcome:X]` for the relevant outcome
+- Call `oh_search_context` with your task to find the relevant outcome
+- Call `outcome_progress` to understand current state before starting
+- Call `oh_search_context("constraints", artifact_types: ["guardrail"])` for pre-flight check
+- After completing work: tag commits with `[outcome:X]`
 - If discovering constraints: call `oh_record_guardrail_candidate`
 - If learning something worth preserving: call `oh_record_metis`
 

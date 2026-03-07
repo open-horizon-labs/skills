@@ -286,9 +286,9 @@ After problem space mapping, typically:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Call `oh_get_context` for a full picture of outcomes, signals, guardrails, and recent work
+- Call `oh_search_context` with the problem domain to find relevant outcomes, metis, and guardrails
 - Call `outcome_progress` for each relevant outcome to understand current state
-- Call `search_markdown` to find related documentation and ADRs
+- Call `oh_search_context("learnings about [domain]", artifact_types: ["metis"])` for past experience
 
 ---
 

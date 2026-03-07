@@ -277,9 +277,9 @@ After establishing aim, typically:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Call `oh_get_outcomes` first to see existing outcomes — don't duplicate
-- Call `oh_get_guardrails` to understand current constraints
-- After producing the aim: call `oh_update_outcome` if updating existing, or note that the user should create a new outcome file
+- Call `oh_search_context` with your task description to find relevant existing outcomes
+- Call `oh_search_context("guardrails for [area]", artifact_types: ["guardrail"])` for constraints
+- After producing the aim: call `oh_update_outcome` if updating existing, or note that a new outcome file is needed
 
 ---
 

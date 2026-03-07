@@ -305,10 +305,9 @@ Works anywhere. Produces review summary based on conversation context. No persis
 - Session file serves as local cache
 
 ### With RNA MCP (repo-native-alignment)
+- Call `oh_search_context("constraints for [area]", artifact_types: ["guardrail"])` to check against relevant guardrails
 - Call `outcome_progress` to check work against the declared outcome
-- Call `oh_get_guardrails` to verify constraints were respected
 - Call `oh_record_guardrail_candidate` if the review surfaces new constraints
-- Call `search_code` to verify patterns match project conventions
 
 ## Completion Gate (Before "Done")
 

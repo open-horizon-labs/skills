@@ -328,10 +328,9 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 - Session file serves as local cache
 
 ### With RNA MCP (repo-native-alignment)
-- Call `oh_get_guardrails` to ground dissent in declared constraints
-- Call `outcome_progress` to assess whether the approach actually serves the outcome
-- Call `oh_record_metis` to capture the dissent findings as durable learning
-- Call `oh_record_guardrail_candidate` if dissent reveals a missing constraint
+- Call `oh_search_context("risks and constraints for [area]", artifact_types: ["guardrail", "metis"])` to ground dissent
+- Call `outcome_progress` to assess whether the approach serves the outcome
+- Call `oh_record_metis` to capture dissent findings as durable learning
 
 ### With Team Input
 - Aggregates dissent from multiple reviewers

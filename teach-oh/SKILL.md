@@ -373,7 +373,7 @@ After writing all 6 files, append this block to each agent file:
 If OH MCP is not present, skip this block — the agents work without it.
 
 **RNA MCP preamble** (only if repo-native-alignment MCP is configured — check for
-`oh_get_outcomes` in the parent session's available tools, or for `rna-server` in
+`oh_search_context` in the parent session's available tools, or for `rna-server` in
 `.mcp.json`):
 After writing all 6 files, append this block to each agent file:
 
@@ -381,7 +381,7 @@ After writing all 6 files, append this block to each agent file:
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
-- Before framing: call `oh_get_outcomes` and `oh_get_guardrails` to load business context
+- Before framing: call `oh_search_context` with your task description to find relevant outcomes, guardrails, and metis
 - After producing output: call `oh_record_metis` to capture key learnings
 - When checking progress: call `outcome_progress` with the relevant outcome ID
 - When discovering constraints: call `oh_record_guardrail_candidate`
