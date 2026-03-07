@@ -35,6 +35,8 @@ interface PhaseConfig {
 	phaseOverrides?: Record<string, string[]>;
 	/** Skills to never suggest */
 	disabledSkills?: string[];
+	/** Whether phase agents are installed (detected automatically, can be overridden) */
+	useAgents?: boolean;
 }
 
 interface SessionPhase {
@@ -208,6 +210,7 @@ function computeRecommendations(
 	phase: SessionPhase,
 	intentSignals: string[],
 	config: PhaseConfig,
+	agentMode: boolean,
 ): Recommendations {
 	// Validate config arrays before constructing Sets — malformed JSON
 	// (e.g., "disabledSkills": "execute") would create character-level entries.
@@ -230,7 +233,9 @@ function computeRecommendations(
 			available: ["teach-oh"].filter(isAllowed),
 			phaseNote: "No active .oh/ session",
 			note: intentPrimary.length === 0
-				? "Consider /aim <session-name> to establish intent, or /teach-oh for project setup"
+				? agentMode
+					? "Consider dispatching oh-aim with a session name to establish intent"
+					: "Consider /aim <session-name> to establish intent, or /teach-oh for project setup"
 				: null,
 		};
 	}
@@ -300,9 +305,31 @@ function computeRecommendations(
 // Hook entry point
 // ---------------------------------------------------------------------------
 
+/** Phase skill names that have agent equivalents in .omp/agents/ */
+const AGENT_PHASES = new Set(PHASE_ORDER);
+
+/** Check if phase agents are installed by looking for oh-<name>.md in .omp/agents/ */
+function detectAgents(cwd: string): boolean {
+	const agentsDir = path.join(cwd, ".omp", "agents");
+	if (!fs.existsSync(agentsDir)) return false;
+	// All phase agent files must exist — partial installs stay in skill mode
+	return PHASE_ORDER.every((phase) =>
+		fs.existsSync(path.join(agentsDir, `oh-${phase}.md`)),
+	);
+}
+
+/** Format a skill reference — agent dispatch or /skill depending on mode */
+function formatSkillRef(skill: string, useAgents: boolean): string {
+	if (useAgents && AGENT_PHASES.has(skill)) {
+		return `oh-${skill} agent`;
+	}
+	return `/${skill}`;
+}
+
 export default function (pi: HookAPI) {
 	let config: PhaseConfig = {};
 	let lastInjectedContent: string | null = null;
+	let useAgents = false;
 
 	// Load project-specific config once on session start.
 	// Changes to skills-config.json require restarting OMP to take effect.
@@ -315,6 +342,12 @@ export default function (pi: HookAPI) {
 		} catch {
 			// No config file = use defaults, which is fine
 			config = {};
+		}
+
+		// Detect agents: explicit config wins, otherwise auto-detect
+		useAgents = config.useAgents ?? detectAgents(ctx.cwd);
+		if (useAgents) {
+			pi.logger.info("[oh-skills-phase] Phase agents detected — suggesting agent dispatch");
 		}
 	});
 
@@ -333,7 +366,7 @@ export default function (pi: HookAPI) {
 		const intentSignals = detectIntent(prompt);
 
 		// 3. Compute recommendations
-		const rec = computeRecommendations(phase, intentSignals, config);
+		const rec = computeRecommendations(phase, intentSignals, config, useAgents);
 
 		// Skip injection when there's nothing useful to say
 		if (rec.primary.length === 0 && !rec.phaseNote && !rec.note) {
@@ -348,12 +381,12 @@ export default function (pi: HookAPI) {
 		}
 		if (rec.primary.length > 0) {
 			lines.push(
-				`SUGGESTED: ${rec.primary.map((s) => `/${s}`).join(", ")}`,
+				`SUGGESTED: ${rec.primary.map((s) => formatSkillRef(s, useAgents)).join(", ")}`,
 			);
 		}
 		if (rec.available.length > 0) {
 			lines.push(
-				`ALSO AVAILABLE: ${rec.available.map((s) => `/${s}`).join(", ")}`,
+				`ALSO AVAILABLE: ${rec.available.map((s) => formatSkillRef(s, useAgents)).join(", ")}`,
 			);
 		}
 		if (rec.note) {
@@ -375,9 +408,12 @@ export default function (pi: HookAPI) {
 		// Update status bar
 		if (ctx.hasUI && rec.primary.length > 0) {
 			const theme = ctx.ui.theme;
+			const label = useAgents && AGENT_PHASES.has(rec.primary[0])
+				? `oh-${rec.primary[0]}`
+				: `/${rec.primary[0]}`;
 			ctx.ui.setStatus(
 				"oh-phase",
-				theme.fg("accent", `/${rec.primary[0]}`) +
+				theme.fg("accent", label) +
 					theme.fg("muted", " phase"),
 			);
 		}

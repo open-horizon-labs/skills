@@ -76,6 +76,10 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 1. **Open Horizons Framework** - The strategic framework for AI-assisted work (offer to include if user uses OH skills)
 2. **Project Context** - Project-specific aims, constraints, and patterns (always include)
 
+If phase agents were installed in Step 5, use the **agents variant** below.
+Otherwise use the **skills variant**.
+
+**Skills variant** (no agents):
 ```markdown
 # Open Horizons Framework
 
@@ -91,6 +95,58 @@ Synthesize findings into a structured section and offer to append to AGENTS.md (
 - Work is drifting or reversing → `/salvage`
 
 **Reflection skills (use anytime):**
+- `/review` - Check alignment before committing
+- `/dissent` - Seek contrary evidence before one-way doors
+- `/salvage` - Extract learning, restart clean
+
+**Key insight:** Enter at the altitude you need. Climb back up when you drift.
+
+---
+
+# Project Context
+
+## Purpose
+[What this project does and why it matters]
+
+## Current Aims
+[Active goals and what success looks like]
+
+## Key Constraints
+- [Constraint 1]: [Why it exists]
+- [Constraint 2]: [Why it exists]
+
+## Patterns to Follow
+- [Pattern]: [When/why to use it]
+
+## Anti-Patterns to Avoid
+- [Anti-pattern]: [Why it's problematic here]
+
+## Decision Context
+[How the team makes decisions, what "done" means]
+```
+
+**Agents variant** (phase agents installed):
+```markdown
+# Open Horizons Framework
+
+**The shift:** Action is cheap. Knowing what to do is scarce.
+
+**The sequence:** aim → problem-space → problem-statement → solution-space → execute → ship
+
+Each phase runs as an agent with isolated context and scoped tools. Dispatch via
+the `task` tool — each agent reads/writes `.oh/<session>.md` to pass context
+between phases.
+
+**Where to start (triggers):**
+- Can't explain why you're building this → dispatch `oh-aim` agent
+- Keep hitting the same blockers → dispatch `oh-problem-space` agent
+- Solutions feel forced → dispatch `oh-problem-statement` agent
+- About to start coding → dispatch `oh-solution-space` agent
+- Ready to implement → dispatch `oh-execute` agent
+- Code complete, need to deliver → dispatch `oh-ship` agent
+- Work is drifting or reversing → `/salvage`
+
+**Reflection skills (use anytime, in main session):**
 - `/review` - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
@@ -245,7 +301,11 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 
 **If accepted:**
 
-1. Copy `hooks-omp/oh-skills-phase.ts` from the skills installation directory to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed).
+1. Fetch the hook source from GitHub and write it to the project's `.omp/hooks/oh-skills-phase.ts` (create the directory if needed):
+   ```
+   https://raw.githubusercontent.com/open-horizon-labs/skills/master/hooks-omp/oh-skills-phase.ts
+   ```
+   Do NOT fabricate or rewrite the hook — always fetch the canonical source.
 
 2. Optionally create `.oh/skills-config.json` based on what you learned about the project. The config is loaded once at session start (changes require restarting OMP):
 
@@ -267,6 +327,55 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 **If declined:** Skip. The skills work fine without it — this is an enhancement, not a requirement.
 
 **If the user is not running OMP:** Skip this step entirely. The hook requires the OMP hook API and will not work with other agents. Users can still install it manually later by copying the file to `.omp/hooks/`.
+
+## Step 5 (Optional, OMP only): Install Phase Agents
+
+Phase skills benefit from running in isolated context windows with scoped tools —
+formalizing the pattern of clearing sessions between phases. Offer to install
+pre-built agent wrappers that give each phase its own context.
+
+**When to offer:** After Step 4, if OMP detected.
+
+**What to ask:**
+> "Install OH phase agents? Each phase gets isolated context and scoped tools —
+> aim/problem-statement are read-only, execute gets full capabilities. Writes to
+> `.omp/agents/`."
+
+**If accepted:**
+
+Fetch all 6 agent files from GitHub and write each to `.omp/agents/` (create the directory if needed):
+
+```
+Base URL: https://raw.githubusercontent.com/open-horizon-labs/skills/master/agents-omp/
+Files:
+  oh-aim.md
+  oh-problem-space.md
+  oh-problem-statement.md
+  oh-solution-space.md
+  oh-execute.md
+  oh-ship.md
+```
+
+Do NOT fabricate or rewrite the agent files — always fetch the canonical source.
+
+**MCP preamble** (only if OH MCP is configured — check for `oh_get_endeavors` in
+the parent session's available tools, or for `.oh/mcp.json` in the project):
+After writing all 6 files, append this block to each agent file:
+
+```markdown
+
+## Open Horizons MCP
+- Query related endeavors for context before starting analysis
+- Log key outputs (aim statements, problem statements, decisions) to the graph
+- Link session work to active endeavors
+```
+
+If MCP is not present, skip this step — the agents work without it.
+
+Cross-cutting skills (review, dissent, salvage) stay as skills — they need
+conversation context to detect drift.
+
+**If declined:** Skip. Skills continue to work as prompt injections.
 
 ## What This Enables
 
