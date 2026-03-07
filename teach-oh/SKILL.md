@@ -396,6 +396,37 @@ conversation context to detect drift.
 
 **If declined:** Skip. Skills continue to work as prompt injections.
 
+## Step 6 (Optional, Claude Code): Install Phase Agents
+
+If the user is running Claude Code (not OMP), offer to install phase agents to `.claude/agents/`.
+
+**When to offer:** After writing AGENTS.md, if Claude Code detected (check for `.claude/` directory or if running as Claude Code).
+
+**What to ask:**
+> "Install OH phase agents for Claude Code? Each phase gets its own agent with scoped tools.
+> Writes to `.claude/agents/`."
+
+**If accepted:**
+
+Fetch all 6 agent files from GitHub and write each to `.claude/agents/` (create the directory if needed):
+
+```
+Base URL: https://raw.githubusercontent.com/open-horizon-labs/skills/master/agents-claude/
+Files:
+  oh-aim.md
+  oh-problem-space.md
+  oh-problem-statement.md
+  oh-solution-space.md
+  oh-execute.md
+  oh-ship.md
+```
+
+Do NOT fabricate or rewrite the agent files — always fetch the canonical source.
+
+**MCP preambles:** The pre-packaged Claude Code agents already include OH MCP and RNA MCP preamble sections. No additional append needed.
+
+**If declined:** Skip. Skills continue to work as slash commands.
+
 ## What This Enables
 
 With project context established:
