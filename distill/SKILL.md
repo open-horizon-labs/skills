@@ -63,7 +63,7 @@ Reason: [why this action fits]
 ```
 
 **Keep** — leave as individual metis entries, no change.
-**Promote** — pattern is recurring and stable enough to warrant a guardrail. Distill provides a draft stub; human writes and finalizes:
+**Promote** — pattern is recurring and stable enough to warrant a guardrail. Distill drafts a stub; human approves the content (editing as needed), then an agent writes the file:
   ```markdown
   ---
   id: [slug]
@@ -71,7 +71,7 @@ Reason: [why this action fits]
   severity: soft
   title: [one-line constraint]
   ---
-  [human writes the guardrail body]
+  [drafted body — human refines, agent writes to .oh/guardrails/]
   ```
 **Compact** — multiple entries say the same thing. Human approves a merged version; originals archived or deleted.
 **Dismiss** — stale, superseded, or so context-specific it misleads more than it helps.
