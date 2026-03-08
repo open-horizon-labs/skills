@@ -335,6 +335,31 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 - Writes solution analysis and recommendation to the session file
 - `/execute` can read the selected approach
 
+### With RNA MCP (repo-native-alignment)
+
+When the RNA MCP server is available (`oh_search_context` tool present), surface repo-local situated knowledge at two moments in the solution space process.
+
+**Before Step 2 (Generate Candidates):** Call `oh_search_context` with the problem statement + active outcome + `phase: "solution-space"`. Surface relevant metis — prior solution evaluations, approaches tried and their outcomes, patterns that recurred. Present as candidates:
+
+```
+**Relevant metis from this repo:**
+- [metis title] (source: .oh/metis/filename.md) — [one-line relevance note]
+  → Keep / Dismiss?
+```
+
+Human selects before candidates are generated. Selected metis informs the candidate list (may reveal options to include, anti-patterns to name explicitly, or prior attempts that constrain the space).
+
+**Before Step 3 (Evaluate Trade-offs):** Call `oh_search_context` with the active outcome. Surface applicable guardrails. These are not trade-offs to evaluate — they are constraints that rule options out before evaluation begins. Fold confirmed guardrails into the evaluation as hard constraints.
+
+**What this prevents:**
+- Proposing solutions the team has already tried and rejected (without knowing)
+- Ignoring guardrails that eliminate certain options entirely
+- Treating the solution space as empty when the repo has situated judgment
+
+**Phase tag:** Pass `phase: "solution-space"` strictly. Problem-space metis and implementation notes are noise at this stage. Guardrails are always relevant regardless of phase tag.
+
+**Human judgment is required:** Do not auto-apply selected metis as constraints. Surface it; let the human decide how much weight it carries in this specific context.
+
 ### With Open Horizons MCP
 - Queries related past solution decisions
 - Finds similar problems across endeavors
