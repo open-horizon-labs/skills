@@ -19,6 +19,8 @@ Invoke `/distill` when:
 - **Similar learnings keep appearing** - `/salvage` keeps extracting the same insights (the meta-signal)
 - **End of a successful session** - Even good sessions produce learnings worth capturing before context is lost
 
+**Use distill (not `/salvage`) when the session went well.** `/salvage` is for stopping because things went wrong. Distill is for pausing because things went right — or simply finished — and learnings are worth capturing before context is lost.
+
 **Do not use when:** You're in the middle of execution. Distill is a pause point, not a mid-flight activity.
 
 ## The Human-Led Curation Principle
@@ -61,7 +63,16 @@ Reason: [why this action fits]
 ```
 
 **Keep** — leave as individual metis entries, no change.
-**Promote** — pattern is recurring and stable enough to warrant a guardrail. Human writes the guardrail file.
+**Promote** — pattern is recurring and stable enough to warrant a guardrail. Distill provides a draft stub; human writes and finalizes:
+  ```markdown
+  ---
+  id: [slug]
+  outcome: [outcome-id]
+  severity: soft
+  title: [one-line constraint]
+  ---
+  [human writes the guardrail body]
+  ```
 **Compact** — multiple entries say the same thing. Human approves a merged version; originals archived or deleted.
 **Dismiss** — stale, superseded, or so context-specific it misleads more than it helps.
 
@@ -124,7 +135,7 @@ Output: approved entries as markdown, ready to write to `.oh/metis/`.
 
 Corpus mode: `oh_search_context` across all accumulated metis (or filtered subset), cluster by semantic similarity, surface candidate groups for human review.
 
-Output is PR-able: proposed new guardrail files, compacted metis entries, and entry removals form a diff to `.oh/` that can be reviewed by the team before merging. Curation becomes a collaborative act, not a solo one.
+Output is PR-able: distill produces a set of proposed file writes (new guardrail stubs, compacted metis, removal notes) formatted as a markdown summary. The human creates a branch, writes the approved files, and opens a PR — or uses `/oh-plan` to create issues for each promotion. Curation becomes a collaborative act, not a solo one.
 
 **Filtering options:** pass outcome ID, phase tag, or recency window to `oh_search_context` to narrow the corpus. Useful when the full corpus is large but only a domain slice needs curation.
 

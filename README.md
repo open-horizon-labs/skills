@@ -58,10 +58,13 @@ Intent (aim, problem-space, problem-statement)
 Execution (solution-space, execute, ship)
     │
     ▼
-Review (review, dissent, distill)
+Review (review, dissent)
     │
     ▼ (if drift detected)
 SALVAGE ──► back to Problem Space with new understanding
+
+Periodically (between sessions):
+DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ```
 
 ## Adaptive Skills
