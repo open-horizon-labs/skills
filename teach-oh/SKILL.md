@@ -80,6 +80,7 @@ If phase agents were installed in Step 5, use the **agents variant** below.
 Otherwise use the **skills variant**.
 
 **Skills variant** (no agents):
+
 ```markdown
 # Open Horizons Framework
 

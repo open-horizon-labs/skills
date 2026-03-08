@@ -283,6 +283,7 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Call `oh_record_guardrail_candidate` for constraints discovered the hard way
 - Call `outcome_progress` to review what was accomplished before restarting
 
+
 ## Position in Framework
 
 **Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing).

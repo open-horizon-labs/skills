@@ -254,6 +254,25 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 - Writes problem space map to the session file
 - Subsequent skills can read constraints and terrain
 
+### With RNA MCP (repo-native-alignment)
+
+When the RNA MCP server is available (`oh_search_context` tool present), enrich the problem space map with repo-local situated knowledge before presenting it to the human.
+
+**At Step 2 (Map Constraints):** Call `oh_search_context` with the objective/domain and `phase: "problem-space"`. Surface any guardrails that apply — these are already-settled constraints the team has established, not assumptions to question. Fold them into the constraints table as `hard` with source attribution. Present remaining guardrail candidates for human confirmation.
+
+**At Step 3 (Terrain / Precedents):** Call `oh_search_context` with the problem domain. Surface relevant metis entries tagged to similar problem spaces or outcomes. Present as a short candidate list with provenance — human selects what to carry as precedents. Discard the rest; do not inject indiscriminately.
+
+**Format for surfaced candidates:**
+```
+**Relevant metis/guardrails from this repo:**
+- [metis title] (source: .oh/metis/filename.md) — [one-line relevance note]
+  → Keep / Dismiss?
+```
+
+Human selects before the problem space map is finalized. What they select appears in Terrain → Precedents and Constraints. What they dismiss is not included.
+
+**Phase tag:** Pass `phase: "problem-space"` to filter for phase-appropriate entries. Cross-phase metis (solution-space learnings, implementation notes) is noise here and must be excluded unless explicitly requested.
+
 ### With Open Horizons MCP
 - Queries graph for related past decisions and their outcomes
 - Pulls relevant tribal knowledge about similar problem spaces
