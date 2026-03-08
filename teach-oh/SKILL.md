@@ -99,6 +99,7 @@ Otherwise use the **skills variant**.
 - `/review` - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
+- `/distill` - Curate accumulated metis; surface patterns for promotion
 
 **Key insight:** Enter at the altitude you need. Climb back up when you drift.
 
@@ -151,6 +152,7 @@ between phases.
 - `/review` - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
+- `/distill` - Curate accumulated metis; surface patterns for promotion
 
 **Key insight:** Enter at the altitude you need. Climb back up when you drift.
 
@@ -254,7 +256,7 @@ After user answers:
 - About to start coding → `/solution-space`
 - Work is drifting or reversing → `/salvage`
 
-**Reflection skills:** `/review`, `/dissent`, `/salvage`
+**Reflection skills:** `/review`, `/dissent`, `/salvage`, `/distill`
 
 **Key insight:** Enter at the altitude you need. Climb back up when you drift.
 
@@ -321,7 +323,7 @@ If the user is running OMP (oh-my-pi), offer to install the phase-aware skills h
 ```
 
 **Customization guidance:**
-- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`. **Note:** `phaseOverrides` targets must be included in `projectSkills` — override skills are filtered by the same allow list.
+- `projectSkills`: Include only the skills relevant to this project's workflow. A solo dev doing rapid iteration might skip `problem-space`. A team with compliance requirements might always want `dissent` before `execute`. **Note:** `phaseOverrides` targets must be included in `projectSkills` — override skills are filtered by the same allow list. Reflection skills (`review`, `dissent`, `salvage`, `distill`) are always-available and don't need to appear in `projectSkills` — they're invoked on demand, not phase-triggered.
 - `disabledSkills`: Skills that don't fit this project (e.g., `ship` for a library that publishes via CI).
 - `phaseOverrides`: Extra skills to suggest during specific phases. Common: adding `dissent` during `execute` for security-sensitive projects.
 

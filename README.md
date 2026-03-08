@@ -47,6 +47,7 @@ Re-run the install command to pull the latest version.
 | `/review` | Check work and detect drift. A second opinion before committing |
 | `/dissent` | Devil's advocate. Seek contrary evidence before locking in |
 | `/salvage` | Extract learning before restarting. Code is a draft; learning is the asset |
+| `/distill` | Curate accumulated metis across sessions. Surface patterns, promote to guardrails, compact noise |
 
 ## The Loop
 
@@ -61,6 +62,9 @@ Review (review, dissent)
     │
     ▼ (if drift detected)
 SALVAGE ──► back to Problem Space with new understanding
+
+Periodically (between sessions):
+DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ```
 
 ## Adaptive Skills

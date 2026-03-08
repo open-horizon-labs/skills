@@ -268,9 +268,9 @@ The salvage section is the capstone—it captures what was learned before the se
 Works anywhere. Produces salvage summary for manual capture. No persistence.
 
 ### With .oh/ session file
-- Reads `.oh/<session>.md` for full session context
-- Writes salvage report to the session file
-- The salvage report can seed the next session
+- Reads `.oh/<session>.md` for full session context — aim and guardrails frame what counts as "off-track"
+- Writes salvage report to the session file; the report seeds the next session
+- After salvage, offer to compact the session file: remove stale planning artifacts, keep settled decisions as brief anchors
 
 ### With Open Horizons MCP
 - Queries related past decisions before salvaging
@@ -279,9 +279,19 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 - Session file serves as local cache
 
 ### With RNA MCP (repo-native-alignment)
-- Call `oh_record_metis` with extracted learnings
-- Call `oh_record_guardrail_candidate` for constraints discovered the hard way
-- Call `outcome_progress` to review what was accomplished before restarting
+
+**Before extracting learnings:** call `oh_search_context` with the failure domain + active phase. Ask: was this predictable from the corpus? Three outcomes change what gets written:
+
+- **Relevant entry existed and applied** → failure was predictable. The learning is about process (corpus not consulted), not domain. Write that metis entry, not a domain one.
+- **Relevant entry existed but was insufficient** → update or strengthen existing entries rather than creating near-duplicates.
+- **Nothing found** → genuinely new territory. Write fresh metis with confidence.
+
+**After extracting:**
+- `oh_record_metis` with approved learnings (new entries only — no duplicates)
+- `oh_record_guardrail_candidate` for hard constraints discovered the hard way
+- `outcome_progress` to record what was accomplished toward the outcome before restarting
+
+**Meta-signal:** If salvage repeatedly surfaces similar learnings, the corpus has the knowledge but it's not being consulted. That pattern warrants `/distill`.
 
 
 ## Position in Framework
