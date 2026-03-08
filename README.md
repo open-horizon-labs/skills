@@ -9,24 +9,10 @@ Agents thrash without context. They talk themselves out of constraints, accelera
 ## Installation
 
 ```bash
-npx skills add open-horizon-labs/skills
-```
-
-Or install specific skills:
-
-```bash
-npx skills add open-horizon-labs/skills --skill aim --skill salvage
-```
-
-## Updating
-
-Re-run the install command to pull the latest version:
-
-```bash
 npx skills add open-horizon-labs/skills -g -a claude-code -y
 ```
 
-> **Tip:** Skills are updated frequently. Re-run this after pulling framework updates.
+Re-run the install command to pull the latest version.
 
 ## The Framework
 
@@ -43,8 +29,8 @@ npx skills add open-horizon-labs/skills -g -a claude-code -y
 | Skill | Description |
 |-------|-------------|
 | `/aim` | Clarify the outcome you want—a change in behavior, not a feature |
-| `/problem-statement` | Define the framing. Change the statement, change the solution space |
 | `/problem-space` | Map what we're optimizing and what constraints we treat as real |
+| `/problem-statement` | Define the framing. Change the statement, change the solution space |
 
 ### Execution (Build & ship)
 
@@ -102,6 +88,58 @@ The suggested name is derived from the current git branch. You can also provide 
 ```
 
 Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
+
+## Phase-Aware Hook (OMP)
+
+For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook makes the framework self-guiding at runtime. Instead of remembering which skill to invoke, the hook detects where you are in the development cycle and suggests the right one.
+
+**How it works:**
+1. Reads your `.oh/` session files to detect completed phases (state — primary signal)
+2. Scans your prompt for intent signals (enrichment — used when state is ambiguous)
+3. Injects a `<oh-phase-context>` block recommending the next skill
+4. Deduplicates — only injects when the recommendation changes
+
+**Install manually:**
+
+```bash
+mkdir -p .omp/hooks
+cp hooks-omp/oh-skills-phase.ts .omp/hooks/
+```
+
+**Or via `/teach-oh`:** The teach-oh skill offers to install and configure the hook during project setup, including a `.oh/skills-config.json` for project-specific customization.
+
+**Configuration** (`.oh/skills-config.json`, optional):
+
+```json
+{
+  "projectSkills": ["aim", "solution-space", "execute", "review", "dissent"],
+  "disabledSkills": [],
+  "phaseOverrides": {
+    "execute": ["dissent"]
+  }
+}
+```
+
+- `projectSkills` — limit which skills get suggested (default: all)
+- `disabledSkills` — skills to never suggest
+- `phaseOverrides` — extra skills to suggest during specific phases
+
+Config is loaded once at session start. Changes require restarting OMP.
+
+The hook is entirely optional. Skills work the same with or without it.
+
+> **Note:** This hook requires the OMP hook API (`@oh-my-pi/pi-coding-agent`). It is a TypeScript module that OMP loads at runtime — it cannot be compiled or tested independently within this repo. It lives here alongside the skills it serves, but its runtime home is `.omp/hooks/`.
+
+## Phase Agents (OMP)
+
+Pre-built agent wrappers in `agents-omp/` give each phase its own isolated context and scoped tools. Install via `/teach-oh` or manually copy to `.omp/agents/`:
+
+```bash
+mkdir -p .omp/agents
+cp agents-omp/oh-*.md .omp/agents/
+```
+
+When agents are installed, the phase-aware hook automatically switches from suggesting `/skill` commands to suggesting agent dispatch.
 
 ## Learn More
 
