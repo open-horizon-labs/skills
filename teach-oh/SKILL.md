@@ -20,6 +20,46 @@ Invoke `/teach-oh` when:
 
 ## The Process
 
+### Step 0: Check for RNA MCP (Repo-Native Alignment)
+
+Before exploring, check if RNA is available — it makes everything that follows richer.
+
+**Detection (in order):**
+1. Check if `oh_search_context` or `search_symbols` tools are available in the current session (RNA MCP already configured)
+2. Check if `repo-native-alignment` is on PATH: `which repo-native-alignment`
+3. Check if `.mcp.json` references `repo-native-alignment` or `rna-server`
+
+**If RNA is available:** Proceed to Step 1. Use RNA tools (`search_symbols`, `oh_search_context`, `graph_query`) throughout exploration instead of Grep/Read.
+
+**If RNA is NOT available:** Offer to install it:
+
+> "I can set up Repo-Native Alignment (RNA) — it gives me semantic code search, graph traversal, and business context awareness across your codebase. Takes ~1 minute. Want me to install it?"
+
+**If accepted:**
+
+1. Detect platform:
+   - macOS ARM: `uname -m` returns `arm64` and `uname -s` returns `Darwin`
+   - Linux x86_64: `uname -m` returns `x86_64` and `uname -s` returns `Linux`
+
+2. Download the latest release binary:
+   ```bash
+   # macOS ARM
+   curl -L https://github.com/open-horizon-labs/repo-native-alignment/releases/latest/download/repo-native-alignment-darwin-arm64 -o /usr/local/bin/repo-native-alignment && chmod +x /usr/local/bin/repo-native-alignment
+
+   # Linux x86_64
+   curl -L https://github.com/open-horizon-labs/repo-native-alignment/releases/latest/download/repo-native-alignment-linux-x86_64 -o /usr/local/bin/repo-native-alignment && chmod +x /usr/local/bin/repo-native-alignment
+   ```
+
+3. Run setup for the current project:
+   ```bash
+   repo-native-alignment setup --project .
+   ```
+   This configures `.mcp.json` and verifies the pipeline.
+
+4. Note to user: "RNA is installed. Restart this Claude Code session to activate the MCP tools, then run `/teach-oh` again for the full experience. Or continue now without MCP tools — RNA's CLI (`repo-native-alignment search`, `graph`) will still work."
+
+**If declined:** Proceed without RNA. teach-oh works fine without it — exploration just uses standard tools (Grep, Read, Glob).
+
 ### Step 1: Explore the Codebase
 
 Before asking questions, scan the project independently:
