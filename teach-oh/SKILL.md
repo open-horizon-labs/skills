@@ -20,6 +20,58 @@ Invoke `/teach-oh` when:
 
 ## The Process
 
+### Step 0: Check for RNA MCP (Repo-Native Alignment)
+
+Before exploring, check if RNA is available — it makes everything that follows richer.
+
+**Detection (in order):**
+1. Check if `oh_search_context` or `search_symbols` tools are available in the current session (RNA MCP already configured)
+2. Check if `repo-native-alignment` is on PATH: `which repo-native-alignment`
+3. Check if `.mcp.json` references `repo-native-alignment` or `rna-server`
+
+**If RNA is available:** Proceed to Step 1. Use RNA tools (`search_symbols`, `oh_search_context`, `graph_query`) throughout exploration instead of Grep/Read.
+
+**If RNA is NOT available:** Offer to install it:
+
+> "I can set up Repo-Native Alignment (RNA) — it gives me semantic code search, graph traversal, and business context awareness across your codebase. Takes ~1 minute. Want me to install it?"
+
+**If accepted:**
+
+1. Detect platform and chip:
+   ```bash
+   OS=$(uname -s)
+   ARCH=$(uname -m)
+   CHIP=$(sysctl -n machdep.cpu.brand_string 2>/dev/null || echo "")
+   ```
+   - macOS ARM M4+: `Darwin` + `arm64` + brand_string contains "M4" → use `darwin-arm64-m4`
+   - macOS ARM (other): `Darwin` + `arm64` → use `darwin-arm64`
+   - Linux x86_64: `Linux` + `x86_64` → use `linux-x86_64`
+
+2. Download the binary to `~/.local/bin/` (no sudo required):
+   ```bash
+   mkdir -p ~/.cargo/bin
+
+   # macOS M4+
+   curl -L https://github.com/open-horizon-labs/repo-native-alignment/releases/latest/download/repo-native-alignment-darwin-arm64-m4 -o ~/.cargo/bin/repo-native-alignment && chmod +x ~/.cargo/bin/repo-native-alignment
+
+   # macOS M1/M2/M3
+   curl -L https://github.com/open-horizon-labs/repo-native-alignment/releases/latest/download/repo-native-alignment-darwin-arm64 -o ~/.cargo/bin/repo-native-alignment && chmod +x ~/.cargo/bin/repo-native-alignment
+
+   # Linux x86_64
+   curl -L https://github.com/open-horizon-labs/repo-native-alignment/releases/latest/download/repo-native-alignment-linux-x86_64 -o ~/.cargo/bin/repo-native-alignment && chmod +x ~/.cargo/bin/repo-native-alignment
+   ```
+   `~/.cargo/bin` is on PATH for Rust users (set up by rustup).
+
+3. Run setup for the current project:
+   ```bash
+   repo-native-alignment setup --project .
+   ```
+   This configures `.mcp.json` and verifies the pipeline.
+
+4. Tell the user: "RNA is installed. Continuing with RNA CLI tools for this session — `search` and `graph` work now. MCP tools (`oh_search_context`, `search_symbols`, `graph_query`) will be available after you restart Claude Code."
+
+**If declined:** Proceed without RNA. teach-oh works fine without it — exploration just uses standard tools (Grep, Read, Glob).
+
 ### Step 1: Explore the Codebase
 
 Before asking questions, scan the project independently:
@@ -385,10 +437,10 @@ After writing all 6 files, append this block to each agent file:
 ## Repo-Native Alignment MCP
 When rna-server tools are available:
 - Before framing: call `oh_search_context` with your task description to find relevant outcomes, guardrails, and metis
-- After producing output: call `oh_record_metis` to capture key learnings
+- After producing output: write learnings to `.oh/metis/<slug>.md`
 - When checking progress: call `outcome_progress` with the relevant outcome ID
-- When discovering constraints: call `oh_record_guardrail_candidate`
-- When measuring progress: call `oh_record_signal`
+- When discovering constraints: write to `.oh/guardrails/<slug>.md`
+- When measuring progress: write to `.oh/signals/<slug>.md`
 - After completing work: tag commits with `[outcome:X]`
 ```
 
