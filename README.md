@@ -73,7 +73,8 @@ Each skill works at multiple levels:
 
 1. **Base** - Works with just the prompt (no dependencies)
 2. **With .oh/ session** - Reads/writes `.oh/<session>.md` for context handoff between skills
-3. **With OH MCP** - Full integration with Open Horizons graph database
+3. **With [RNA MCP](https://github.com/open-horizon-labs/repo-native-alignment)** - Semantic code search (`search_symbols`), graph traversal (`graph_query`), outcome-to-code joins (`outcome_progress`), and business context (`oh_search_context`). Skills automatically use RNA tools when available — e.g., `/execute` uses `search_symbols` instead of Grep, `/review` checks `outcome_progress` for drift, `/distill` queries accumulated metis via `oh_search_context`
+4. **With [OH MCP](https://github.com/cloud-atlas-ai/oh-mcp-server)** - Full integration with Open Horizons organizational graph (aims, missions, endeavors, decision logs across projects)
 
 ### Session Persistence
 
