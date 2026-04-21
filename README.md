@@ -66,7 +66,17 @@ SALVAGE ──► back to Problem Space with new understanding
 Periodically (between sessions):
 DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ```
-Within the execution phase, `/execute` should carry forward the declared success criteria or deliverable characteristics for the work, and `/ship` should verify those characteristics in the target environment rather than stopping at deployment health alone.
+### Workflow Contracts
+
+The workflow is strongest when each phase leaves behind explicit fields the next phase can reuse rather than re-inferring them from prose. In practice, the core carry-forward contract is:
+- `/aim` defines the outcome, mechanism, assumptions, feedback signal, and guardrails
+- `/problem-space` makes constraints, hidden assumptions, and open questions explicit
+- `/problem-statement` sharpens the framing and names what would invalidate it
+- `/solution-space` selects an approach, defines the scoring function, accepted trade-offs, and the execution contract
+- `/execute` preserves declared success criteria and delivered characteristics
+- `/ship` verifies those characteristics in the target environment
+- `/review` judges the result against the original aim and the declared contract
+
 
 ## Adaptive Skills
 

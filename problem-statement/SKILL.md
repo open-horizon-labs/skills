@@ -127,11 +127,18 @@ Produce a problem statement in this structure:
 - **Hard:** [Actually immovable constraints]
 - **Soft:** [Constraints that feel fixed but might be flexible]
 
+### Assumptions Being Tested
+- [assumption embedded in this framing]
+- [assumption embedded in this framing]
+
 ### What this framing enables
 [What solution approaches become visible with this framing]
 
 ### What this framing excludes
 [What approaches are off the table with this framing—and whether that's intentional]
+
+### Signal This Framing Is Wrong
+[What we would see if this framing turns out to be a symptom, not the problem]
 ```
 
 ## Examples
@@ -241,7 +248,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 
 **Reading:** Check for existing session file. If found, read prior skill outputs—especially the **Aim** section—for context. The aim informs what problem we're actually trying to solve.
 
-**Writing:** After producing output, write the problem statement to the session file:
+**Writing:** After producing output, write the problem statement to the session file so solution-space can reuse the framing, assumptions, and invalidation signal directly:
 
 ```markdown
 ## Problem Statement
@@ -260,7 +267,7 @@ Works anywhere. Produces problem statement for discussion. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (especially aim)
 - Writes problem statement to the session file
-- Subsequent skills can read the framing
+- Subsequent skills can read the framing, assumptions being tested, and signal that the framing is wrong
 
 ### With Open Horizons MCP
 - Queries graph for similar problems and their eventual framings

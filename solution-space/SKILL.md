@@ -79,9 +79,9 @@ Not all problems need redesigns. The ladder helps you find the right altitude.
 
 Before exploring solutions, confirm the problem statement:
 
-> "The problem we're solving is: [statement]. The key constraint is: [constraint]. Success looks like: [outcome]."
+> "The problem we're solving is: [statement]. The key constraint is: [constraint]. The critical assumption is: [assumption]. Success looks like: [outcome or signal]."
 
-If you can't state this clearly, go back to `/problem-statement`.
+If you can't state this clearly, go back to `/problem-statement`. Solution space should start from explicit constraints and assumptions, not from fuzzy recollection of them.
 
 ### Step 2: Generate Candidates (Breadth)
 
@@ -103,17 +103,20 @@ List at least 3-4 candidate approaches before evaluating any:
 - No evaluation yet - just generation
 - Include at least one approach from a higher level than your instinct
 - Include the "obvious" solution even if you don't like it
+- Maximize variance early; breadth is exploratory fuel, not a commitment
 
 ### Step 3: Evaluate Trade-offs (Depth)
+
+Before scoring any candidate, define the scoring function explicitly: what matters most here, and which constraints should eliminate an option early? Cheap generation creates a new debt — too many options to hold in working memory — so prune aggressively once the scoring function is clear.
 
 For each candidate, assess:
 
 1. **Does it solve the stated problem?** (Not a related problem)
-2. **What's the implementation cost?** (Time, complexity, risk)
-3. **What's the maintenance cost?** (Ongoing burden)
-4. **Does it create new problems?** (Second-order effects)
-5. **Does it enable future options?** (Optionality)
-
+2. **How does it score against the key constraints and success signal?**
+3. **What's the implementation cost?** (Time, complexity, risk)
+4. **What's the maintenance cost?** (Ongoing burden)
+5. **Does it create new problems?** (Second-order effects)
+6. **Does it enable future options?** (Optionality)
 ### Step 4: Recommend with Reasoning
 
 Make a recommendation and state why:
@@ -154,6 +157,9 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 
 **Problem:** [One sentence]
 **Key Constraint:** [The binding constraint]
+**Critical Assumption:** [The assumption that most threatens this recommendation if false]
+**Success Signal:** [What later phases should be able to verify]
+**Scoring Function:** [How options are being compared and pruned]
 
 ### Candidates Considered
 
@@ -184,9 +190,19 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 - [Trade-off 1]
 - [Trade-off 2]
 
+### Execution Contract
+
+**Preserve:**
+- [criterion or behavior later phases must preserve]
+- [criterion or behavior later phases must preserve]
+
+**Verify later via:**
+- [signal `/execute` and `/ship` should be able to check]
+
 ### Implementation Notes
 
 [Any specific considerations for the selected approach]
+
 ```
 
 ## Examples
@@ -316,7 +332,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 
 **Reading:** Check for existing session file. Read prior skill outputs—**Aim**, **Problem Statement**, **Problem Space**—to understand what we're solving and the constraints.
 
-**Writing:** After producing output, write the solution space analysis to the session file:
+**Writing:** After producing output, write the solution space analysis to the session file so `/execute` can reuse the selected approach, critical assumption, success signal, scoring function, and execution contract directly:
 
 ```markdown
 ## Solution Space
@@ -333,7 +349,7 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
 - Writes solution analysis and recommendation to the session file
-- `/execute` can read the selected approach
+- `/execute` can read the selected approach, critical assumption, success signal, scoring function, and execution contract
 
 ### With RNA MCP (repo-native-alignment)
 

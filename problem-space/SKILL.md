@@ -88,6 +88,7 @@ Signs of X-Y mismatch:
 If potential X-Y problem detected:
 > "The user asked for [Y], but the underlying need might be [X]."
 
+If the constraints, assumptions, or open questions still feel implicit after this step, you're not ready for `/solution-space` yet. The point is to force the unknowns into the artifact, not carry them forward as unstated model guesses.
 ## Output Format
 
 Always produce a problem space map in this structure:
@@ -116,6 +117,10 @@ Always produce a problem space map in this structure:
 ### Assumptions Made Explicit
 1. [assumption] - if false: [consequence]
 2. [assumption] - if false: [consequence]
+
+### Open Questions
+- [unknown that must be answered before solution-space]
+- [unknown that can be carried with explicit risk]
 
 ### X-Y Check
 - **Stated need (Y):** [what was asked for]
@@ -235,7 +240,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 
 **Reading:** Check for existing session file. Read prior skill outputs—especially **Aim** and **Problem Statement**—to ground the exploration.
 
-**Writing:** After producing output, write the problem space map to the session file:
+**Writing:** After producing output, write the problem space map to the session file so later phases can reuse the explicit constraints, assumptions, and open questions instead of inferring them again:
 
 ```markdown
 ## Problem Space
@@ -252,7 +257,7 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (aim, problem statement)
 - Writes problem space map to the session file
-- Subsequent skills can read constraints and terrain
+- Subsequent skills can read constraints, assumptions, open questions, and terrain directly
 
 ### With RNA MCP (repo-native-alignment)
 

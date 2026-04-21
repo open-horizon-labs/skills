@@ -98,6 +98,9 @@ Always produce an aim statement in this structure:
 - [Guardrail 2]
 ```
 
+Later phases should be able to carry forward the aim's explicit fields rather than paraphrasing them loosely: the outcome, mechanism, assumptions, feedback signal, and guardrails are the contract the rest of the workflow is supposed to preserve.
+
+
 ## Examples
 
 ### Example 1: Feature Request to Aim
@@ -224,7 +227,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 
 **Reading:** Check for existing session file. If found, read prior skill outputs (problem-statement, problem-space, etc.) for context.
 
-**Writing:** After producing output, write the aim statement to the session file:
+**Writing:** After producing output, write the aim statement to the session file as the contract later phases will reuse:
 
 ```markdown
 # Session: <session>
@@ -245,7 +248,7 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context from other skills
 - Writes aim statement to the session file
-- Subsequent skills (`/problem-statement`, `/solution-space`, etc.) can read the aim
+- Subsequent skills (`/problem-statement`, `/solution-space`, etc.) can read the outcome, assumptions, feedback signal, and guardrails directly
 
 ### With Open Horizons MCP
 - Queries related endeavors to see if aim already exists

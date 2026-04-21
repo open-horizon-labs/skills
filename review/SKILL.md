@@ -88,6 +88,7 @@ Are all ripple effects handled?
 - New fields initialized everywhere the struct is created?
 - Persistence changes have migration paths?
 - Contract changes updated in all callers?
+- Declared success criteria carried through to deployment or verification where applicable?
 
 > If incomplete: "This adds [X] but doesn't update [related site]."
 
@@ -267,16 +268,16 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
   > "Save to session? [suggested-name] [custom] [skip]"
 - Suggest a name based on git branch or the work being reviewed
 
-**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Problem Statement**, **Solution Space** (approach taken), and **Execute** status. This is essential for detecting drift.
+**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Problem Statement**, **Solution Space** (approach taken), **Execute** status, and **Ship** status if present. This is essential for detecting drift and judging whether declared criteria were actually delivered.
 
-**Writing:** After review, write the assessment:
+**Writing:** After review, write the assessment, including whether the declared contract was preserved through execution/shipping:
 
 ```markdown
 ## Review
 **Updated:** <timestamp>
 **Verdict:** [ALIGNED | DRIFTED | BLOCKED]
 
-[review findings, drift analysis, recommendations]
+[review findings, drift analysis, contract verification, recommendations]
 ```
 
 ## Adaptive Enhancement
@@ -317,8 +318,10 @@ When the user or agent claims work is complete, verify:
 2. **Changes Reviewed?** - Has the branch diff been reviewed against intent?
 3. **CI Passing?** - Have automated checks been run and passed?
 4. **Feedback Addressed?** - Have reviewer comments been resolved?
+5. **Declared Criteria Delivered?** - Were the promised characteristics actually verified, not just claimed?
 
 If incomplete:
+ > "Completion gate: [missing step]. Run the check before marking complete."
 > "Completion gate: [missing step]. Run the check before marking complete."
 
 ## Position in Framework
