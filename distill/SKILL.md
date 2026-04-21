@@ -42,13 +42,13 @@ Decide what corpus to work with:
 
 ### Step 2: Surface Candidates
 
-**Session scope:** Review the conversation. What was learned? What assumptions were validated or invalidated? What constraints were discovered? What would be useful to know at the start of the next session?
+**Session scope:** Review the conversation. What was learned? What assumptions were validated or invalidated? What constraints were discovered? What would be useful to know at the start of the next session? Exclude generic advice unless it demonstrably changes decisions in this context.
 
 **Corpus scope (RNA):** Call `oh_search_context` broadly. Cluster by semantic similarity. Identify:
 - Entries that appear together repeatedly (candidates for compaction)
 - Patterns across entries (candidates for guardrail promotion)
 - Entries that contradict each other (candidates for resolution)
-- Entries that are stale or overly context-specific (candidates for dismissal)
+- Entries that are stale, generic, or overly context-specific (candidates for dismissal)
 
 ### Step 3: Present for Human Review
 
@@ -61,7 +61,6 @@ Suggested action: [Keep / Promote / Compact / Dismiss]
 Reason: [why this action fits]
 → Your call:
 ```
-
 **Keep** — leave as individual metis entries, no change.
 **Promote** — pattern is recurring and stable enough to warrant a guardrail. Distill drafts a stub; human approves the content (editing as needed), then an agent writes the file:
   ```markdown
@@ -74,7 +73,7 @@ Reason: [why this action fits]
   [drafted body — human refines, agent writes to .oh/guardrails/]
   ```
 **Compact** — multiple entries say the same thing. Human approves a merged version; originals archived or deleted.
-**Dismiss** — stale, superseded, or so context-specific it misleads more than it helps.
+**Dismiss** — stale, generic, superseded, or so context-specific it misleads more than it helps.
 
 ### Step 4: Write Results
 
@@ -112,6 +111,7 @@ Only write what the human approved. No auto-promotion, no auto-deletion.
 - **Never auto-promote.** A theme proposal is not a guardrail until a human writes it.
 - **Never auto-delete.** Dismissal proposals require human confirmation.
 - **Preserve provenance.** Every proposal links to source metis IDs or conversation context.
+- **Prefer situated metis over generic advice.** If a note does not add local leverage beyond what a foundation model would already know, treat it as dismissal or compaction candidate.
 - **Phase-aware.** Corpus-mode clustering must surface phase tags — cross-phase metis often misleads. A solution-space learning is not automatically relevant in problem-space.
 - **Graceful with sparse corpus.** With fewer than 5 entries, surface what exists without manufacturing false patterns. Don't cluster noise.
 - **Metis is contextual, not universal.** What worked in one context doesn't carry everywhere. The human selects what applies; distill surfaces candidates.

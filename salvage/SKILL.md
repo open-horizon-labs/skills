@@ -76,6 +76,7 @@ Good tribal knowledge is:
 - Specific enough to be actionable
 - General enough to apply beyond this exact case
 - Non-obvious (not "write tests" but "this API silently returns 200 on auth failure")
+- Situated and decision-changing, not generic advice a foundation model already knows
 
 #### 5. What Worked (Don't lose the wins)
 
@@ -113,6 +114,8 @@ Synthesize the extraction into a restart kit:
 ```
 
 ### Step 4: Persist Learnings (if available)
+
+Persist the metis, not the noise. Record the non-obvious constraints, anomalies, trade-offs, and local patterns that would change a later decision. Generic best-practice advice that adds no local leverage should be left out of the artifact.
 
 If Open Horizons MCP is available:
 1. **Log to OH** - Log tribal knowledge and guardrails to the graph
