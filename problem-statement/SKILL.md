@@ -80,7 +80,7 @@ Good statements are **crisp** (1-2 sentences), **outcome-focused**, **testable**
 1. **State it to someone else** — if they immediately suggest a solution, framing is too narrow
 2. **Invert it** — what would the world look like if this problem didn't exist?
 3. **Zoom out** — is this a symptom of a larger problem?
-4. **Zoom in** — is this actually multiple problems masquerading as one?
+4. **Zoom in** — is this multiple problems masquerading as one?
 
 ## Output Format
 
@@ -160,10 +160,10 @@ After discussion: "When Service A updates, Service B doesn't know about it. User
 
 ### Constraints
 - **Hard:** Users must see accurate data within 5 seconds of update
-- **Soft:** "We use message queues for this" (actually flexible—polling, webhooks, or shared cache might work)
+- **Soft:** "We use message queues for this" (flexible—polling, webhooks, or shared cache might work)
 
 ### Assumptions Being Tested
-- Users actually need near-real-time updates rather than merely eventual consistency
+- Users need near-real-time updates rather than eventual consistency
 - Separate services are the right boundary for this interaction
 
 ### What this framing enables
@@ -189,7 +189,7 @@ After discussion: "When Service A updates, Service B doesn't know about it. User
 
 **Current framing:** Add dark mode toggle.
 
-**What's actually happening:** We can't add the toggle because there's no theme infrastructure to toggle between.
+**What's happening:** We can't add the toggle because there's no theme infrastructure to toggle between.
 
 **Reframed as:** The codebase has no theming system; colors are hardcoded across components.
 
@@ -221,18 +221,11 @@ The original ask revealed a missing capability, not a feature to add.
 
 ## Session Persistence
 
-Persists to `.oh/<session>.md` for subsequent skills.
+**If session name provided** (`/problem-statement auth-refactor`): reads/writes `.oh/auth-refactor.md` directly.
+**If no session name provided** (`/problem-statement`): offer to save with suggested name from git branch or problem topic.
 
-**If session name provided** (`/problem-statement auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/problem-statement`):
-- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
-- Suggest name from git branch or problem topic
-
-**Reading:** Check for existing session file. Read prior outputs — especially **Aim** — to ground the framing.
-
-**Writing:** Write problem statement so solution-space can reuse framing, assumptions, and invalidation signal directly:
+**Reads:** existing session file; prior outputs — especially **Aim** — to ground the framing.
+**Writes:** problem statement so solution-space can reuse framing, assumptions, and invalidation signal:
 
 ```markdown
 ## Problem Statement
@@ -242,22 +235,6 @@ Persists to `.oh/<session>.md` for subsequent skills.
 ```
 
 If the section exists, replace it. If not, append after Aim section.
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces problem statement for discussion. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for prior context (especially aim)
-- Writes problem statement to session file
-- Subsequent skills read framing, assumptions being tested, and invalidation signal
-
-### With Open Horizons MCP
-- Queries graph for similar problems and their eventual framings
-- Retrieves tribal knowledge about framing patterns that worked/failed
-- Logs problem statement as decision point in the endeavor
-- Session file as local cache
 
 ## Position in Framework
 

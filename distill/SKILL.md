@@ -14,12 +14,12 @@ Salvage extracts learning from a single session; distill curates the corpus thos
 Invoke `/distill` when:
 
 - **After multiple sessions** - The corpus has grown and hasn't been reviewed
-- **Before a new phase** - Want to know what's actually settled before moving forward
+- **Before a new phase** - Want to know what's settled before moving forward
 - **Search results feel noisy** - `oh_search_context` returning too much loosely-related content
 - **Similar learnings keep appearing** - `/salvage` keeps extracting the same insights (the meta-signal)
 - **End of a successful session** - Even good sessions produce learnings worth capturing before context is lost
 
-**Use distill (not `/salvage`) when the session went well.** `/salvage` is for stopping because things went wrong. Distill is for pausing because things went right — or simply finished — and learnings are worth capturing before context is lost.
+**Use distill (not `/salvage`) when the session went well.** `/salvage` is for stopping because things went wrong. Distill is for pausing because things went right — or finished — and learnings are worth capturing before context is lost.
 
 **Do not use when:** You're in the middle of execution. Distill is a pause point, not a mid-flight activity.
 
@@ -34,6 +34,8 @@ LLMs find patterns; humans decide what matters. Auto-promotion is never correct.
 Decide what corpus to work with:
 - **Session scope** (default, no RNA needed): learnings from this conversation
 - **Corpus scope** (RNA available): accumulated metis across all sessions, optionally filtered by outcome, phase, or tag
+
+**Filtering (RNA):** Pass outcome ID, phase tag, or recency window to `oh_search_context` to narrow the corpus when only a domain slice needs curation.
 
 ### Step 2: Surface Candidates
 
@@ -98,7 +100,7 @@ Only write what the human approved. No auto-promotion, no auto-deletion.
 [repeat for each proposal]
 
 ### Results Written
-- [what was actually written, with file paths]
+- [what was written, with file paths]
 ```
 
 ## Guardrails
@@ -111,38 +113,8 @@ Only write what the human approved. No auto-promotion, no auto-deletion.
 - **Graceful with sparse corpus.** With fewer than 5 entries, surface what exists without manufacturing false patterns. Don't cluster noise.
 - **Metis is contextual, not universal.** What worked in one context doesn't carry everywhere. The human selects what applies; distill surfaces candidates.
 
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-
-Reads the current conversation. Surfaces what was learned this session. Proposes metis entries for human review and approval. Works after any completed session — the positive complement to `/salvage` (which is for drift and failure).
-
-Output: approved entries as markdown, ready to write to `.oh/metis/`.
-
-### With .oh/ session file
-
-- Reads `.oh/<session>.md` for session context and prior metis
-- Writes approved metis entries directly to `.oh/metis/`
-- After distill, offers to compact the session file itself: remove stale planning content, keep settled decisions as brief anchors
-- The compacted session file seeds future sessions more cleanly
-
-### With RNA MCP (repo-native-alignment)
-
-Corpus mode: `oh_search_context` across all accumulated metis (or filtered subset), cluster by semantic similarity, surface candidate groups for human review.
-
-Output is PR-able: distill produces a set of proposed file writes (new guardrail stubs, compacted metis, removal notes) formatted as a markdown summary. The human creates a branch, writes the approved files, and opens a PR — or uses `/oh-plan` to create issues for each promotion. Curation becomes a collaborative act, not a solo one.
-
-**Filtering options:** pass outcome ID, phase tag, or recency window to `oh_search_context` to narrow the corpus. Useful when the full corpus is large but only a domain slice needs curation.
-
 ## Position in Framework
 
 **Comes after:** Multiple sessions of `/salvage` or `/execute` that accumulated metis, or end of any session with learnings worth capturing.
 **Leads to:** Cleaner search results. Guardrail candidates for human authoring. A compacted session file for the next session.
 **Relationship to `/salvage`:** Salvage is per-session extraction (especially from failure). Distill is corpus-level curation. They're complementary.
-
-## Leads To
-
-After distill, typically:
-- Write approved guardrail files to `.oh/guardrails/`
-- Open a PR with `.oh/` changes for team review (corpus mode)
-- Return to `/aim` or `/problem-space` with a cleaner, more settled context

@@ -156,45 +156,17 @@ We've had 3 PRs sitting for a week. What's blocking us?
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md`.
+**Reads:** Aim, Solution Space, Execute status — including declared success criteria and deliverable characteristics.
 
-**If session name provided** (`/ship auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/ship`):
-- After producing the ship report, offer to save it
-
-**Reading:** Check for existing session file. Read **Aim**, **Solution Space**, and **Execute** status, including declared success criteria or deliverable characteristics.
-
-**Writing:** After shipping, write deployment status and delivered-characteristics validation:
+**Writes:** Deployment status and delivered-characteristics validation:
 
 ```markdown
 ## Ship
 **Updated:** <timestamp>
 **Status:** [staged | deployed | verified | rolled-back]
 
-[shipping notes, verification results, delivered-characteristics validation, etc.]
+[shipping notes, verification results, delivered-characteristics validation]
 ```
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces ship checklist for manual execution. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for context on what was built
-- Writes deployment status to the session file
-- `/review` can check if shipping achieved the aim
-
-### With CI/CD Configuration
-- Reads pipeline definitions (GitHub Actions, CircleCI, etc.)
-- References specific workflow files
-- Triggers appropriate pipelines via labels or commands
-
-### With Full Pipeline Integration (MCP tools)
-- Directly triggers deployments
-- Monitors pipeline progress in real-time
-- Queries deployment status from infrastructure
 
 ## Position in Framework
 
@@ -207,7 +179,3 @@ Works anywhere. Produces ship checklist for manual execution. No persistence.
 - **Delivery Path:** The journey from merged code to working install
 - **Delivery-Path Tax:** Friction that slows delivery (review time, merge time, gate time, approval time)
 - **Working Install:** The code is running and users can interact with it
-
----
-
-**Remember:** Code that isn't shipped isn't delivering value. Optimize the path, reduce the tax, get changes to users.

@@ -45,7 +45,7 @@ Optimize within current assumptions. Classic refactor trap — improves what exi
 
 ### Level 3: Reframe
 Question the problem statement. Different framing yields different solutions, often revealing the actual constraint.
-*Signal: "What if the problem is actually..."*
+*Signal: "What if the problem is..."*
 *Example: "We need faster cache invalidation" becomes "Why do we cache this at all?"*
 
 ### Level 4: Redesign
@@ -84,13 +84,17 @@ List at least 3-4 candidates before evaluating any:
 - Include status quo when it's a real option — sharpens comparison, makes cost of inaction explicit
 - Maximize variance early; breadth is exploratory fuel
 
+**With RNA MCP:** If `oh_search_context` is available, call it with problem statement + active outcome + `phase: "solution-space"` before generating candidates. Surface relevant metis — prior evaluations, approaches tried, recurring patterns. Human selects what to carry; selected metis informs the candidate list. This prevents proposing solutions already tried and rejected.
+
 ### Step 3: Evaluate Trade-offs (Depth)
 
 Before scoring, define the scoring function: what matters most, which constraints eliminate early, how user value is recognized. Then prune aggressively.
 
+**With RNA MCP:** If `oh_search_context` is available, call it with the active outcome to surface applicable guardrails. These are constraints that rule options out before evaluation, not trade-offs — fold confirmed guardrails as hard constraints. Do not auto-apply metis as constraints; surface it and let the human decide weight.
+
 For each candidate:
 1. **Does it solve the stated problem?** (Not a related problem)
-2. **Does it increase user value or merely produce more output?**
+2. **Does it increase user value or produce more output?**
 3. **How does it score against key constraints and success signal?**
 4. **Implementation cost?** (Time, complexity, risk)
 5. **Maintenance cost?** (Ongoing burden)
@@ -120,11 +124,11 @@ For each candidate:
 
 ### Step 5: Check for Local Maximum
 
-- Did I defend my first idea or actually explore?
+- Did I defend my first idea or explore?
 - Is there a higher-level approach I dismissed too quickly?
 - Am I optimizing the wrong thing?
 
-Landing on the first idea after genuine exploration is fine. The danger is never looking.
+Landing on the first idea after exploration is fine. The danger is never looking.
 
 ## Output Format
 
@@ -216,7 +220,7 @@ Users report the dashboard is slow. Loading takes 8 seconds.
 ## Solution Space Analysis
 
 **Problem:** Dashboard loads in 8 seconds; users expect <2 seconds
-**Key Constraint:** Can't rewrite the entire frontend this quarter
+**Key Constraint:** Can't rewrite the frontend this quarter
 **Critical Assumption:** Users need useful content quickly more than they need the whole dashboard at once
 **Success Signal:** First useful content appears in under 1 second
 **Scoring Function:** Favor approaches that improve time-to-first-value for users within quarter-scale constraints
@@ -292,7 +296,7 @@ config flag we're adding to work around notification timing issues.
 **Key Constraint:** Pattern of band-aids suggests systemic issue
 **Critical Assumption:** Duplicate notifications are caused by unclear ownership/triggering, not by timing alone
 **Success Signal:** A chosen approach should reduce duplicate notifications without adding another unstable flag
-**Scoring Function:** Prefer options that remove recurring operational pain and clarify ownership over options that merely suppress symptoms
+**Scoring Function:** Prefer options that remove recurring operational pain and clarify ownership over options that suppress symptoms
 
 ### Candidates Considered
 
@@ -346,18 +350,11 @@ config flag we're adding to work around notification timing issues.
 
 ## Session Persistence
 
-Persists to `.oh/<session>.md` for subsequent skills.
+**If session name provided** (`/solution-space auth-refactor`): reads/writes `.oh/auth-refactor.md` directly.
+**If no session name provided** (`/solution-space`): offer to save with suggested name from git branch or problem being solved.
 
-**If session name provided** (`/solution-space auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/solution-space`):
-- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
-- Suggest name from git branch or problem being solved
-
-**Reading:** Check for existing session file. Read prior outputs — **Aim**, **Problem Statement**, **Problem Space** — to understand constraints.
-
-**Writing:** Write solution space analysis so `/execute` can reuse selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate:
+**Reads:** existing session file; prior outputs — **Aim**, **Problem Statement**, **Problem Space** — to understand constraints.
+**Writes:** solution space analysis so `/execute` can reuse selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate:
 
 ```markdown
 ## Solution Space
@@ -365,47 +362,6 @@ Persists to `.oh/<session>.md` for subsequent skills.
 
 [solution space analysis and recommendation]
 ```
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces solution space analysis for discussion. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
-- Writes analysis and recommendation to session file
-- `/execute` reads selected approach, critical assumption, success signal, scoring function, execution contract, readiness gate
-
-### With RNA MCP (repo-native-alignment)
-
-When RNA MCP is available (`oh_search_context` tool present), surface repo-local knowledge at two moments.
-
-**Before Step 2 (Generate Candidates):** Call `oh_search_context` with problem statement + active outcome + `phase: "solution-space"`. Surface relevant metis — prior evaluations, approaches tried, recurring patterns:
-
-```
-**Relevant metis from this repo:**
-- [metis title] (source: .oh/metis/filename.md) — [one-line relevance note]
-  → Keep / Dismiss?
-```
-
-Human selects before candidates are generated. Selected metis informs the candidate list.
-
-**Before Step 3 (Evaluate Trade-offs):** Call `oh_search_context` with active outcome. Surface applicable guardrails — these are constraints that rule options out before evaluation, not trade-offs. Fold confirmed guardrails as hard constraints.
-
-**What this prevents:**
-- Proposing solutions already tried and rejected
-- Ignoring guardrails that eliminate options
-- Treating space as empty when the repo has situated judgment
-
-**Phase tag:** Pass `phase: "solution-space"` strictly. Problem-space metis and implementation notes are noise here. Guardrails always relevant regardless of phase.
-
-**Human judgment required:** Do not auto-apply metis as constraints. Surface it; let the human decide weight.
-
-### With Open Horizons MCP
-- Queries related past solution decisions
-- Finds similar problems across endeavors
-- Logs exploration and decision
-- Session file as local cache
 
 ## Position in Framework
 

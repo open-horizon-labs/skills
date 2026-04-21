@@ -19,16 +19,16 @@ Invoke `/dissent` when: about to lock in a one-way door (architecture, public AP
 
 ### Step 1: Steel-Man the Current Approach
 
-Before attacking, fully articulate the position:
+Before attacking, articulate the position:
 
-> "The current approach is [approach]. The reasoning is [reasoning]. The expected outcome is [outcome]. This is the strongest version of this position."
+> "The current approach is [approach]. The reasoning is [reasoning]. The expected outcome is [outcome]. This is the best version of this position."
 
 If you can't state it charitably, you don't understand it well enough to challenge it.
 
 ### Step 2: Seek Contrary Evidence
 
 - What data would prove this approach wrong?
-- Who disagrees? What's their strongest argument?
+- Who disagrees? What's their argument?
 - What similar approaches have failed elsewhere? Why?
 - What are we ignoring because it's inconvenient?
 
@@ -69,7 +69,7 @@ Test: [how to validate before committing]
 - **ADJUST** — issues surfaced that can be addressed; modify the approach
 - **RECONSIDER** — fundamental problems revealed; back to solution space
 
-> "PROCEED: The strongest counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
+> "PROCEED: The counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
 
 ### ADR Generation
 
@@ -95,7 +95,7 @@ Write to `docs/adr/NNNN-<decision-slug>.md` if accepted.
 **Confidence before dissent:** [HIGH/MEDIUM/LOW]
 
 ### Steel-Man Position
-[The strongest version of the current approach]
+[The best version of the current approach]
 
 ### Contrary Evidence
 1. [Evidence point 1]
@@ -136,7 +136,7 @@ We're about to adopt microservices for the payments system. Team agrees.
 ## Dissent Report
 
 **Decision under review:** Microservices architecture for payments
-**Stakes:** 6+ month commitment, affects entire system
+**Stakes:** 6+ month commitment, affects system
 **Confidence before dissent:** HIGH (team unanimous)
 
 ### Steel-Man Position
@@ -219,17 +219,9 @@ Users who bought X often want Y. We have the purchase data. Model performs well 
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md`.
+**Reads:** Aim, Problem Statement, Solution Space — context for the decision being challenged.
 
-**If session name provided** (`/dissent auth-decision`):
-- Reads/writes `.oh/auth-decision.md` directly
-
-**If no session name provided** (`/dissent`):
-- After producing the dissent report, offer to save it
-
-**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand the decision being challenged.
-
-**Writing:** After producing the dissent report:
+**Writes:** Dissent report:
 
 ```markdown
 ## Dissent
@@ -239,31 +231,8 @@ This skill can persist context to `.oh/<session>.md`.
 [dissent report content]
 ```
 
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces dissent report for manual review. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for context on the decision
-- Writes dissent report to the session file
-
-### With Open Horizons MCP
-- Queries past decisions on similar topics
-- Retrieves relevant guardrails and tribal knowledge
-- Logs dissent decision for future reference
-
-### With RNA MCP (repo-native-alignment)
-- `oh_search_context("risks and constraints for [area]", artifact_types: ["guardrail", "metis"])` to ground dissent
-- `outcome_progress` to assess whether the approach serves the outcome
-- `oh_record_metis` to capture dissent findings as durable learning
-
 ## Position in Framework
 
 **Combines with:** `/solution-space` (challenge the recommendation), `/problem-statement` (challenge the framing), `/execute` (before one-way doors).
 **Leads to:** PROCEED (continue with confidence), ADJUST (modify approach), or RECONSIDER (back to solution-space).
 **This is not a phase:** Dissent is an overlay you invoke when stakes are high.
-
----
-
-**Remember:** Dissent is not doubt. It's the discipline of seeking truth before comfort.

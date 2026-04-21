@@ -48,7 +48,9 @@ Questioning: [could this be false?]
 **Soft** — organizational decisions, technical debt, time pressure. Negotiable.
 **Assumed** — "we've always done it this way." Question these.
 
-The trap: agents talk themselves out of constraints. "For this prototype we don't have time" is often false when code generation takes 15 minutes. Ground in what's actually fixed.
+The trap: agents talk themselves out of constraints. "For this prototype we don't have time" is often false when code generation takes 15 minutes. Ground in what's fixed.
+
+**With RNA MCP:** If `oh_search_context` is available, call it with the objective/domain and `phase: "problem-space"`. Surface guardrails as already-settled constraints (`hard`, with source attribution). Present remaining candidates for human confirmation before finalizing the constraints table.
 
 ### Step 3: Identify the Terrain
 
@@ -57,13 +59,15 @@ The trap: agents talk themselves out of constraints. "For this prototype we don'
 - **Blast radius?** — if this goes wrong, what breaks?
 - **Precedents?** — solved before? Where?
 
+**With RNA MCP:** If `oh_search_context` is available, call it with the problem domain and `phase: "problem-space"`. Surface relevant metis entries as candidate precedents with provenance — human selects what to carry. Dismissed items are excluded from the final map.
+
 ### Step 4: Surface Hidden Assumptions
 
 Every problem space has embedded assumptions. Make them visible:
 
 > "We assume [assumption]. If this is false, [consequence]."
 
-Zero assumptions listed is not "clean" — it means you haven't looked. Name at least one or explain why the problem space genuinely has no hidden premises.
+Zero assumptions listed is not "clean" — it means you haven't looked. Name at least one or explain why the problem space has no hidden premises.
 
 ### Step 5: Check for X-Y Problems
 
@@ -114,7 +118,7 @@ Zero open questions is suspicious. If you have none, say why — a problem space
 
 ### X-Y Check
 - **Stated need (Y):** [what was asked for]
-- **Underlying need (X):** [what might actually be needed]
+- **Underlying need (X):** [what might be needed]
 - **Confidence:** [high/medium/low that Y=X]
 
 ### Ready for Solution Space?
@@ -196,8 +200,8 @@ We are optimizing for: Page load time under 2 seconds for 95th percentile users.
 
 | Constraint | Type | Reason | Question? |
 |------------|------|--------|-----------|
-| Must use current database | assumed | "Migration too expensive" | Have we actually costed this? |
-| Can't change API contracts | soft | Downstream consumers | How many consumers actually use slow endpoints? |
+| Must use current database | assumed | "Migration too expensive" | Have we costed this? |
+| Can't change API contracts | soft | Downstream consumers | How many consumers use slow endpoints? |
 | Feature set is fixed | assumed | PM specified | What if we removed/simplified features? |
 
 ### Terrain
@@ -227,18 +231,11 @@ No - Need performance profiling to identify actual bottleneck before optimizing 
 
 ## Session Persistence
 
-Persists to `.oh/<session>.md` for subsequent skills.
+**If session name provided** (`/problem-space auth-refactor`): reads/writes `.oh/auth-refactor.md` directly.
+**If no session name provided** (`/problem-space`): offer to save with suggested name from git branch or exploration topic.
 
-**If session name provided** (`/problem-space auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/problem-space`):
-- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
-- Suggest name from git branch or exploration topic
-
-**Reading:** Check for existing session file. Read prior skill outputs — especially **Aim** and **Problem Statement** — to ground exploration.
-
-**Writing:** Write problem space map so later phases reuse explicit constraints, assumptions, and open questions:
+**Reads:** existing session file; prior outputs — especially **Aim** and **Problem Statement** — to ground exploration.
+**Writes:** problem space map so later phases reuse explicit constraints, assumptions, and open questions:
 
 ```markdown
 ## Problem Space
@@ -246,40 +243,6 @@ Persists to `.oh/<session>.md` for subsequent skills.
 
 [problem space map content]
 ```
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces problem space map through questioning. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for prior context (aim, problem statement)
-- Writes problem space map to session file
-- Subsequent skills read constraints, assumptions, open questions, terrain directly
-
-### With RNA MCP (repo-native-alignment)
-
-When RNA MCP is available (`oh_search_context` tool present), enrich the problem space map with repo-local knowledge before presenting to the human.
-
-**At Step 2 (Map Constraints):** Call `oh_search_context` with the objective/domain and `phase: "problem-space"`. Surface guardrails as already-settled constraints (not assumptions to question). Fold into constraints table as `hard` with source attribution. Present remaining candidates for confirmation.
-
-**At Step 3 (Terrain / Precedents):** Call `oh_search_context` with the problem domain. Surface relevant metis entries. Present as candidate list with provenance — human selects what to carry as precedents.
-
-```
-**Relevant metis/guardrails from this repo:**
-- [metis title] (source: .oh/metis/filename.md) — [one-line relevance note]
-  → Keep / Dismiss?
-```
-
-Human selects before the map is finalized. Selected items appear in Terrain/Constraints; dismissed items are excluded.
-
-**Phase tag:** Pass `phase: "problem-space"` to filter for phase-appropriate entries. Cross-phase metis is noise here unless explicitly requested.
-
-### With Open Horizons MCP
-- Queries graph for related past decisions and outcomes
-- Pulls tribal knowledge about similar problem spaces
-- Retrieves applicable guardrails
-- Session file as local cache
 
 ## Position in Framework
 

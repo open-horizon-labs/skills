@@ -33,7 +33,7 @@ Pre-flight Checklist:
 
 If any box can't be checked, stop and address it first.
 
-If the work involves a one-way or hard-to-reverse decision and `/dissent` has not been run, flag it now. Cheap exploration before commitment is the entire point of the workflow; skipping challenge before a one-way door is the most expensive version of saving time.
+If the work involves a one-way or hard-to-reverse decision and `/dissent` has not been run, flag it now. Cheap exploration before commitment is the point of the workflow; skipping challenge before a one-way door is the most expensive version of saving time.
 
 Make the phase shift explicit:
 
@@ -67,7 +67,7 @@ Periodically check alignment:
 ```
 Drift Check:
 - Original aim: [aim]
-- What I'm actually doing now: [current work]
+- What I'm doing now: [current work]
 - Gap: [describe the divergence]
 - Verdict: [aligned | minor drift | significant drift | lost]
 ```
@@ -187,7 +187,7 @@ Pre-flight Checklist:
 ```
 Drift Check:
 - Original aim: Fix timezone display bug
-- What I'm actually doing now: Refactoring the entire date handling library
+- What I'm doing now: Refactoring the date handling library
 - Gap: Went from fixing display to rewriting infrastructure
 - Verdict: Significant drift
 ```
@@ -211,55 +211,20 @@ accidental refactoring during a bug fix.
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md`.
+**Reads:** Aim, Problem Statement, Solution Space — essential for drift detection.
 
-**If session name provided** (`/execute auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/execute`):
-- After pre-flight, offer to save execution context:
-  > "Save to session? [suggested-name] [custom] [skip]"
-
-**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, and **Solution Space** to understand what we're building and why — essential for drift detection.
-
-**Writing:** After pre-flight and during execution, write status including declared success criteria and delivered characteristics:
+**Writes:** Execute status with declared success criteria and delivered characteristics:
 
 ```markdown
 ## Execute
 **Updated:** <timestamp>
 **Status:** [pre-flight | in-progress | drift-detected | complete]
 
-[execution notes, declared criteria, delivered characteristics, drift observations, etc.]
+[execution notes, declared criteria, delivered characteristics, drift observations]
 ```
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for aim, constraints, selected solution
-- Writes execution status and notes to the session file
-- Drift detection compares current work against session aim
-
-### With Open Horizons MCP
-- Queries related past decisions and learnings
-- Logs execution decisions to graph database
-
-### With task management (ba, GitHub issues)
-- Creates subtasks for non-trivial findings
-- Updates task status as work progresses
-
-### With code review (sg, CodeRabbit)
-- Runs automated review on staged changes
-- Triages findings by severity
 
 ## Position in Framework
 
 **Comes after:** `/solution-space` (you need a chosen approach to execute).
 **Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
 **Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.
-
----
-
-**Remember:** Execute is the inner loop. Stay focused on the aim. Detect drift early. Salvage without shame.

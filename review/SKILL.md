@@ -47,7 +47,7 @@ Could this be done with less code, fewer files, less abstraction? Are we buildin
 > If over-complex: "A simpler approach would work. Consider [alternative]."
 
 #### 4. Mechanism Clear?
-Can you articulate WHY this approach works? If the mechanism can't be stated simply, the problem may not be understood.
+Can you articulate WHY this approach works? If the mechanism can't be stated clearly, the problem may not be understood.
 
 > If unclear: "What's the mechanism? Why will this solve the problem?"
 
@@ -55,6 +55,8 @@ Can you articulate WHY this approach works? If the mechanism can't be stated sim
 Are all ripple effects handled? New fields initialized everywhere? Persistence changes have migration paths? Contract changes updated in all callers? Declared success criteria carried through to deployment or verification where applicable?
 
 > If incomplete: "This adds [X] but doesn't update [related site]."
+
+If RNA MCP is available, check work against guardrails (`oh_search_context` with `artifact_types: ["guardrail"]`) and declared outcomes (`outcome_progress`).
 
 ### Step 3: Detect Drift
 
@@ -80,6 +82,8 @@ Impact: [what this means]
 | **Adjust** | Minor drift, recoverable | Correct course and continue |
 | **Pause** | Unclear aim or major questions | Stop, clarify, then resume |
 | **Salvage** | Significant drift, restart needed | Extract learning with `/salvage` |
+
+If the review surfaces new hard constraints, record them (`oh_record_guardrail_candidate`).
 
 ## Output Format
 
@@ -172,7 +176,7 @@ Started adding error handling to the API. Now I'm refactoring the logger.
 ### Drift Detected
 Drift: Scope Drift
 Started as: Add try/catch and proper error responses to /api/orders
-Became: Refactoring the entire logging system
+Became: Refactoring the logging system
 Impact: Original task incomplete, unrelated system being modified
 
 ### Decision
@@ -193,8 +197,8 @@ When the user or agent claims work is complete, verify:
 2. **Changes Reviewed?** — Has the branch diff been reviewed against intent?
 3. **CI Passing?** — Have automated checks been run and passed?
 4. **Feedback Addressed?** — Have reviewer comments been resolved?
-5. **Declared Criteria Delivered?** — Were the promised characteristics actually verified, not just claimed?
-6. **User Value Improved?** — Is there evidence this change improves the intended user outcome rather than merely increasing output?
+5. **Declared Criteria Delivered?** — Were the promised characteristics verified, not just claimed?
+6. **User Value Improved?** — Is there evidence this change improves the intended user outcome rather than increasing output?
 7. **Needs Human Verification surfaced?** — Have claims that the model cannot self-check been explicitly flagged for human attention? (See output format below.)
 
 If incomplete:
@@ -202,17 +206,9 @@ If incomplete:
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md`.
+**Reads:** Aim, Problem Statement, Solution Space, Execute status, Ship status — essential for detecting drift and judging whether declared criteria were delivered.
 
-**If session name provided** (`/review auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/review`):
-- After producing the review summary, offer to save it
-
-**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space**, **Execute** status, and **Ship** status if present — essential for detecting drift and judging whether declared criteria were actually delivered.
-
-**Writing:** After review, write the assessment including whether the declared contract was preserved through execution/shipping:
+**Writes:** Review assessment including contract verification:
 
 ```markdown
 ## Review
@@ -222,36 +218,7 @@ This skill can persist context to `.oh/<session>.md`.
 [review findings, drift analysis, contract verification, recommendations]
 ```
 
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces review summary based on conversation context. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for aim, constraints, selected solution
-- Compares actual work against session aim
-- Writes review verdict and findings
-
-### With git diff
-- Compares actual changes against stated aim
-- Detects file count, complexity signals
-- Identifies incomplete changes
-
-### With CI Integration
-- Checks if tests pass before marking complete
-- Verifies linting, type checking
-- Confirms PR checks would pass
-
-### With RNA MCP (repo-native-alignment)
-- `oh_search_context("constraints for [area]", artifact_types: ["guardrail"])` to check against guardrails
-- `outcome_progress` to check work against declared outcome
-- `oh_record_guardrail_candidate` if the review surfaces new constraints
-
 ## Position in Framework
 **Comes after:** `/execute` (natural checkpoint after building).
 **Leads to:** `/ship` if aligned, `/salvage` if drifted, back to `/aim` if fundamentals are unclear.
 **This is the gate:** Review decides whether to continue, adjust, or restart.
-
----
-
-**Remember:** Review is not bureaucracy. It's the moment you catch drift before it compounds.

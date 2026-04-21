@@ -115,7 +115,7 @@ We need to add a dark mode toggle to the settings page.
 **Change:** Theme system with dark variant, exposed via settings toggle
 **Hypothesis:** Reducing screen brightness and contrast in low-light environments reduces eye strain, increasing comfortable usage time.
 **Assumptions:**
-- Users actually work in low-light conditions (validate with usage time data)
+- Users work in low-light conditions (validate with usage time data)
 - Eye strain is the blocker, not just preference (could survey)
 - A toggle is discoverable enough (vs. auto-detect)
 
@@ -126,7 +126,7 @@ We need to add a dark mode toggle to the settings page.
 ### Guardrails
 - Don't break existing light theme (test both paths)
 - Don't over-engineer: one dark theme, not a theme builder
-- Revisit if <5% of users actually enable it after 30 days
+- Revisit if <5% of users enable it after 30 days
 ```
 
 ### Example 2: Vague Strategic Goal to Aim
@@ -202,22 +202,13 @@ Without clear answers, consider `/salvage` to extract what you've learned, then 
 
 ## Session Persistence
 
-Persists to `.oh/<session>.md` for subsequent skills.
+**If session name provided** (`/aim auth-refactor`): reads/writes `.oh/auth-refactor.md` directly.
+**If no session name provided** (`/aim`): offer to save with suggested name from git branch or aim content.
 
-**If session name provided** (`/aim auth-refactor`):
-- Reads/writes `.oh/auth-refactor.md` directly
-
-**If no session name provided** (`/aim`):
-- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
-- Suggest name from git branch or aim content
-
-**Reading:** Check for existing session file; read prior skill outputs for context.
-
-**Writing:** Write aim statement as the contract later phases reuse:
+**Reads:** existing session file; prior skill outputs for context.
+**Writes:** aim statement (outcome, mechanism, assumptions, feedback signal, guardrails) as the contract later phases reuse:
 
 ```markdown
-# Session: <session>
-
 ## Aim
 **Updated:** <timestamp>
 
@@ -225,22 +216,6 @@ Persists to `.oh/<session>.md` for subsequent skills.
 ```
 
 If the section exists, replace it.
-
-## Adaptive Enhancement
-
-### Base Skill (prompt only)
-Works anywhere. Produces aim statement for discussion. No persistence.
-
-### With .oh/ session file
-- Reads `.oh/<session>.md` for prior context
-- Writes aim statement to session file
-- Subsequent skills read outcome, assumptions, feedback signal, guardrails directly
-
-### With Open Horizons MCP
-- Queries related endeavors for existing aims
-- Pulls relevant tribal knowledge for mechanism choice
-- Logs aim to graph database, links to active endeavors
-- Session file as local cache
 
 ## Position in Framework
 
