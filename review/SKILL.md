@@ -246,13 +246,3 @@ Works anywhere. Produces review summary based on conversation context. No persis
 ---
 
 **Remember:** Review is not bureaucracy. It's the moment you catch drift before it compounds.
-
-## Position in Framework
-
-**Comes after:** `/execute` (natural checkpoint after building).
-**Leads to:** `/ship` if aligned, `/salvage` if drifted, back to `/aim` if fundamentals are unclear.
-**This is the gate:** Review decides whether to continue, adjust, or restart.
-
----
-
-**Remember:** Review is not bureaucracy. It's the moment you catch drift before it compounds.
