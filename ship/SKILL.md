@@ -11,7 +11,7 @@ Ship is the final step of the Execution phase. Code that isn't in users' hands i
 
 ## When to Use
 
-Invoke `/ship` when execution is complete, tests pass, review is done, and you need to get changes to users.
+Invoke `/ship` when execution is complete, tests pass, review is done, and you need to get changes to users. Also usable as a standalone diagnostic: run `/ship` against a stalled delivery pipeline to surface delivery-path tax without deploying anything.
 
 **Do not use when:** You're still building. Ship is for completed work.
 
@@ -82,76 +82,6 @@ Create ad-hoc verification tests if needed — the point is confidence, not perm
 
 ### Recommendations
 [Any suggestions for reducing delivery-path tax in future]
-```
-
-## Examples
-
-### Example 1: Shipping with CI/CD Pipeline
-
-```
-/ship
-
-PR #247 is approved. Need to get it deployed to production.
-```
-
-**Output:**
-```
-## Ship Report
-
-**Shipped:** PR #247 - Add dark mode toggle
-**Target:** Production (users)
-**Path:** Approved PR → Merge → CI build → Staging auto-deploy → Prod deploy
-
-### Delivery-Path Tax Identified
-- CI build: 8 minutes
-- Prod approval: Waiting (manual gate)
-
-### Ship Actions Taken
-1. Merged PR #247 to main - success
-2. CI build triggered automatically - passed (8m)
-3. Staging deploy completed - verified working
-4. Prod deploy completed after approval
-
-### Verification
-- [x] Build passed CI
-- [x] Staging environment shows dark mode toggle
-- [x] Production deployment complete
-- [x] User-facing: toggle visible in settings
-
-### Delivered Characteristics Validation
-- [x] Dark mode toggle is visible in settings
-- [x] Theme change persists after reload in staging/prod verification
-
-### Recommendations
-- Consider auto-deploy to prod for UI-only changes (low risk)
-```
-
-### Example 2: Identifying Delivery-Path Tax
-
-```
-/ship
-
-We've had 3 PRs sitting for a week. What's blocking us?
-```
-
-**Output:**
-```
-## Ship Report
-
-**Shipped:** Analysis only (no deployment)
-**Target:** Identifying delivery friction
-
-### Delivery-Path Tax Identified
-- Review time: 5-7 days average (CRITICAL)
-  - Only 2 reviewers for 8 developers
-- Security scan: 45 minutes per PR (HIGH)
-  - Runs serially, not parallel
-- Merge conflicts: 2 of 3 PRs have conflicts
-
-### Recommendations
-1. **Immediate:** Resolve merge conflicts on PRs #251, #253
-2. **This week:** Add reviewers or implement AI pre-review
-3. **This sprint:** Move security scan to run only on merge-ready PRs
 ```
 
 ## Session Persistence

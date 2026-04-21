@@ -47,6 +47,7 @@ Assumptions: [What must be true for this to work]
 
 If you listed zero assumptions, that is a red flag, not a clean bill of health. Every mechanism rests on premises. Name at least one or explain why none exist.
 
+Watch for abstract qualities (simplicity, speed, clarity) posing as aims — these are mechanisms, not outcomes. Ask what they enable that their absence blocks.
 ### Step 3: Define the Feedback Signal
 
 How will you know if the aim is achieved?
@@ -91,114 +92,6 @@ Trigger: [when to revisit]
 
 Later phases carry forward the aim's explicit fields — outcome, mechanism, assumptions, feedback signal, guardrails — as the contract the rest of the workflow preserves.
 
-## Examples
-
-### Example 1: Feature Request to Aim
-
-**Input:**
-```
-/aim
-
-We need to add a dark mode toggle to the settings page.
-```
-
-**Output:**
-```
-## Aim Statement
-
-**Aim:** Users can work comfortably during extended evening sessions without eye strain.
-
-**Current State:** Users either strain their eyes or stop using the app after dark.
-**Desired State:** Users work as long as they need, regardless of ambient lighting.
-
-### Mechanism
-**Change:** Theme system with dark variant, exposed via settings toggle
-**Hypothesis:** Reducing screen brightness and contrast in low-light environments reduces eye strain, increasing comfortable usage time.
-**Assumptions:**
-- Users work in low-light conditions (validate with usage time data)
-- Eye strain is the blocker, not just preference (could survey)
-- A toggle is discoverable enough (vs. auto-detect)
-
-### Feedback
-**Signal:** Session duration in evening hours (6pm-midnight) increases
-**Timeframe:** 2 weeks post-launch to see pattern
-
-### Guardrails
-- Don't break existing light theme (test both paths)
-- Don't over-engineer: one dark theme, not a theme builder
-- Revisit if <5% of users enable it after 30 days
-```
-
-### Example 2: Vague Strategic Goal to Aim
-
-**Input:**
-```
-/aim
-
-We need to improve developer experience.
-```
-
-**Output:**
-```
-## Aim Statement
-
-**Aim:** Developers spend less than 10 minutes from git clone to running their first successful test.
-
-**Current State:** New developers report 45-90 minutes to get a working dev environment. Some give up.
-**Desired State:** Developers are productive within their first coffee break.
-
-### Mechanism
-**Change:** Containerized dev environment with pre-configured dependencies
-**Hypothesis:** Most setup time is spent on environment configuration, not understanding code. A working container removes the configuration variable.
-**Assumptions:**
-- Docker is acceptable for dev workflow (some devs resist containers)
-- Environment issues are the primary friction (not docs, not code complexity)
-- Container startup time is acceptable (<2 min)
-
-### Feedback
-**Signal:** Time from clone to first passing test (measured in onboarding script)
-**Timeframe:** Immediate per-developer, aggregate after 5 new devs
-
-### Guardrails
-- Container must work on Mac, Linux, and Windows (WSL2)
-- Don't require Docker for those who prefer native setup
-- Revisit if container approach creates new friction (debugging, IDE integration)
-```
-
-### Example 3: Checking Aim Mid-Work
-
-**Input:**
-```
-/aim
-
-I'm three days into this auth refactor and not sure if I'm still solving the right problem.
-```
-
-**Output:**
-```
-## Aim Check
-
-**Original aim (inferred):** Simplify the authentication flow for easier maintenance.
-
-Clarifying questions:
-
-1. **What behavior change were you targeting?**
-   - Faster feature development in auth-adjacent code?
-   - Fewer auth-related bugs in production?
-   - Easier onboarding for new devs to the auth system?
-
-2. **What's the current state?**
-   - How long does an auth change take today?
-   - What breaks most often?
-
-3. **What signal will tell you this worked?**
-   - PR cycle time for auth changes?
-   - Bug count in auth module?
-
-Without clear answers, consider `/salvage` to extract what you've learned, then restart with a crisp aim.
-
-**Red flag:** If "simplify" is the aim, you need a measurable definition. Simplicity is a mechanism, not an outcome. What does simpler auth enable that complex auth blocks?
-```
 
 ## Session Persistence
 
