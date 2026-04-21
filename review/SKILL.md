@@ -99,6 +99,14 @@ Impact: [what this means]
 ### Drift Detected
 [List any drift found, or "None detected"]
 
+### Needs Human Verification
+Claims that cannot be self-checked by the model and require independent human judgment:
+- [claim or assumption that needs external confirmation]
+- [one-way decision that was not independently challenged]
+- [delivered characteristic that was asserted but not externally observed]
+
+If this section is empty, say why. Model-generated review of model-generated work shares the same blindspots. The purpose of this section is to route the right questions to the actual human checkpoint (PR review, stakeholder sign-off, manual test) rather than pretending the model can answer them.
+
 ### Decision
 [Reasoning for the status decision]
 
@@ -187,7 +195,7 @@ When the user or agent claims work is complete, verify:
 4. **Feedback Addressed?** — Have reviewer comments been resolved?
 5. **Declared Criteria Delivered?** — Were the promised characteristics actually verified, not just claimed?
 6. **User Value Improved?** — Is there evidence this change improves the intended user outcome rather than merely increasing output?
-7. **Human Confirmed?** — Has a human independently verified at least one critical claim that the model cannot self-check? Model-generated review of model-generated work shares the same blindspots. At least one verification point should come from outside the model.
+7. **Needs Human Verification surfaced?** — Have claims that the model cannot self-check been explicitly flagged for human attention? (See output format below.)
 
 If incomplete:
  > "Completion gate: [missing step]. Run the check before marking complete."

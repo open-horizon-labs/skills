@@ -185,7 +185,13 @@ If Critical Assumption is blank, the recommendation is untested. Every non-trivi
 **Ready to deepen because:** [why this is ready to move from exploration into execution]
 **Invalidated if:** [what evidence or discovery would make this direction wrong]
 **Stop/Pivot if:** [what signal should cause us to halt or return to solution-space]
-**Human confirmed:** [has a human reviewed this recommendation? Model-on-model review is structurally weak for one-way decisions. If this is hard to reverse, get independent confirmation before proceeding.]
+
+### Needs Human Verification
+Claims or decisions in this recommendation that the model cannot self-check:
+- [assumption that needs independent confirmation before commitment]
+- [one-way decision that should not proceed on model confidence alone]
+
+This section routes questions to the real human checkpoint (PR review, stakeholder approval, manual verification) rather than pretending an inline model field can substitute for independent judgment.
 
 ### Implementation Notes
 

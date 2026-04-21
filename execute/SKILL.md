@@ -103,6 +103,13 @@ When execution completes successfully:
 ### Verification
 - [how it was tested/verified]
 
+### Needs Human Verification
+Claims that the model asserted but cannot independently confirm:
+- [characteristic that was claimed met but not externally observed]
+- [assumption that was carried forward without independent test]
+
+If this section is empty, say why.
+
 ### Notes
 - [anything relevant for future work]
 ```
