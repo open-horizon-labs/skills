@@ -324,7 +324,6 @@ When the user or agent claims work is complete, verify:
 
 If incomplete:
  > "Completion gate: [missing step]. Run the check before marking complete."
-> "Completion gate: [missing step]. Run the check before marking complete."
 
 ## Position in Framework
 
