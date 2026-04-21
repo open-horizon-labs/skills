@@ -69,14 +69,18 @@ DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ### Workflow Contracts
 
 The workflow is strongest when each phase leaves behind explicit fields the next phase can reuse rather than re-inferring them from prose. In practice, the core carry-forward contract is:
-- `/aim` defines the outcome, mechanism, assumptions, feedback signal, and guardrails
+- `/aim` defines the user-value outcome, mechanism, assumptions, feedback signal, and guardrails
 - `/problem-space` makes constraints, hidden assumptions, and open questions explicit
 - `/problem-statement` sharpens the framing and names what would invalidate it
 - `/solution-space` selects an approach, defines the scoring function, accepted trade-offs, and the execution contract
 - `/execute` preserves declared success criteria and delivered characteristics
 - `/ship` verifies those characteristics in the target environment
-- `/review` judges the result against the original aim and the declared contract
+- `/review` judges the result against the original aim, user outcome, and declared contract
+Across the tree, each artifact should satisfy necessity, viability, sufficiency, and connectedness: why this exists, why this path can work, why it is enough for now, and how it connects to the level above and below.
 
+
+
+Phase shifts should be treated as commitment decisions, not momentum. Moving from exploration to execution means stating why you're ready to deepen, what would invalidate the current direction, and what should trigger a stop or pivot.
 
 ## Adaptive Skills
 

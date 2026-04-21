@@ -36,11 +36,14 @@ Pre-flight Checklist:
 [ ] Context loaded - do I have the codebase understanding I need?
 [ ] Scope bounded - what am I specifically doing (and NOT doing)?
 [ ] Success criteria - how will I know when I'm done?
+[ ] Readiness clear - why am I deepening now, what invalidates this direction, and what should trigger a stop/pivot?
 ```
 
 If any box can't be checked, stop and address it before proceeding. Ask clarifying questions if requirements are ambiguous.
 
-> "The task is [task]. The aim is [aim]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]."
+Before moving from exploration into execution, make the phase shift explicit in plain language:
+
+ > "The task is [task]. The aim is [aim]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]. I'm ready to deepen because [reason]. This direction is invalidated if [condition]. I will stop or pivot if [trigger]."
 
 Those declared success criteria become the delivery contract for later phases: `/ship` should be able to verify what was promised, not just whether something deployed.
 ### Step 2: Build

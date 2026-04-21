@@ -35,7 +35,7 @@ Good: "Users can work comfortably at night without eye strain"
 Bad: "Improve onboarding flow"
 Good: "New users reach their first value moment within 5 minutes"
 
-**Key distinction:** Features are outputs. Behavior changes are outcomes.
+**Key distinction:** Features are outputs. Behavior changes are outcomes. If users do not become more capable, more effective, or more successful, shipping more output does not rescue the work.
 
 ### Step 2: Identify the Mechanism
 

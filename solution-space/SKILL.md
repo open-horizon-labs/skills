@@ -103,20 +103,22 @@ List at least 3-4 candidate approaches before evaluating any:
 - No evaluation yet - just generation
 - Include at least one approach from a higher level than your instinct
 - Include the "obvious" solution even if you don't like it
+- Include the status quo when it is a real option; it sharpens comparison and makes the cost of inaction explicit
 - Maximize variance early; breadth is exploratory fuel, not a commitment
 
 ### Step 3: Evaluate Trade-offs (Depth)
 
-Before scoring any candidate, define the scoring function explicitly: what matters most here, and which constraints should eliminate an option early? Cheap generation creates a new debt — too many options to hold in working memory — so prune aggressively once the scoring function is clear.
+Before scoring any candidate, define the scoring function explicitly: what matters most here, which constraints should eliminate an option early, and how user value will be recognized? Cheap generation creates a new debt — too many options to hold in working memory — so prune aggressively once the scoring function is clear.
 
 For each candidate, assess:
 
 1. **Does it solve the stated problem?** (Not a related problem)
-2. **How does it score against the key constraints and success signal?**
-3. **What's the implementation cost?** (Time, complexity, risk)
-4. **What's the maintenance cost?** (Ongoing burden)
-5. **Does it create new problems?** (Second-order effects)
-6. **Does it enable future options?** (Optionality)
+2. **Does it increase user value or merely produce more output?**
+3. **How does it score against the key constraints and success signal?**
+4. **What's the implementation cost?** (Time, complexity, risk)
+5. **What's the maintenance cost?** (Ongoing burden)
+6. **Does it create new problems?** (Second-order effects)
+7. **Does it enable future options?** (Optionality)
 ### Step 4: Recommend with Reasoning
 
 Make a recommendation and state why:
@@ -159,7 +161,7 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 **Key Constraint:** [The binding constraint]
 **Critical Assumption:** [The assumption that most threatens this recommendation if false]
 **Success Signal:** [What later phases should be able to verify]
-**Scoring Function:** [How options are being compared and pruned]
+**Scoring Function:** [How options are being compared and pruned, including user-value criteria]
 
 ### Candidates Considered
 
@@ -198,6 +200,12 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 
 **Verify later via:**
 - [signal `/execute` and `/ship` should be able to check]
+
+### Readiness Gate
+
+**Ready to deepen because:** [why this is ready to move from exploration into execution]
+**Invalidated if:** [what evidence or discovery would make this direction wrong]
+**Stop/Pivot if:** [what signal should cause us to halt or return to solution-space]
 
 ### Implementation Notes
 
@@ -332,7 +340,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 
 **Reading:** Check for existing session file. Read prior skill outputs—**Aim**, **Problem Statement**, **Problem Space**—to understand what we're solving and the constraints.
 
-**Writing:** After producing output, write the solution space analysis to the session file so `/execute` can reuse the selected approach, critical assumption, success signal, scoring function, and execution contract directly:
+**Writing:** After producing output, write the solution space analysis to the session file so `/execute` can reuse the selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate directly:
 
 ```markdown
 ## Solution Space
@@ -349,7 +357,7 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
 - Writes solution analysis and recommendation to the session file
-- `/execute` can read the selected approach, critical assumption, success signal, scoring function, and execution contract
+- `/execute` can read the selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate
 
 ### With RNA MCP (repo-native-alignment)
 

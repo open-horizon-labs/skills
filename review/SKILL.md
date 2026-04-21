@@ -40,9 +40,10 @@ Work through these checks against the original aim:
 Is this solving a real, current problem--not a hypothetical future one?
 
 - Are we building something that's actually needed right now?
+- Are we improving user value, or just producing internal output that feels busy?
 - Or did scope expand to "future flexibility" or premature optimization?
 
-> If unnecessary work crept in: "This adds [X] which wasn't part of the original aim."
+ > If unnecessary work crept in: "This adds [X] which wasn't part of the original aim."
 
 #### 2. Still Aligned?
 
@@ -319,6 +320,7 @@ When the user or agent claims work is complete, verify:
 3. **CI Passing?** - Have automated checks been run and passed?
 4. **Feedback Addressed?** - Have reviewer comments been resolved?
 5. **Declared Criteria Delivered?** - Were the promised characteristics actually verified, not just claimed?
+6. **User Value Improved?** - Is there evidence this change improves the intended user outcome rather than merely increasing output?
 
 If incomplete:
  > "Completion gate: [missing step]. Run the check before marking complete."
