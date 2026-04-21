@@ -225,8 +225,7 @@ We are optimizing for: Page load time under 2 seconds for 95th percentile users.
 - **Confidence:** Low - PM prescribed solution without diagnosis
 
 ### Ready for Solution Space?
-No - Need performance profiling to identify actual bottleneck before optimizing anything.
-No - Need performance profiling to identify actual bottleneck before optimizing anything.
+No - Need performance profiling to identify bottleneck before optimizing anything.
 ```
 
 ## Session Persistence
