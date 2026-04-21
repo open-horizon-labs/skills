@@ -59,7 +59,11 @@ The trap: agents talk themselves out of constraints. "For this prototype we don'
 
 ### Step 4: Surface Hidden Assumptions
 
+Every problem space has embedded assumptions. Make them visible:
+
 > "We assume [assumption]. If this is false, [consequence]."
+
+Zero assumptions listed is not "clean" — it means you haven't looked. Name at least one or explain why the problem space genuinely has no hidden premises.
 
 ### Step 5: Check for X-Y Problems
 
@@ -105,6 +109,8 @@ If constraints, assumptions, or open questions still feel implicit after this st
 ### Open Questions
 - [unknown that must be answered before solution-space]
 - [unknown that can be carried with explicit risk]
+
+Zero open questions is suspicious. If you have none, say why — a problem space with no unknowns has either been deeply investigated or insufficiently examined.
 
 ### X-Y Check
 - **Stated need (Y):** [what was asked for]

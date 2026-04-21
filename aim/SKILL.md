@@ -45,6 +45,8 @@ Hypothesis: [Why you believe it will produce the outcome]
 Assumptions: [What must be true for this to work]
 ```
 
+If you listed zero assumptions, that is a red flag, not a clean bill of health. Every mechanism rests on premises. Name at least one or explain why none exist.
+
 ### Step 3: Define the Feedback Signal
 
 How will you know if the aim is achieved?

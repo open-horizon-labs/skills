@@ -187,6 +187,7 @@ When the user or agent claims work is complete, verify:
 4. **Feedback Addressed?** — Have reviewer comments been resolved?
 5. **Declared Criteria Delivered?** — Were the promised characteristics actually verified, not just claimed?
 6. **User Value Improved?** — Is there evidence this change improves the intended user outcome rather than merely increasing output?
+7. **Human Confirmed?** — Has a human independently verified at least one critical claim that the model cannot self-check? Model-generated review of model-generated work shares the same blindspots. At least one verification point should come from outside the model.
 
 If incomplete:
  > "Completion gate: [missing step]. Run the check before marking complete."

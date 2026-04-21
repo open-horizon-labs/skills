@@ -33,6 +33,8 @@ Pre-flight Checklist:
 
 If any box can't be checked, stop and address it first.
 
+If the work involves a one-way or hard-to-reverse decision and `/dissent` has not been run, flag it now. Cheap exploration before commitment is the entire point of the workflow; skipping challenge before a one-way door is the most expensive version of saving time.
+
 Make the phase shift explicit:
 
  > "The task is [task]. The aim is [aim]. This ladders back to [selected approach or parent objective]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]. I'm ready to deepen because [reason]. This direction is invalidated if [condition]. I will stop or pivot if [trigger]."

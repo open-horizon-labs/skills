@@ -137,6 +137,8 @@ Landing on the first idea after genuine exploration is fine. The danger is never
 **Success Signal:** [What later phases should verify]
 **Scoring Function:** [How options are compared/pruned, including user-value criteria]
 
+If Critical Assumption is blank, the recommendation is untested. Every non-trivial recommendation depends on something that could be wrong. Name it.
+
 ### Candidates Considered
 
 | Option | Level | Approach | Trade-off |
@@ -183,12 +185,15 @@ Landing on the first idea after genuine exploration is fine. The danger is never
 **Ready to deepen because:** [why this is ready to move from exploration into execution]
 **Invalidated if:** [what evidence or discovery would make this direction wrong]
 **Stop/Pivot if:** [what signal should cause us to halt or return to solution-space]
+**Human confirmed:** [has a human reviewed this recommendation? Model-on-model review is structurally weak for one-way decisions. If this is hard to reverse, get independent confirmation before proceeding.]
 
 ### Implementation Notes
 
 [Any specific considerations for the selected approach]
 
 ```
+
+If this recommendation involves a one-way or hard-to-reverse decision (architecture, public API, data model, external commitment), invoke `/dissent` before moving to `/execute`. Cheap exploration means the cost of challenge is low; the cost of an unchallenged wrong commitment is not.
 
 ## Examples
 

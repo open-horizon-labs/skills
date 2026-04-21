@@ -99,7 +99,8 @@ Good statements are **crisp** (1-2 sentences), **outcome-focused**, **testable**
 
 ### Assumptions Being Tested
 - [assumption embedded in this framing]
-- [assumption embedded in this framing]
+
+Every framing rests on assumptions. If you listed zero, either the framing is trivial or you haven't surfaced what it depends on. Name at least one.
 
 ### What this framing enables
 [What solution approaches become visible with this framing]

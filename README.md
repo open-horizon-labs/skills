@@ -82,6 +82,10 @@ Phase shifts should be treated as commitment decisions, not momentum. Moving fro
 
 Context should privilege situated metis over generic advice. Persist the non-obvious lessons, constraints, and local patterns your experience adds; foundational-model knowledge that adds no local leverage is noise and pollutes the context space.
 
+### What This Workflow Cannot Do
+
+This workflow improves reasoning discipline: it makes aims explicit, surfaces assumptions, adds friction before commitment, and preserves context across phases. It does not make model reasoning inspectable, force logical soundness, or eliminate the gap between rhetorical and logical completeness. External verification, human judgment, and independent challenge remain necessary. The workflow makes those things easier to practice — it does not replace them.
+
 ## Adaptive Skills
 
 Each skill works at multiple levels:
