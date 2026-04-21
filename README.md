@@ -1,10 +1,8 @@
 # Open Horizons Skills
 
-Nine skills that ground your AI agents in strategic context.
+Skills that ground AI agents in strategic context: frame the problem before solving it, capture learning that persists, ship outcomes not just outputs.
 
-Agents thrash without context. They talk themselves out of constraints, accelerate the wrong things, and lose everything when the session ends. These skills fix that: frame the problem before solving it, capture learning that persists, ship outcomes instead of just outputs.
-
-[See the full framework](https://openhorizonlabs.ai/for-builders.html) or just install and start using them.
+[Full framework docs](https://openhorizonlabs.ai/for-builders.html) or just install and start.
 
 ## Installation
 
@@ -16,7 +14,7 @@ Re-run the install command to pull the latest version.
 
 ## The Framework
 
-10 commands that form the language of strategic execution:
+10 commands forming the language of strategic execution:
 
 ### Setup (When starting or when aims shift)
 
@@ -66,6 +64,27 @@ SALVAGE ──► back to Problem Space with new understanding
 Periodically (between sessions):
 DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ```
+### Workflow Contracts
+
+The workflow is strongest when each phase leaves behind explicit fields the next phase can reuse rather than re-inferring them from prose. In practice, the core carry-forward contract is:
+- `/aim` defines the user-value outcome, mechanism, assumptions, feedback signal, and guardrails
+- `/problem-space` makes constraints, hidden assumptions, and open questions explicit
+- `/problem-statement` sharpens the framing and names what would invalidate it
+- `/solution-space` selects an approach, defines the scoring function, accepted trade-offs, and the execution contract
+- `/execute` preserves declared success criteria and delivered characteristics
+- `/ship` verifies those characteristics in the target environment
+- `/review` judges the result against the original aim, user outcome, and declared contract
+Across the tree, each artifact should satisfy necessity, viability, sufficiency, and connectedness: why this exists, why this path can work, why it is enough for now, and how it connects to the level above and below.
+
+Every step should pair a strategy (`what` and `why`) with a tactic (`how`). Tactics that do not ladder back to a parent objective are busy work; objectives without tactics are wishful thinking.
+
+Phase shifts should be treated as commitment decisions, not momentum. Moving from exploration to execution means stating why you're ready to deepen, what would invalidate the current direction, and what should trigger a stop or pivot.
+
+Context should privilege situated metis over generic advice. Persist the non-obvious lessons, constraints, and local patterns your experience adds; foundational-model knowledge that adds no local leverage is noise and pollutes the context space.
+
+### What This Workflow Cannot Do
+
+This workflow improves reasoning discipline: it makes aims explicit, surfaces assumptions, adds friction before commitment, and preserves context across phases. It does not make model reasoning inspectable, force logical soundness, or eliminate the gap between rhetorical and logical completeness. External verification, human judgment, and independent challenge remain necessary. The workflow makes those things easier to practice — it does not replace them.
 
 ## Adaptive Skills
 
@@ -73,18 +92,12 @@ Each skill works at multiple levels:
 
 1. **Base** - Works with just the prompt (no dependencies)
 2. **With .oh/ session** - Reads/writes `.oh/<session>.md` for context handoff between skills
-3. **With [RNA MCP](https://github.com/open-horizon-labs/repo-native-alignment)** - Semantic code search (`search_symbols`), graph traversal (`graph_query`), outcome-to-code joins (`outcome_progress`), and business context (`oh_search_context`). Skills automatically use RNA tools when available — e.g., `/execute` uses `search_symbols` instead of Grep, `/review` checks `outcome_progress` for drift, `/distill` queries accumulated metis via `oh_search_context`
-4. **With [OH MCP](https://github.com/cloud-atlas-ai/oh-mcp-server)** - Full integration with Open Horizons organizational graph (aims, missions, endeavors, decision logs across projects)
+3. **With [RNA MCP](https://github.com/open-horizon-labs/repo-native-alignment)** - Semantic code search, graph traversal, outcome-to-code joins, and business context. Skills use RNA tools automatically when available.
+4. **With [OH MCP](https://github.com/cloud-atlas-ai/oh-mcp-server)** - Full integration with Open Horizons organizational graph
 
 ### Session Persistence
 
-Skills can share context via session files. When invoked without a session name, skills will offer to save:
-
-```
-> Save to session? [auth-refactor] [custom] [skip]
-```
-
-The suggested name is derived from the current git branch. You can also provide a session name explicitly:
+Skills share context via session files. Provide a name explicitly or accept the suggested one (derived from git branch):
 
 ```bash
 /aim auth-refactor           # Creates .oh/auth-refactor.md
@@ -92,11 +105,9 @@ The suggested name is derived from the current git branch. You can also provide 
 /solution-space auth-refactor     # Reads aim + problem statement, writes solution
 ```
 
-Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
-
 ## Phase-Aware Hook (OMP)
 
-For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook makes the framework self-guiding at runtime. Instead of remembering which skill to invoke, the hook detects where you are in the development cycle and suggests the right one.
+For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook detects where you are in the development cycle and suggests the right skill.
 
 **How it works:**
 1. Reads your `.oh/` session files to detect completed phases (state — primary signal)
@@ -111,7 +122,7 @@ mkdir -p .omp/hooks
 cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 ```
 
-**Or via `/teach-oh`:** The teach-oh skill offers to install and configure the hook during project setup, including a `.oh/skills-config.json` for project-specific customization.
+**Or via `/teach-oh`:** offered during project setup, including `.oh/skills-config.json` customization.
 
 **Configuration** (`.oh/skills-config.json`, optional):
 

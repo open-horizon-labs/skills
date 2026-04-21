@@ -5,16 +5,15 @@ description: Project setup. Explore the codebase, ask about strategy and aims, w
 
 # /teach-oh
 
-Setup that gathers project context and saves it to AGENTS.md (the cross-agent standard). Run when starting on a project or when strategy/aims have shifted.
+Gathers project context and writes it to AGENTS.md. Run when starting on a project or when strategy/aims shift.
 
 ## When to Use
 
 Invoke `/teach-oh` when:
 
-- **Starting on a new project** - Before diving into work
-- **Context keeps getting lost** - AI assistants don't "get" your project
-- **Onboarding a new AI tool** - Establish shared understanding upfront
-- **After major strategic shifts** - When aims or constraints have changed
+- **Starting on a new project**
+- **Context keeps getting lost** across sessions
+- **After major strategic shifts** in aims or constraints
 
 **Do not use when:** You're mid-task. This is setup, not execution.
 
@@ -22,7 +21,7 @@ Invoke `/teach-oh` when:
 
 ### Step 0: Check for RNA MCP (Repo-Native Alignment)
 
-Before exploring, check if RNA is available — it makes everything that follows richer.
+Before exploring, check if RNA is available — it enriches everything that follows.
 
 **Detection (in order):**
 1. Check if `oh_search_context` or `search_symbols` tools are available in the current session (RNA MCP already configured)
@@ -91,11 +90,11 @@ Before asking questions, scan the project independently:
 - File organization patterns
 - Recent git commits for style and focus
 
-**Don't ask about what you can discover.** Use exploration to form better questions.
+**Don't ask about what you can discover.**
 
 ### Step 2: Ask About What Matters
 
-After exploration, ask targeted questions about what couldn't be inferred. Focus on strategy and aims, not just code.
+After exploration, ask targeted questions about what couldn't be inferred:
 
 #### Purpose & Aims
 - What is this project trying to achieve?
@@ -117,7 +116,7 @@ After exploration, ask targeted questions about what couldn't be inferred. Focus
 - Patterns that look tempting but don't fit
 - Areas of the codebase that are sensitive
 
-**Ask only what you couldn't discover.** Respect the user's time.
+**Ask only what you couldn't discover.**
 
 ### Step 3: Write Persistent Context
 
@@ -482,22 +481,8 @@ Do NOT fabricate or rewrite the agent files — always fetch the canonical sourc
 
 **If declined:** Skip. Skills continue to work as slash commands.
 
-## What This Enables
-
-With project context established:
-
-- `/aim` frames outcomes in your language
-- `/problem-space` knows which constraints are real
-- `/dissent` understands your risk tolerance
-- `/review` checks against your definition of done
-- `/execute` follows your patterns
-
 ## Notes
 
 - Context lives in AGENTS.md so it persists across sessions
 - Keep it focused—this isn't documentation, it's working context
 - Re-run when aims shift, constraints change, or context feels stale
-
----
-
-**Remember:** This is setup, not ongoing work. Invest 10 minutes when starting or when things have shifted.
