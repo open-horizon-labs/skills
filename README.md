@@ -82,6 +82,8 @@ Every step should pair a strategy (`what` and `why`) with a tactic (`how`). Tact
 
 Phase shifts should be treated as commitment decisions, not momentum. Moving from exploration to execution means stating why you're ready to deepen, what would invalidate the current direction, and what should trigger a stop or pivot.
 
+Context should privilege situated metis over generic advice. Persist the non-obvious lessons, constraints, and local patterns your experience adds; foundational-model knowledge that adds no local leverage is noise and pollutes the context space.
+
 ## Adaptive Skills
 
 Each skill works at multiple levels:
