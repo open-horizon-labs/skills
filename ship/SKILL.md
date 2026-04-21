@@ -87,8 +87,9 @@ Shipping isn't done until you verify:
 - **Is it running?** - The code is deployed and executing
 - **Is it working?** - The intended behavior is present
 - **Is it reachable?** - Users can access/use it
+- **Were the promised characteristics delivered?** - The shipped result matches the declared success criteria or deliverable characteristics from `/execute`
 
-Create ad-hoc verification tests if needed. These can be kept or discarded - the point is confidence, not permanent test infrastructure.
+Create ad-hoc verification tests if needed. These can be kept or discarded - the point is confidence, not permanent test infrastructure. Verification at this stage should tie back to what the work claimed it would deliver, not only whether deployment completed.
 
 ## Output Format
 
@@ -114,6 +115,10 @@ Always produce a ship report in this structure:
 - [x] Deployed successfully
 - [x] Running in target environment
 - [x] User-facing functionality confirmed
+
+### Delivered Characteristics Validation
+- [x] [Declared criterion/characteristic 1]
+- [ ] [Declared criterion/characteristic 2, if not yet verified]
 
 ### Recommendations
 [Any suggestions for reducing delivery-path tax in future]
@@ -155,6 +160,10 @@ PR #247 is approved. Need to get it deployed to production.
 - [x] Staging environment shows dark mode toggle
 - [x] Production deployment complete
 - [x] User-facing: toggle visible in settings
+
+### Delivered Characteristics Validation
+- [x] Dark mode toggle is visible in settings
+- [x] Theme change persists after reload in staging/prod verification
 
 ### Recommendations
 - Consider auto-deploy to prod for UI-only changes (low risk)
@@ -243,16 +252,16 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
   > "Save to session? [suggested-name] [custom] [skip]"
 - Suggest a name based on git branch or the work being shipped
 
-**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Solution Space** (what approach we took), and **Execute** status.
+**Reading:** Check for existing session file. Read **Aim** (what outcome we wanted), **Solution Space** (what approach we took), and **Execute** status, including any declared success criteria or deliverable characteristics.
 
-**Writing:** After shipping, write the deployment status:
+**Writing:** After shipping, write the deployment status and what delivered characteristics were verified in the target environment:
 
 ```markdown
 ## Ship
 **Updated:** <timestamp>
 **Status:** [staged | deployed | verified | rolled-back]
 
-[shipping notes, verification results, etc.]
+[shipping notes, verification results, delivered-characteristics validation, etc.]
 ```
 
 ## Adaptive Enhancement

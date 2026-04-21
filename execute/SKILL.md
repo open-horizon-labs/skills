@@ -42,6 +42,7 @@ If any box can't be checked, stop and address it before proceeding. Ask clarifyi
 
 > "The task is [task]. The aim is [aim]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]."
 
+Those declared success criteria become the delivery contract for later phases: `/ship` should be able to verify what was promised, not just whether something deployed.
 ### Step 2: Build
 
 Do the work. Keep it focused.
@@ -119,6 +120,14 @@ When execution completes successfully:
 **Task:** [what was done]
 **Aim achieved:** [how it maps to the original aim]
 
+### Declared Success Criteria
+- [criterion 1]
+- [criterion 2]
+
+### Delivered Characteristics
+- [characteristic/result]: [met | partially met | deferred]
+- [characteristic/result]: [met | partially met | deferred]
+
 ### Changes
 - [file/component]: [what changed and why]
 - [file/component]: [what changed and why]
@@ -173,6 +182,14 @@ Pre-flight Checklist:
 
 **Task:** Add empty string validation to user input
 **Aim achieved:** Empty strings now rejected at entry points with clear error message
+
+### Declared Success Criteria
+- Reject empty strings at the 3 input handlers
+- Return a clear error message for empty input
+
+### Delivered Characteristics
+- Entry-point validation in user/profile/settings handlers: met
+- Clear error message on empty input: met
 
 ### Changes
 - handlers/user.go: Added empty string check before processing
@@ -262,16 +279,16 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
   > "Save to session? [suggested-name] [custom] [skip]"
 - Suggest a name based on git branch or the task description
 
-**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand what we're building and why. This is essential for drift detection.
+**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, and **Solution Space** to understand what we're building and why. This is essential for drift detection.
 
-**Writing:** After pre-flight and during execution, write status to the session file:
+**Writing:** After pre-flight and during execution, write status to the session file, including the declared success criteria and what has been delivered so far:
 
 ```markdown
 ## Execute
 **Updated:** <timestamp>
 **Status:** [pre-flight | in-progress | drift-detected | complete]
 
-[execution notes, drift observations, etc.]
+[execution notes, declared criteria, delivered characteristics, drift observations, etc.]
 ```
 
 ## Adaptive Enhancement

@@ -66,6 +66,7 @@ SALVAGE ──► back to Problem Space with new understanding
 Periodically (between sessions):
 DISTILL ──► curate accumulated metis, promote patterns to guardrails
 ```
+Within the execution phase, `/execute` should carry forward the declared success criteria or deliverable characteristics for the work, and `/ship` should verify those characteristics in the target environment rather than stopping at deployment health alone.
 
 ## Adaptive Skills
 
