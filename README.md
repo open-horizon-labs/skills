@@ -78,7 +78,7 @@ The workflow is strongest when each phase leaves behind explicit fields the next
 - `/review` judges the result against the original aim, user outcome, and declared contract
 Across the tree, each artifact should satisfy necessity, viability, sufficiency, and connectedness: why this exists, why this path can work, why it is enough for now, and how it connects to the level above and below.
 
-
+Every step should pair a strategy (`what` and `why`) with a tactic (`how`). Tactics that do not ladder back to a parent objective are busy work; objectives without tactics are wishful thinking.
 
 Phase shifts should be treated as commitment decisions, not momentum. Moving from exploration to execution means stating why you're ready to deepen, what would invalidate the current direction, and what should trigger a stop or pivot.
 

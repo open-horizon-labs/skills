@@ -186,6 +186,9 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 **Selected:** Option [X] - [Name]
 **Level:** [Band-Aid / Local Optimum / Reframe / Redesign]
 
+**Ladders back to:** [the higher-level objective or outcome this recommendation serves]
+**Tactic justification:** [why this is a good tactic for that objective under current constraints]
+
 **Rationale:** [Why this approach fits the constraints]
 
 **Accepted trade-offs:**
