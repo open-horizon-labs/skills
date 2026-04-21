@@ -1,10 +1,8 @@
 # Open Horizons Skills
 
-Nine skills that ground your AI agents in strategic context.
+Skills that ground AI agents in strategic context: frame the problem before solving it, capture learning that persists, ship outcomes not just outputs.
 
-Agents thrash without context. They talk themselves out of constraints, accelerate the wrong things, and lose everything when the session ends. These skills fix that: frame the problem before solving it, capture learning that persists, ship outcomes instead of just outputs.
-
-[See the full framework](https://openhorizonlabs.ai/for-builders.html) or just install and start using them.
+[Full framework docs](https://openhorizonlabs.ai/for-builders.html) or just install and start.
 
 ## Installation
 
@@ -16,7 +14,7 @@ Re-run the install command to pull the latest version.
 
 ## The Framework
 
-10 commands that form the language of strategic execution:
+10 commands forming the language of strategic execution:
 
 ### Setup (When starting or when aims shift)
 
@@ -90,18 +88,12 @@ Each skill works at multiple levels:
 
 1. **Base** - Works with just the prompt (no dependencies)
 2. **With .oh/ session** - Reads/writes `.oh/<session>.md` for context handoff between skills
-3. **With [RNA MCP](https://github.com/open-horizon-labs/repo-native-alignment)** - Semantic code search (`search_symbols`), graph traversal (`graph_query`), outcome-to-code joins (`outcome_progress`), and business context (`oh_search_context`). Skills automatically use RNA tools when available — e.g., `/execute` uses `search_symbols` instead of Grep, `/review` checks `outcome_progress` for drift, `/distill` queries accumulated metis via `oh_search_context`
-4. **With [OH MCP](https://github.com/cloud-atlas-ai/oh-mcp-server)** - Full integration with Open Horizons organizational graph (aims, missions, endeavors, decision logs across projects)
+3. **With [RNA MCP](https://github.com/open-horizon-labs/repo-native-alignment)** - Semantic code search, graph traversal, outcome-to-code joins, and business context. Skills use RNA tools automatically when available.
+4. **With [OH MCP](https://github.com/cloud-atlas-ai/oh-mcp-server)** - Full integration with Open Horizons organizational graph
 
 ### Session Persistence
 
-Skills can share context via session files. When invoked without a session name, skills will offer to save:
-
-```
-> Save to session? [auth-refactor] [custom] [skip]
-```
-
-The suggested name is derived from the current git branch. You can also provide a session name explicitly:
+Skills share context via session files. Provide a name explicitly or accept the suggested one (derived from git branch):
 
 ```bash
 /aim auth-refactor           # Creates .oh/auth-refactor.md
@@ -109,11 +101,9 @@ The suggested name is derived from the current git branch. You can also provide 
 /solution-space auth-refactor     # Reads aim + problem statement, writes solution
 ```
 
-Name sessions meaningfully: PR numbers (`PR-123`), feature names (`auth-refactor`), or any identifier.
-
 ## Phase-Aware Hook (OMP)
 
-For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook makes the framework self-guiding at runtime. Instead of remembering which skill to invoke, the hook detects where you are in the development cycle and suggests the right one.
+For [oh-my-pi](https://github.com/anthropics/oh-my-pi) users, an optional hook detects where you are in the development cycle and suggests the right skill.
 
 **How it works:**
 1. Reads your `.oh/` session files to detect completed phases (state — primary signal)
@@ -128,7 +118,7 @@ mkdir -p .omp/hooks
 cp hooks-omp/oh-skills-phase.ts .omp/hooks/
 ```
 
-**Or via `/teach-oh`:** The teach-oh skill offers to install and configure the hook during project setup, including a `.oh/skills-config.json` for project-specific customization.
+**Or via `/teach-oh`:** offered during project setup, including `.oh/skills-config.json` customization.
 
 **Configuration** (`.oh/skills-config.json`, optional):
 

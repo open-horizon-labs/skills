@@ -5,23 +5,15 @@ description: Do the work. Pre-flight, build, detect drift, salvage if needed. Us
 
 # /execute
 
-Do the actual work. Execute is the bridge from Solution Space to shipped code. Pre-flight checks, build, detect drift, salvage if needed.
+Bridge from Solution Space to shipped code. Pre-flight, build, detect drift, salvage if needed.
 
-Execute sits within the larger **Intent -> Execution -> Review** loop. This skill handles the Execution phase, which itself contains an inner loop: build, check alignment, course-correct or salvage.
+Execute sits within **Intent → Execution → Review**. It contains an inner loop: build, check alignment, course-correct or salvage.
 
 ## When to Use
 
-Invoke `/execute` when:
+Invoke `/execute` when aim is clear, solution is chosen, context is loaded, and you're ready to build.
 
-- **Aim is clear** - you know the outcome you're trying to achieve
-- **Solution is chosen** - you've explored options and picked an approach
-- **Context is loaded** - you understand the constraints and guardrails
-- **Ready to build** - not still exploring or discovering
-
-**Do not use when:**
-- Aim is unclear - use `/aim` first
-- Still exploring options - use `/solution-space` first
-- Problem is ambiguous - use `/problem-space` or `/problem-statement` first
+**Do not use when:** Aim is unclear (`/aim`), still exploring (`/solution-space`), or problem is ambiguous (`/problem-space`, `/problem-statement`).
 
 ## The Execute Process
 
@@ -39,42 +31,34 @@ Pre-flight Checklist:
 [ ] Readiness clear - why am I deepening now, what invalidates this direction, and what should trigger a stop/pivot?
 ```
 
-If any box can't be checked, stop and address it before proceeding. Ask clarifying questions if requirements are ambiguous.
+If any box can't be checked, stop and address it first.
 
-Before moving from exploration into execution, make the phase shift explicit in plain language:
+Make the phase shift explicit:
 
  > "The task is [task]. The aim is [aim]. This ladders back to [selected approach or parent objective]. I'm specifically doing [scope]. I will NOT be touching [out of scope]. Success looks like [criteria]. I'm ready to deepen because [reason]. This direction is invalidated if [condition]. I will stop or pivot if [trigger]."
 
 Those declared success criteria become the delivery contract for later phases: `/ship` should be able to verify what was promised, not just whether something deployed.
+
 ### Step 2: Build
 
 Do the work. Keep it focused.
 
-**Build principles:**
 - Work in small, testable increments
-- Commit logical units of change
-- Stay within the declared scope
+- Stay within declared scope
 - If scope expands, pause and reassess (see Drift Detection)
 
 **During build:**
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
-3. Stage changes
-4. Run review if available (`sg review` or equivalent)
-5. Handle review findings (fix trivial, create tasks for non-trivial)
-6. Commit with clear message
+3. Run review if available (`sg review` or equivalent)
+4. Handle review findings (fix trivial, create tasks for non-trivial)
+5. Commit with clear message
 
 ### Step 3: Detect Drift
 
-Periodically check alignment during execution:
+Periodically check alignment:
 
-**Drift signals:**
-- Scope is expanding beyond original task
-- You're touching files not mentioned in the plan
-- "While I'm here" thoughts keep appearing
-- Original estimate is significantly exceeded
-- Approach has changed direction multiple times
-- You're protecting code you've invested in
+**Drift signals:** scope expanding, touching unplanned files, "while I'm here" thoughts, approach reversing direction, protecting sunk-cost code.
 
 **When you notice drift:**
 
@@ -86,32 +70,13 @@ Drift Check:
 - Verdict: [aligned | minor drift | significant drift | lost]
 ```
 
-**Aligned:** Continue building.
-
-**Minor drift:** Note it, continue if still valuable, or refocus.
-
-**Significant drift:** Pause. Either:
-- Refocus on original aim and defer the tangent
-- Acknowledge scope change and get confirmation
-- Salvage and restart
-
-**Lost:** Invoke `/salvage` immediately.
+**Aligned:** Continue. **Minor drift:** Note it, refocus if needed. **Significant drift:** Pause — refocus, get confirmation, or salvage. **Lost:** Invoke `/salvage` immediately.
 
 ### Step 4: Salvage if Needed
 
-When to stop and salvage:
+When to stop: approach has reversed 3+ times, scope keeps expanding, you're oscillating not converging, the finish line keeps moving.
 
-- Approach has reversed 3+ times
-- Scope keeps expanding while "done" keeps fuzzing
-- You're oscillating, not converging
-- The finish line keeps moving
-- Starting over feels right
-
-Don't fight lost work. Extract the learning and restart clean.
-
-> "Code is cheap now. Learning is the asset."
-
-Invoke `/salvage` to extract what you learned before restarting.
+Don't fight lost work. Extract the learning and restart clean. Invoke `/salvage`.
 
 ## Output Format
 
@@ -129,10 +94,8 @@ When execution completes successfully:
 
 ### Delivered Characteristics
 - [characteristic/result]: [met | partially met | deferred]
-- [characteristic/result]: [met | partially met | deferred]
 
 ### Changes
-- [file/component]: [what changed and why]
 - [file/component]: [what changed and why]
 
 ### Verification
@@ -211,12 +174,6 @@ Pre-flight Checklist:
 
 ### Example 2: Drift Detection Mid-Execution
 
-```
-/execute
-
-Task: Fix the timezone bug in calendar display
-```
-
 **Mid-execution drift check:**
 ```
 Drift Check:
@@ -232,9 +189,7 @@ Drift Check:
 
 **Original aim:** Fix timezone bug in calendar display
 **Current state:** Found the bug, but discovered date handling is inconsistent across 12 files
-
 **Drift:** Started fixing the display bug, realized the root cause is a design issue.
-Fixing it properly requires touching the date library, which affects everything.
 
 ### Options
 1. Band-aid fix in display layer only (solves symptom, not cause)
@@ -242,37 +197,12 @@ Fixing it properly requires touching the date library, which affects everything.
 3. Salvage learning, create proper task for date system redesign
 
 Recommendation: Option 3 - the date system needs intentional redesign, not
-accidental refactoring during a bug fix. Salvage what we learned, create a
-proper design task, apply band-aid for now.
-```
-
-### Example 3: Triggering Salvage
-
-```
-/execute
-
-Building the new auth flow
-```
-
-**After multiple iterations:**
-```
-## Execution Paused - Salvaging
-
-**Original aim:** Simplify authentication flow
-**Current state:** 4th approach attempted, complexity has increased
-
-The approach has reversed multiple times:
-1. Started with unified flow -> broke provider-specific handling
-2. Switched to provider adapters -> too much duplication
-3. Tried abstract base class -> inheritance nightmare
-4. Back to unified flow with exceptions -> where we started, but worse
-
-Invoking /salvage to extract learning before restart.
+accidental refactoring during a bug fix.
 ```
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+This skill can persist context to `.oh/<session>.md`.
 
 **If session name provided** (`/execute auth-refactor`):
 - Reads/writes `.oh/auth-refactor.md` directly
@@ -280,11 +210,10 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 **If no session name provided** (`/execute`):
 - After pre-flight, offer to save execution context:
   > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch or the task description
 
-**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, and **Solution Space** to understand what we're building and why. This is essential for drift detection.
+**Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, and **Solution Space** to understand what we're building and why — essential for drift detection.
 
-**Writing:** After pre-flight and during execution, write status to the session file, including the declared success criteria and what has been delivered so far:
+**Writing:** After pre-flight and during execution, write status including declared success criteria and delivered characteristics:
 
 ```markdown
 ## Execute
@@ -307,17 +236,14 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 ### With Open Horizons MCP
 - Queries related past decisions and learnings
 - Logs execution decisions to graph database
-- Session file serves as local cache
 
 ### With task management (ba, GitHub issues)
 - Creates subtasks for non-trivial findings
 - Updates task status as work progresses
-- Links commits to tasks
 
 ### With code review (sg, CodeRabbit)
 - Runs automated review on staged changes
 - Triages findings by severity
-- Iterates until review passes
 
 ## Position in Framework
 
@@ -325,13 +251,6 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 **Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
 **Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.
 
-## Leads To
-
-After execute, typically:
-- `/review` - Verify the work before committing
-- `/ship` - Deploy the change to users
-- `/salvage` - If drift was detected and restart needed
-
 ---
 
-**Remember:** Execute is the inner loop. Stay focused on the aim. Code is cheap; thrashing is expensive. Detect drift early. Salvage without shame.
+**Remember:** Execute is the inner loop. Stay focused on the aim. Detect drift early. Salvage without shame.

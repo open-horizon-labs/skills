@@ -5,40 +5,37 @@ description: Map what we're optimizing and what constraints we treat as real. Us
 
 # /problem-space
 
-Map the terrain where solutions live. What are we optimizing? What constraints do we treat as real? Which constraints can be questioned?
+Map the terrain where solutions live. What are we optimizing? What constraints are real? Which can be questioned?
 
-Problem space exploration precedes solution space. Understanding the terrain is the work. Jump to code too early and you'll build the wrong thing fast.
+Problem space precedes solution space. Jump to code too early and you build the wrong thing fast.
 
 ## When to Use
 
-Invoke `/problem-space` when:
+- **Starting new work** — before implementation, understand what you're solving
+- **Hitting repeated blockers** — same problems in different forms
+- **Patches accumulating** — third config flag for the same bug means you're treating symptoms
+- **Estimates off by 10×** — the problem isn't understood
+- **Agent talking itself out of constraints** — "for this prototype we don't have time" when the constraint matters
 
-- **Starting new work** - Before jumping to implementation, understand what you're actually solving
-- **Hitting repeated blockers** - The same problems keep appearing in different forms
-- **Patches accumulating** - Third config flag for the same bug signals you're treating symptoms
-- **Estimates feel off** - When time estimates are wrong by an order of magnitude, the problem isn't understood
-- **Agent is talking itself out of constraints** - "For this prototype we don't have time" when the constraint matters
-
-**Do not use when:** The problem is well-understood and you're already in execution. Problem space is for grounding, not for stalling.
+**Skip when:** Problem is well-understood and you're in execution. Problem space is for grounding, not stalling.
 
 ## The Problem Space Process
 
 ### Step 1: State the Objective Function
 
-What are we actually optimizing? Not the feature, the outcome.
+What are we optimizing? Not the feature — the outcome.
 
 > "We are optimizing for [outcome]."
 
-Be precise. "Build a login page" is a feature. "Reduce time-to-first-value for new users" is an objective. The aim IS the abstraction.
+"Build a login page" is a feature. "Reduce time-to-first-value for new users" is an objective.
 
-Ask:
-- What change in behavior would indicate success?
-- What metric would move if this worked?
+- What behavior change indicates success?
+- What metric moves if this works?
 - What problem disappears if we get this right?
 
 ### Step 2: Map the Constraints
 
-List what we're treating as fixed. Be explicit about each constraint's nature:
+List what we treat as fixed. Be explicit about each constraint's nature:
 
 ```
 Constraint: [the boundary]
@@ -47,51 +44,38 @@ Reason: [why it exists]
 Questioning: [could this be false?]
 ```
 
-**Hard constraints** - Physics, regulations, signed contracts. These don't bend.
+**Hard** — physics, regulations, signed contracts. Don't bend.
+**Soft** — organizational decisions, technical debt, time pressure. Negotiable.
+**Assumed** — "we've always done it this way." Question these.
 
-**Soft constraints** - Organizational decisions, technical debt, time pressure. These can be negotiated.
-
-**Assumed constraints** - "We've always done it this way." These should be questioned.
-
-The trap: Agents will talk themselves out of constraints. "For this prototype we don't have time" is often false when code generation takes 15 minutes, not a week. Ground yourself in what's actually fixed.
+The trap: agents talk themselves out of constraints. "For this prototype we don't have time" is often false when code generation takes 15 minutes. Ground in what's actually fixed.
 
 ### Step 3: Identify the Terrain
 
-Where do solutions live? Map the space:
-
-- **What systems are involved?** - Existing code, external APIs, data stores
-- **Who is affected?** - Users, operators, downstream systems
-- **What's the blast radius?** - If this goes wrong, what breaks?
-- **What precedents exist?** - Has this been solved before? Where?
+- **Systems involved?** — existing code, external APIs, data stores
+- **Who is affected?** — users, operators, downstream systems
+- **Blast radius?** — if this goes wrong, what breaks?
+- **Precedents?** — solved before? Where?
 
 ### Step 4: Surface Hidden Assumptions
 
-Every problem statement has embedded assumptions. Make them visible:
-
 > "We assume [assumption]. If this is false, [consequence]."
-
-Common hidden assumptions:
-- The current architecture must be preserved
-- The feature set is fixed
-- The timeline can't change
-- Users want what they asked for (not what they need)
 
 ### Step 5: Check for X-Y Problems
 
 Are we solving the real problem (X) or the user's attempted solution (Y)?
 
-Signs of X-Y mismatch:
+**Signs of X-Y mismatch:**
 - Request is oddly specific for a simple goal
 - You're building something that feels like a workaround
-- "How do I do [technique]" without explaining why
+- "How do I do [technique]?" without explaining why
 
 If potential X-Y problem detected:
 > "The user asked for [Y], but the underlying need might be [X]."
 
-If the constraints, assumptions, or open questions still feel implicit after this step, you're not ready for `/solution-space` yet. The point is to force the unknowns into the artifact, not carry them forward as unstated model guesses.
-## Output Format
+If constraints, assumptions, or open questions still feel implicit after this step, you're not ready for `/solution-space`. Force the unknowns into the artifact.
 
-Always produce a problem space map in this structure:
+## Output Format
 
 ```
 ## Problem Space Map
@@ -171,6 +155,10 @@ We are optimizing for: Reliable deployments that succeed without manual interven
 1. Config flags are the right mechanism for deployment variation - if false: we need environment-aware builds
 2. Failures are config-related - if false: we have an architecture problem
 
+### Open Questions
+- Is the deployment failure really caused by configuration, or is config just the visible symptom?
+- What evidence would justify redesign over another flag?
+
 ### X-Y Check
 - **Stated need (Y):** Fix deployment config issues
 - **Underlying need (X):** Make deployments reliable
@@ -217,6 +205,10 @@ We are optimizing for: Page load time under 2 seconds for 95th percentile users.
 2. Optimization is cheaper than redesign - if false: N+1 queries need architectural change
 3. Current feature set is needed - if false: could eliminate unused expensive features
 
+### Open Questions
+- What is the actual bottleneck: database, network, or frontend rendering?
+- Which user workflows matter most for the 95th percentile target?
+
 ### X-Y Check
 - **Stated need (Y):** Optimize database queries
 - **Underlying need (X):** Make app feel fast to users
@@ -224,23 +216,23 @@ We are optimizing for: Page load time under 2 seconds for 95th percentile users.
 
 ### Ready for Solution Space?
 No - Need performance profiling to identify actual bottleneck before optimizing anything.
+No - Need performance profiling to identify actual bottleneck before optimizing anything.
 ```
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+Persists to `.oh/<session>.md` for subsequent skills.
 
 **If session name provided** (`/problem-space auth-refactor`):
 - Reads/writes `.oh/auth-refactor.md` directly
 
 **If no session name provided** (`/problem-space`):
-- After producing the problem space map, offer to save it:
-  > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch or the exploration topic
+- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
+- Suggest name from git branch or exploration topic
 
-**Reading:** Check for existing session file. Read prior skill outputs—especially **Aim** and **Problem Statement**—to ground the exploration.
+**Reading:** Check for existing session file. Read prior skill outputs — especially **Aim** and **Problem Statement** — to ground exploration.
 
-**Writing:** After producing output, write the problem space map to the session file so later phases can reuse the explicit constraints, assumptions, and open questions instead of inferring them again:
+**Writing:** Write problem space map so later phases reuse explicit constraints, assumptions, and open questions:
 
 ```markdown
 ## Problem Space
@@ -256,48 +248,35 @@ Works anywhere. Produces problem space map through questioning. No persistence.
 
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (aim, problem statement)
-- Writes problem space map to the session file
-- Subsequent skills can read constraints, assumptions, open questions, and terrain directly
+- Writes problem space map to session file
+- Subsequent skills read constraints, assumptions, open questions, terrain directly
 
 ### With RNA MCP (repo-native-alignment)
 
-When the RNA MCP server is available (`oh_search_context` tool present), enrich the problem space map with repo-local situated knowledge before presenting it to the human.
+When RNA MCP is available (`oh_search_context` tool present), enrich the problem space map with repo-local knowledge before presenting to the human.
 
-**At Step 2 (Map Constraints):** Call `oh_search_context` with the objective/domain and `phase: "problem-space"`. Surface any guardrails that apply — these are already-settled constraints the team has established, not assumptions to question. Fold them into the constraints table as `hard` with source attribution. Present remaining guardrail candidates for human confirmation.
+**At Step 2 (Map Constraints):** Call `oh_search_context` with the objective/domain and `phase: "problem-space"`. Surface guardrails as already-settled constraints (not assumptions to question). Fold into constraints table as `hard` with source attribution. Present remaining candidates for confirmation.
 
-**At Step 3 (Terrain / Precedents):** Call `oh_search_context` with the problem domain. Surface relevant metis entries tagged to similar problem spaces or outcomes. Present as a short candidate list with provenance — human selects what to carry as precedents. Discard the rest; do not inject indiscriminately.
+**At Step 3 (Terrain / Precedents):** Call `oh_search_context` with the problem domain. Surface relevant metis entries. Present as candidate list with provenance — human selects what to carry as precedents.
 
-**Format for surfaced candidates:**
 ```
 **Relevant metis/guardrails from this repo:**
 - [metis title] (source: .oh/metis/filename.md) — [one-line relevance note]
   → Keep / Dismiss?
 ```
 
-Human selects before the problem space map is finalized. What they select appears in Terrain → Precedents and Constraints. What they dismiss is not included.
+Human selects before the map is finalized. Selected items appear in Terrain/Constraints; dismissed items are excluded.
 
-**Phase tag:** Pass `phase: "problem-space"` to filter for phase-appropriate entries. Cross-phase metis (solution-space learnings, implementation notes) is noise here and must be excluded unless explicitly requested.
+**Phase tag:** Pass `phase: "problem-space"` to filter for phase-appropriate entries. Cross-phase metis is noise here unless explicitly requested.
 
 ### With Open Horizons MCP
-- Queries graph for related past decisions and their outcomes
-- Pulls relevant tribal knowledge about similar problem spaces
-- Retrieves guardrails that apply to this domain
-- Session file serves as local cache
+- Queries graph for related past decisions and outcomes
+- Pulls tribal knowledge about similar problem spaces
+- Retrieves applicable guardrails
+- Session file as local cache
 
 ## Position in Framework
 
-**Comes after:** `/aim` (you need to know your destination before mapping the terrain).
+**Comes after:** `/aim` (know your destination before mapping terrain).
 **Leads to:** `/problem-statement` to frame the specific challenge, or `/solution-space` if already well-framed.
 **Can loop back from:** `/salvage` (constraints were wrong), `/review` (keeps hitting same blockers).
-
-## Leads To
-
-After problem space mapping, typically:
-- `/problem-statement` - Crisp articulation of what needs solving
-- `/solution-space` - Explore candidate implementations
-- Return to stakeholders - If constraints need challenging
-- Research/investigation - If terrain is insufficiently understood
-
----
-
-**Remember:** Problem space is not about delay. It's about building the right thing. The constraint is alignment, not delivery. When execution is cheap, understanding is the leverage.

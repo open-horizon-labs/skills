@@ -5,38 +5,30 @@ description: Devil's advocate. Seek contrary evidence before locking in. Use whe
 
 # /dissent
 
-Structured disagreement that strengthens decisions. The insight: **find flaws before the one-way door closes.**
+Structured disagreement that strengthens decisions. **Find flaws before the one-way door closes.**
 
-Dissent is not attack. It's the practice of actively seeking reasons you might be wrong. The devil's advocate is a role, not a personality.
+Dissent is not attack. It's actively seeking reasons you might be wrong.
 
 ## When to Use
 
-Invoke `/dissent` when:
+Invoke `/dissent` when: about to lock in a one-way door (architecture, public API, major hires), confidence is high but stakes are higher, team is converging too quickly, you're defending a position, or the path forward seems obvious.
 
-- **About to lock in a one-way door** - architecture choices, major hires, public API contracts, anything hard to reverse
-- **Confidence is high but stakes are higher** - feeling certain is when you need dissent most
-- **Team is converging too quickly** - unanimous agreement without debate is a warning sign
-- **You're defending a position** - advocacy mode is the enemy of truth-seeking
-- **The path forward seems obvious** - obvious paths have hidden assumptions
-
-**Do not use when:** Gathering initial options, brainstorming, or exploring. Dissent is for stress-testing decisions, not generating them.
+**Do not use when:** Gathering initial options or brainstorming. Dissent stress-tests decisions, not generates them.
 
 ## The Dissent Process
 
 ### Step 1: Steel-Man the Current Approach
 
-Before attacking, fully articulate the position you're challenging:
+Before attacking, fully articulate the position:
 
 > "The current approach is [approach]. The reasoning is [reasoning]. The expected outcome is [outcome]. This is the strongest version of this position."
 
-If you can't state the position charitably, you don't understand it well enough to challenge it.
+If you can't state it charitably, you don't understand it well enough to challenge it.
 
 ### Step 2: Seek Contrary Evidence
 
-Actively search for information that contradicts the current approach:
-
 - What data would prove this approach wrong?
-- Who disagrees with this? What's their strongest argument?
+- Who disagrees? What's their strongest argument?
 - What similar approaches have failed elsewhere? Why?
 - What are we ignoring because it's inconvenient?
 
@@ -50,50 +42,38 @@ Imagine it's six months from now and this decision failed. Work backward:
 
 Generate at least three plausible failure scenarios:
 
-1. **Technical failure** - It doesn't work as expected
-2. **Adoption failure** - It works but nobody uses it / changes nothing
-3. **Opportunity cost** - It works but we should have done something else
+1. **Technical failure** — it doesn't work as expected
+2. **Adoption failure** — it works but nobody uses it / changes nothing
+3. **Opportunity cost** — it works but we should have done something else
 
 ### Step 4: Surface Hidden Assumptions
 
-Every decision rests on assumptions. Most aren't stated. Find them:
+Every decision rests on unstated assumptions. Find them:
 
 - What are we assuming about the user/customer?
 - What are we assuming about the system/codebase?
-- What are we assuming about the timeline/resources?
+- What are we assuming about timeline/resources?
 - What are we assuming won't change?
 
-For each assumption:
+For each:
 ```
 Assumption: [what we're taking for granted]
-Evidence: [what supports this assumption]
-Risk if wrong: [what happens if this assumption breaks]
-Test: [how we could validate this before committing]
+Evidence: [what supports this]
+Risk if wrong: [what happens]
+Test: [how to validate before committing]
 ```
 
 ### Step 5: Decide
 
-Based on the dissent analysis, recommend one of:
-
-- **PROCEED** - Dissent found no critical flaws. Decision strengthened.
-- **ADJUST** - Dissent surfaced issues that can be addressed. Modify the approach.
-- **RECONSIDER** - Dissent revealed fundamental problems. Go back to solution space.
-
-Always include the reasoning:
+- **PROCEED** — no critical flaws found; decision strengthened
+- **ADJUST** — issues surfaced that can be addressed; modify the approach
+- **RECONSIDER** — fundamental problems revealed; back to solution space
 
 > "PROCEED: The strongest counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
 
 ### ADR Generation
 
-If the decision is a **one-way door** (hard to reverse) and you recommend PROCEED or ADJUST, offer to create an Architecture Decision Record (ADR). Future team members will ask "why did we do it this way?"
-
-**Offer to create an ADR when:**
-- The decision affects system architecture
-- Multiple valid approaches were considered and rejected
-- The reasoning depends on current context that might not be obvious later
-- Someone will likely question this in 6 months
-
-**The dissent report maps directly to ADR format:**
+If the decision is a **one-way door** and you recommend PROCEED or ADJUST, offer to create an Architecture Decision Record. The dissent report maps directly:
 
 | Dissent Section | ADR Section |
 |-----------------|-------------|
@@ -103,33 +83,9 @@ If the decision is a **one-way door** (hard to reverse) and you recommend PROCEE
 | Hidden Assumptions | Consequences |
 | Decision + Reasoning | Decision |
 
-**If user accepts, write to:** `docs/adr/NNNN-<decision-slug>.md` (or project's ADR location)
-
-```markdown
-# ADR NNNN: [Decision Title]
-
-## Status
-Accepted
-
-## Context
-[From Steel-Man Position - why this decision needed to be made]
-
-## Decision
-[From Decision section - what we decided and why]
-
-## Options Considered
-[From Contrary Evidence - what alternatives were evaluated]
-
-## Consequences
-[From Hidden Assumptions - what we're accepting by making this decision]
-
-## Notes
-Generated from /dissent on [date]
-```
+Write to `docs/adr/NNNN-<decision-slug>.md` if accepted.
 
 ## Output Format
-
-Always produce a dissent report in this structure:
 
 ```
 ## Dissent Report
@@ -155,19 +111,14 @@ Always produce a dissent report in this structure:
 | Assumption | Evidence | Risk if Wrong | Test |
 |------------|----------|---------------|------|
 | [Assumption 1] | [Evidence] | [Risk] | [Test] |
-| [Assumption 2] | [Evidence] | [Risk] | [Test] |
 
 ### Decision
 
 **Recommendation:** [PROCEED / ADJUST / RECONSIDER]
-
-**Reasoning:** [Why this recommendation]
-
+**Reasoning:** [Why]
 **If ADJUST:** [Specific modifications]
-
 **Confidence after dissent:** [HIGH/MEDIUM/LOW]
-
-**Create ADR?** [Yes - offer to write docs/adr/NNNN-slug.md / No - not a one-way door]
+**Create ADR?** [Yes - offer path / No - not a one-way door]
 ```
 
 ## Examples
@@ -177,8 +128,7 @@ Always produce a dissent report in this structure:
 ```
 /dissent
 
-We're about to adopt a microservices architecture for the new
-payments system. The team agrees this is the right approach.
+We're about to adopt microservices for the payments system. Team agrees.
 ```
 
 **Output:**
@@ -190,42 +140,33 @@ payments system. The team agrees this is the right approach.
 **Confidence before dissent:** HIGH (team unanimous)
 
 ### Steel-Man Position
-Microservices will allow independent scaling of payment processing,
-enable different teams to deploy independently, and provide fault
-isolation so one service failure doesn't bring down payments.
+Microservices will allow independent scaling, independent deployment,
+and fault isolation so one service failure doesn't bring down payments.
 
 ### Contrary Evidence
 1. We have 4 engineers. Netflix had 100+ when they went microservices.
-2. Our deployment pipeline takes 45 minutes. We'll multiply that by N services.
+2. Our 45-minute pipeline gets multiplied by N services.
 3. The "independent teams" benefit requires teams we don't have.
 
 ### Pre-Mortem Scenarios
-1. **Distributed systems complexity:** We spend 60% of time debugging
-   cross-service issues instead of building features.
-2. **Operational overhead:** We can't hire SREs fast enough. System
-   is down because nobody understands the full architecture.
-3. **Premature optimization:** The "scaling" benefit never materializes
-   because we never got enough users to need it.
+1. **Distributed complexity:** 60% of time debugging cross-service issues.
+2. **Operational overhead:** Can't hire SREs fast enough. Nobody understands full architecture.
+3. **Premature optimization:** Scaling benefit never materializes — not enough users.
 
 ### Hidden Assumptions
 | Assumption | Evidence | Risk if Wrong | Test |
 |------------|----------|---------------|------|
-| We'll need to scale components independently | None - projected | Waste of complexity | Check actual load patterns |
+| Need independent scaling | None - projected | Waste of complexity | Check actual load patterns |
 | Team will grow to support this | Hiring plan exists | Stuck with complexity, no staff | Validate funding/timeline |
 | Network latency acceptable | Not measured | Payment failures | Prototype and benchmark |
 
 ### Decision
 
 **Recommendation:** RECONSIDER
-
-**Reasoning:** The benefits of microservices assume scale and team
-size we don't have. The strongest argument for microservices (independent
-scaling) has no evidence supporting the need. A modular monolith gives
-us the code organization benefits without the operational complexity.
-
+**Reasoning:** Benefits assume scale and team size we don't have.
+A modular monolith gives code organization benefits without operational complexity.
 **Confidence after dissent:** HIGH (clear mismatch)
-
-**Create ADR?** No - we're reconsidering, not committing
+**Create ADR?** No - reconsidering, not committing
 ```
 
 ### Example 2: Feature Decision
@@ -233,8 +174,7 @@ us the code organization benefits without the operational complexity.
 ```
 /dissent
 
-We're about to ship a recommendation system that suggests similar
-items based on purchase history. Built over 3 sprints.
+Shipping a recommendation system based on purchase history. Built over 3 sprints.
 ```
 
 **Output:**
@@ -246,58 +186,46 @@ items based on purchase history. Built over 3 sprints.
 **Confidence before dissent:** MEDIUM
 
 ### Steel-Man Position
-Users who bought X often want Y. Amazon proved this works. We have
-the purchase data. The model is trained and performs well in testing.
+Users who bought X often want Y. We have the purchase data. Model performs well in testing.
 
 ### Contrary Evidence
-1. Our testing used historical data. Users might behave differently
-   when seeing recommendations in real-time.
-2. We have 10K users. Amazon's model works with billions of data points.
+1. Testing used historical data — real-time behavior may differ.
+2. 10K users vs Amazon's billions of data points.
 3. Competitor tried this, removed it after 6 months (no lift).
 
 ### Pre-Mortem Scenarios
-1. **Cold start problem:** New users see garbage recommendations,
-   leave before making a purchase we could learn from.
-2. **Filter bubble:** System recommends what users already buy,
-   doesn't drive discovery of new product categories.
-3. **Wrong metric:** Recommendations get clicks but not purchases.
-   We optimized for engagement, needed revenue.
+1. **Cold start:** New users see garbage recommendations, leave.
+2. **Filter bubble:** Recommends what users already buy, no discovery.
+3. **Wrong metric:** Optimized for clicks, needed revenue.
 
 ### Hidden Assumptions
 | Assumption | Evidence | Risk if Wrong | Test |
 |------------|----------|---------------|------|
-| Purchase history predicts intent | Industry standard | Wasted real estate | A/B test against simple "popular items" |
-| 10K users is enough data | None | Poor recommendations | Check minimum viable data in literature |
-| Homepage placement is right | None | Users ignore it | Heatmap existing traffic patterns |
+| Purchase history predicts intent | Industry standard | Wasted real estate | A/B test vs "popular items" |
+| 10K users is enough data | None | Poor recommendations | Check literature on minimum viable data |
+| Homepage placement is right | None | Users ignore it | Heatmap existing traffic |
 
 ### Decision
 
 **Recommendation:** ADJUST
-
-**Reasoning:** The approach is sound but we're shipping without
-validation. Risk is manageable with modifications.
-
 **Modifications:**
 1. Ship with A/B test against "popular items" baseline
-2. Add fallback to curated picks for users with <5 purchases
+2. Fallback to curated picks for users with <5 purchases
 3. Define success metric (revenue lift, not clicks) before launch
 
 **Confidence after dissent:** MEDIUM (reduced risk with A/B)
-
-**Create ADR?** Yes - shall I write `docs/adr/0012-recommendation-system-rollout.md`? Documents why we chose A/B testing and what success metrics we committed to.
+**Create ADR?** Yes - `docs/adr/0012-recommendation-system-rollout.md`
 ```
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+This skill can persist context to `.oh/<session>.md`.
 
 **If session name provided** (`/dissent auth-decision`):
 - Reads/writes `.oh/auth-decision.md` directly
 
 **If no session name provided** (`/dissent`):
-- After producing the dissent report, offer to save it:
-  > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch or the decision topic
+- After producing the dissent report, offer to save it
 
 **Reading:** Check for existing session file. Read **Aim**, **Problem Statement**, **Solution Space** to understand the decision being challenged.
 
@@ -319,22 +247,16 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for context on the decision
 - Writes dissent report to the session file
-- Subsequent skills see that dissent was performed
 
 ### With Open Horizons MCP
 - Queries past decisions on similar topics
 - Retrieves relevant guardrails and tribal knowledge
 - Logs dissent decision for future reference
-- Session file serves as local cache
 
 ### With RNA MCP (repo-native-alignment)
-- Call `oh_search_context("risks and constraints for [area]", artifact_types: ["guardrail", "metis"])` to ground dissent
-- Call `outcome_progress` to assess whether the approach serves the outcome
-- Call `oh_record_metis` to capture dissent findings as durable learning
-
-### With Team Input
-- Aggregates dissent from multiple reviewers
-- Tracks which assumptions different team members question
+- `oh_search_context("risks and constraints for [area]", artifact_types: ["guardrail", "metis"])` to ground dissent
+- `outcome_progress` to assess whether the approach serves the outcome
+- `oh_record_metis` to capture dissent findings as durable learning
 
 ## Position in Framework
 
@@ -342,13 +264,6 @@ Works anywhere. Produces dissent report for manual review. No persistence.
 **Leads to:** PROCEED (continue with confidence), ADJUST (modify approach), or RECONSIDER (back to solution-space).
 **This is not a phase:** Dissent is an overlay you invoke when stakes are high.
 
-## Leads To
-
-After dissent, typically:
-- **PROCEED** - Continue to `/execute` or `/ship` with strengthened confidence
-- **ADJUST** - Update the approach, then `/review` the modifications
-- **RECONSIDER** - Return to `/solution-space` with new constraints
-
 ---
 
-**Remember:** Dissent is not doubt. It's the discipline of seeking truth before comfort. The goal isn't to stop decisions—it's to make better ones.
+**Remember:** Dissent is not doubt. It's the discipline of seeking truth before comfort.

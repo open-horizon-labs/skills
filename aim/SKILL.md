@@ -5,27 +5,25 @@ description: Clarify the outcome you want - a change in user behavior, not a fea
 
 # /aim
 
-Clarify the outcome you want. An aim is a change in user behavior, not a feature shipped. This is the first step in the Intent-Execution-Review loop.
+Clarify the outcome you want. An aim is a change in user behavior, not a feature shipped. First step in Intent-Execution-Review.
 
-**The aim IS the abstraction.** When you clarify what behavior you want to change, you're abstracting the business domain itself. Features are just the mechanism; the aim is why they matter.
+**The aim IS the abstraction.** Clarifying what behavior to change abstracts the business domain itself. Features are mechanism; the aim is why they matter.
 
 ## When to Use
 
-Invoke `/aim` when:
+- **Starting new work** — before problem-statement or problem-space
+- **Scope feels fuzzy** — you can describe what but not why
+- **Multiple solutions seem valid** — aim reveals which moves the needle
+- **Work has drifted** — check alignment
+- **Team is misaligned** — surfaces hidden assumptions
 
-- **Starting new work** - Before diving into problem-statement or problem-space
-- **Scope feels fuzzy** - You can describe what you're building but not why
-- **Multiple solutions seem valid** - Aim clarifies which one actually moves the needle
-- **Work has drifted** - Return to aim to check if you're still on track
-- **Team is misaligned** - Shared aim surfaces hidden assumptions
-
-**Do not use when:** You already have a crisp aim and need to explore the problem space or solution space. Move to `/problem-statement` or `/problem-space` instead.
+**Skip when:** You already have a crisp aim. Move to `/problem-statement` or `/problem-space`.
 
 ## The Aim Process
 
 ### Step 1: State the Desired Behavior Change
 
-Start with the user, not the system. What do you want users to do differently after this work ships?
+Start with the user, not the system.
 
 > "Users will [specific behavior] instead of [current behavior]."
 
@@ -35,15 +33,12 @@ Good: "Users can work comfortably at night without eye strain"
 Bad: "Improve onboarding flow"
 Good: "New users reach their first value moment within 5 minutes"
 
-**Key distinction:** Features are outputs. Behavior changes are outcomes. If users do not become more capable, more effective, or more successful, shipping more output does not rescue the work.
+**Key distinction:** Features are outputs. Behavior changes are outcomes. If users don't become more capable, shipping more output doesn't rescue the work.
 
 ### Step 2: Identify the Mechanism
 
-The mechanism is your hypothesis - the causal lever you believe will produce the behavior change. It's the "because" that connects your work to the outcome.
+The mechanism is your hypothesis — the causal lever you believe produces the behavior change.
 
-> "This will happen because [mechanism]."
-
-Format:
 ```
 Mechanism: [What you're changing]
 Hypothesis: [Why you believe it will produce the outcome]
@@ -52,29 +47,23 @@ Assumptions: [What must be true for this to work]
 
 ### Step 3: Define the Feedback Signal
 
-How will you know if the aim is achieved? What signal validates or disproves the mechanism?
+How will you know if the aim is achieved?
 
 > "We'll know it's working when [observable signal]."
 
-Good feedback signals are:
-- **Observable** - You can actually measure or see them
-- **Timely** - You'll know within a reasonable timeframe
-- **Attributable** - The signal connects to your mechanism, not noise
+Signals must be **observable**, **timely**, and **attributable** to your mechanism.
 
 ### Step 4: Set Guardrails
 
-What constraints should bound this work? What would cause you to stop or change direction?
+What constraints bound this work? What would cause you to stop?
 
-Format:
 ```
 Guardrail: [boundary]
 Reason: [why this matters]
-Trigger: [when to revisit this constraint]
+Trigger: [when to revisit]
 ```
 
 ## Output Format
-
-Always produce an aim statement in this structure:
 
 ```
 ## Aim Statement
@@ -98,8 +87,7 @@ Always produce an aim statement in this structure:
 - [Guardrail 2]
 ```
 
-Later phases should be able to carry forward the aim's explicit fields rather than paraphrasing them loosely: the outcome, mechanism, assumptions, feedback signal, and guardrails are the contract the rest of the workflow is supposed to preserve.
-
+Later phases carry forward the aim's explicit fields — outcome, mechanism, assumptions, feedback signal, guardrails — as the contract the rest of the workflow preserves.
 
 ## Examples
 
@@ -190,7 +178,7 @@ I'm three days into this auth refactor and not sure if I'm still solving the rig
 
 **Original aim (inferred):** Simplify the authentication flow for easier maintenance.
 
-Let me ask clarifying questions to validate:
+Clarifying questions:
 
 1. **What behavior change were you targeting?**
    - Faster feature development in auth-adjacent code?
@@ -200,12 +188,10 @@ Let me ask clarifying questions to validate:
 2. **What's the current state?**
    - How long does an auth change take today?
    - What breaks most often?
-   - What do devs complain about?
 
 3. **What signal will tell you this worked?**
    - PR cycle time for auth changes?
    - Bug count in auth module?
-   - Onboarding feedback?
 
 Without clear answers, consider `/salvage` to extract what you've learned, then restart with a crisp aim.
 
@@ -214,20 +200,18 @@ Without clear answers, consider `/salvage` to extract what you've learned, then 
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+Persists to `.oh/<session>.md` for subsequent skills.
 
 **If session name provided** (`/aim auth-refactor`):
 - Reads/writes `.oh/auth-refactor.md` directly
 
 **If no session name provided** (`/aim`):
-- After producing the aim statement, offer to save it:
-  > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch (e.g., `feature/auth-flow` → `auth-flow`) or the aim content
-- If user accepts, create `.oh/<session>.md`
+- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
+- Suggest name from git branch or aim content
 
-**Reading:** Check for existing session file. If found, read prior skill outputs (problem-statement, problem-space, etc.) for context.
+**Reading:** Check for existing session file; read prior skill outputs for context.
 
-**Writing:** After producing output, write the aim statement to the session file as the contract later phases will reuse:
+**Writing:** Write aim statement as the contract later phases reuse:
 
 ```markdown
 # Session: <session>
@@ -238,7 +222,7 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 [aim statement content]
 ```
 
-If the section exists, replace it. If not, create it.
+If the section exists, replace it.
 
 ## Adaptive Enhancement
 
@@ -246,30 +230,18 @@ If the section exists, replace it. If not, create it.
 Works anywhere. Produces aim statement for discussion. No persistence.
 
 ### With .oh/ session file
-- Reads `.oh/<session>.md` for prior context from other skills
-- Writes aim statement to the session file
-- Subsequent skills (`/problem-statement`, `/solution-space`, etc.) can read the outcome, assumptions, feedback signal, and guardrails directly
+- Reads `.oh/<session>.md` for prior context
+- Writes aim statement to session file
+- Subsequent skills read outcome, assumptions, feedback signal, guardrails directly
 
 ### With Open Horizons MCP
-- Queries related endeavors to see if aim already exists
-- Pulls relevant tribal knowledge that might inform mechanism choice
-- Logs aim statement to graph database
-- Links aim to active endeavors
-- Session file serves as local cache for MCP data
+- Queries related endeavors for existing aims
+- Pulls relevant tribal knowledge for mechanism choice
+- Logs aim to graph database, links to active endeavors
+- Session file as local cache
 
 ## Position in Framework
 
-**Comes after:** Nothing—aim is the entry point.
+**Comes after:** Nothing — aim is the entry point.
 **Leads to:** `/problem-space` to map the terrain, or `/solution-space` if the problem is already clear.
 **Can loop back from:** `/salvage` (restart with learning), `/review` (if aim has drifted).
-
-## Leads To
-
-After establishing aim, typically:
-- `/problem-space` - Map the terrain and constraints
-- `/problem-space` - Map constraints and what you're optimizing
-- `/review` - Check if current work still serves the aim
-
----
-
-**Remember:** The aim IS the abstraction. Features are outputs; behavior changes are outcomes. Start with what you want users to do differently.

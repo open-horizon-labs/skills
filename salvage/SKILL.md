@@ -5,18 +5,14 @@ description: Extract learning before restarting. Code is a draft; learning is th
 
 # /salvage
 
-Extract learning from a session or piece of work before restarting. The insight: **code is cheap now; learning is the asset.**
-
-Salvage is the bridge from Review back to Problem Space. When drift is detected, salvage captures what was learned so you can restart clean without losing understanding.
+Extract learning from work before restarting. **Code is cheap; learning is the asset.**
 
 ## When to Use
 
 Invoke `/salvage` when:
 
 - **Work is drifting** - approach has changed direction multiple times
-- **Approach reversed 3+ times** - you're oscillating, not converging
 - **Scope expanding while "done" keeps fuzzing** - the finish line keeps moving
-- **You're protecting code you've invested in** - afraid to throw it away
 - **Starting over feels right** - but you don't want to lose what you learned
 
 **Do not use when:** Work is on track and converging. Salvage is for extraction before restart, not routine reflection.
@@ -25,20 +21,15 @@ Invoke `/salvage` when:
 
 ### Step 1: Acknowledge the State
 
-Before extracting, name what happened:
-
 > "This session/approach is being salvaged because [reason]. The original aim was [aim]. What actually happened was [reality]."
-
-Be direct. No judgment—just clarity.
 
 ### Step 2: Extract Five Things
 
-Work through these extraction categories. Not everything will apply; extract what's present.
+Work through these categories. Extract what's present.
 
 #### 1. Model Shifts (What changed your understanding?)
 
 - What assumptions were wrong?
-- What did you learn about the problem that you didn't know before?
 - What would you tell yourself at the start of this work?
 
 > "I thought X, but actually Y."
@@ -60,21 +51,13 @@ Trigger: [when to revisit this constraint]
 
 - What questions should have been asked at the start?
 - What existing code/patterns should have been found first?
-- What documentation was missing or would have prevented this?
 
 > "If I had known about [X], I would have [Y] instead."
 
 #### 4. Local Practices (Hard-won lessons worth encoding)
 
-Local practices = practical wisdom, the kind you can only get from experience.
-
-- What tribal knowledge did this work surface?
-- What would help future-you (or future teammates) in similar situations?
-- What patterns should be captured?
-
-Good tribal knowledge is:
-- Specific enough to be actionable
-- General enough to apply beyond this exact case
+Good local practices are:
+- Specific enough to be actionable, general enough to apply beyond this case
 - Non-obvious (not "write tests" but "this API silently returns 200 on auth failure")
 - Situated and decision-changing, not generic advice a foundation model already knows
 
@@ -82,7 +65,6 @@ Good tribal knowledge is:
 
 - What approaches or code fragments are worth keeping?
 - What partial solutions could seed the restart?
-- What tools or techniques proved useful?
 
 ### Step 3: Package for Fresh Start
 
@@ -263,7 +245,6 @@ This skill can persist context to `.oh/<session>.md` for use by subsequent skill
 [salvage report: learnings, guardrails, context for fresh start]
 ```
 
-The salvage section is the capstone—it captures what was learned before the session ends or restarts.
 
 ## Adaptive Enhancement
 
@@ -299,17 +280,5 @@ Works anywhere. Produces salvage summary for manual capture. No persistence.
 
 ## Position in Framework
 
-**Comes after:** `/review` (when drift is detected) or `/execute` (when you recognize thrashing).
-**Leads to:** `/aim` or `/problem-space` with fresh understanding—you climb back up.
-**This is the feedback loop:** Salvage is how learning flows back to the top of the framework.
-
-## Leads To
-
-After salvage, typically:
-- `/aim` - Reclarify what we're actually trying to achieve
-- `/problem-space` - Fresh start with new understanding
-- Create new task/issue with salvage context attached
-
----
-
-**Remember:** Salvage is not failure. It's learning made explicit. The only failure is losing what you learned.
+**Comes after:** `/review` (drift detected) or `/execute` (thrashing recognized).
+**Leads to:** `/aim` or `/problem-space` with fresh understanding.

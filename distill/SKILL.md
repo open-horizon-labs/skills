@@ -7,7 +7,7 @@ description: Human-led curation of accumulated metis and guardrails. Surface pat
 
 Surface patterns in accumulated knowledge. Propose what to keep, promote, compact, or dismiss. The human decides.
 
-Distill is the complement to `/salvage`: salvage extracts learning from a single session; distill curates the corpus those extractions build over time. Without distill, metis accumulates but never compounds.
+Salvage extracts learning from a single session; distill curates the corpus those extractions build. Without distill, metis accumulates but never compounds.
 
 ## When to Use
 
@@ -25,12 +25,7 @@ Invoke `/distill` when:
 
 ## The Human-Led Curation Principle
 
-Distill leverages LLMs for what they're good at — pattern recognition, clustering, surfacing similar entries — while keeping judgment with the human.
-
-**LLMs do:** find recurring themes, group similar entries, surface candidates.
-**Humans do:** decide what matters, what's worth promoting, what's stale or context-specific.
-
-Auto-promotion is never correct. A theme proposal is not a guardrail until a human writes it.
+LLMs find patterns; humans decide what matters. Auto-promotion is never correct. A theme is not a guardrail until a human writes it.
 
 ## The Process
 
@@ -141,9 +136,9 @@ Output is PR-able: distill produces a set of proposed file writes (new guardrail
 
 ## Position in Framework
 
-**Comes after:** Multiple sessions of `/salvage` or `/execute` that have accumulated metis. Or: end of any session where learnings are worth capturing before context is lost.
-**Leads to:** Cleaner `oh_search_context` results. Guardrail candidates for human authoring. A compacted session file that seeds the next session.
-**Relationship to `/salvage`:** Salvage is per-session extraction (especially from failure). Distill is corpus-level curation (independent of any single session outcome). They're complementary — salvage feeds the corpus; distill keeps it from becoming noise.
+**Comes after:** Multiple sessions of `/salvage` or `/execute` that accumulated metis, or end of any session with learnings worth capturing.
+**Leads to:** Cleaner search results. Guardrail candidates for human authoring. A compacted session file for the next session.
+**Relationship to `/salvage`:** Salvage is per-session extraction (especially from failure). Distill is corpus-level curation. They're complementary.
 
 ## Leads To
 
@@ -151,7 +146,3 @@ After distill, typically:
 - Write approved guardrail files to `.oh/guardrails/`
 - Open a PR with `.oh/` changes for team review (corpus mode)
 - Return to `/aim` or `/problem-space` with a cleaner, more settled context
-
----
-
-**Remember:** Distill is not synthesis. The LLM finds patterns; you decide what matters. A corpus that accumulates without curation becomes noise. A corpus that's periodically distilled becomes situated judgment — the kind that actually improves future sessions.

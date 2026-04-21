@@ -5,87 +5,65 @@ description: Explore candidate solutions before committing. Use when you have a 
 
 # /solution-space
 
-Explore candidate solutions before committing to implementation. The trap is defending the first workable idea.
+Explore candidate solutions before committing. The trap is defending the first workable idea.
 
-Solution Space sits between Problem Statement and Implementation. You have the problem framed; now map the approaches before picking one.
+Sits between Problem Statement and Implementation. You have the problem framed; now map approaches before picking one.
 
 ## When to Use
 
-Invoke `/solution-space` when:
+- **Problem is understood** — you have a clear problem statement
+- **Multiple approaches viable** — not obvious which path is best
+- **About to start coding** — pause and explore first
+- **Patches accumulating** — third config flag for the same bug
+- **Attached to first idea** — that's the warning sign
 
-- **Problem is understood** - You have a clear problem statement
-- **Multiple approaches seem viable** - Not obvious which path is best
-- **You're about to start coding** - Pause and explore before committing
-- **Patches keep accumulating** - Third config flag for the same bug
-- **You feel attached to your first idea** - That's the warning sign
-
-**Do not use when:** You're still clarifying the problem. Use `/problem-statement` first. Solution Space assumes the problem is framed.
+**Skip when:** Still clarifying the problem. Use `/problem-statement` first.
 
 ## The Local Maximum Trap
-
-> "The hardest part of design has never been coming up with ideas. It is letting go of the first workable idea to look for better ones."
 
 Exploration is cheap. The failure mode is defending the first solution that works.
 
 **Signs you're stuck on a local maximum:**
-- First solution considered is the only solution considered
-- You're explaining why alternatives won't work before trying them
-- You're acting as a crafter (defending) rather than an editor (filtering)
+- First solution is the only one considered
+- Explaining why alternatives won't work before trying them
+- Acting as crafter (defending) rather than editor (filtering)
 - Implementation details discussed before approaches compared
 
 ## The Escalation Ladder
 
-Not all problems need redesigns. The ladder helps you find the right altitude.
+Not all problems need redesigns. The ladder finds the right altitude.
 
 ### Level 1: Band-Aid Fix
-**Don't default to this.** Patch the symptom.
-
-- Fine under deadline pressure
-- Toxic as habit
-- Signal: "This will break again"
-
-*Example: Add a null check. Catch the exception. Hardcode the edge case.*
+Patch the symptom. Fine under deadline pressure; toxic as habit.
+*Signal: "This will break again"*
+*Example: Null check. Catch exception. Hardcode edge case.*
 
 ### Level 2: Local Optimum
-**Better, but limited.** Optimize within current assumptions.
-
-- Classic refactor trap
-- Improves what exists without questioning it
-- Signal: "This is cleaner but the same shape"
-
-*Example: Extract a method. Add a parameter. Refactor for readability.*
+Optimize within current assumptions. Classic refactor trap — improves what exists without questioning it.
+*Signal: "Cleaner but the same shape"*
+*Example: Extract method. Add parameter. Refactor for readability.*
 
 ### Level 3: Reframe
-**Now you're thinking.** Question the problem statement.
-
-- Different framing yields different solutions
-- Often reveals the actual constraint
-- Signal: "What if the problem is actually..."
-
+Question the problem statement. Different framing yields different solutions, often revealing the actual constraint.
+*Signal: "What if the problem is actually..."*
 *Example: "We need faster cache invalidation" becomes "Why do we cache this at all?"*
 
 ### Level 4: Redesign
-**This is the goal.** Change the system so the problem doesn't exist.
-
-- The higher peak, the terraform
-- Problems dissolve rather than get solved
-- Signal: "With this change, we wouldn't need to..."
-
+Change the system so the problem doesn't exist. Problems dissolve rather than get solved.
+*Signal: "With this change, we wouldn't need to..."*
 *Example: Instead of fixing sync conflicts, make the data flow unidirectional.*
 
 ## The Process
 
 ### Step 1: State the Problem (Confirm)
 
-Before exploring solutions, confirm the problem statement:
-
 > "The problem we're solving is: [statement]. The key constraint is: [constraint]. The critical assumption is: [assumption]. Success looks like: [outcome or signal]."
 
-If you can't state this clearly, go back to `/problem-statement`. Solution space should start from explicit constraints and assumptions, not from fuzzy recollection of them.
+If you can't state this clearly, go back to `/problem-statement`. Start from explicit constraints and assumptions, not fuzzy recollection.
 
 ### Step 2: Generate Candidates (Breadth)
 
-List at least 3-4 candidate approaches before evaluating any:
+List at least 3-4 candidates before evaluating any:
 
 ```markdown
 ## Candidate Solutions
@@ -99,29 +77,27 @@ List at least 3-4 candidate approaches before evaluating any:
 ...
 ```
 
-**Rules for this step:**
-- No evaluation yet - just generation
+**Rules:**
+- No evaluation yet — generation only
 - Include at least one approach from a higher level than your instinct
 - Include the "obvious" solution even if you don't like it
-- Include the status quo when it is a real option; it sharpens comparison and makes the cost of inaction explicit
-- Maximize variance early; breadth is exploratory fuel, not a commitment
+- Include status quo when it's a real option — sharpens comparison, makes cost of inaction explicit
+- Maximize variance early; breadth is exploratory fuel
 
 ### Step 3: Evaluate Trade-offs (Depth)
 
-Before scoring any candidate, define the scoring function explicitly: what matters most here, which constraints should eliminate an option early, and how user value will be recognized? Cheap generation creates a new debt — too many options to hold in working memory — so prune aggressively once the scoring function is clear.
+Before scoring, define the scoring function: what matters most, which constraints eliminate early, how user value is recognized. Then prune aggressively.
 
-For each candidate, assess:
-
+For each candidate:
 1. **Does it solve the stated problem?** (Not a related problem)
 2. **Does it increase user value or merely produce more output?**
-3. **How does it score against the key constraints and success signal?**
-4. **What's the implementation cost?** (Time, complexity, risk)
-5. **What's the maintenance cost?** (Ongoing burden)
-6. **Does it create new problems?** (Second-order effects)
-7. **Does it enable future options?** (Optionality)
-### Step 4: Recommend with Reasoning
+3. **How does it score against key constraints and success signal?**
+4. **Implementation cost?** (Time, complexity, risk)
+5. **Maintenance cost?** (Ongoing burden)
+6. **Second-order effects?** (New problems created)
+7. **Future optionality?** (Options enabled or closed)
 
-Make a recommendation and state why:
+### Step 4: Recommend with Reasoning
 
 ```markdown
 ## Recommendation
@@ -144,13 +120,11 @@ Make a recommendation and state why:
 
 ### Step 5: Check for Local Maximum
 
-Before committing, ask:
-
 - Did I defend my first idea or actually explore?
 - Is there a higher-level approach I dismissed too quickly?
 - Am I optimizing the wrong thing?
 
-If you explored genuinely and still landed on the first idea, that's fine. The danger is never looking.
+Landing on the first idea after genuine exploration is fine. The danger is never looking.
 
 ## Output Format
 
@@ -160,8 +134,8 @@ If you explored genuinely and still landed on the first idea, that's fine. The d
 **Problem:** [One sentence]
 **Key Constraint:** [The binding constraint]
 **Critical Assumption:** [The assumption that most threatens this recommendation if false]
-**Success Signal:** [What later phases should be able to verify]
-**Scoring Function:** [How options are being compared and pruned, including user-value criteria]
+**Success Signal:** [What later phases should verify]
+**Scoring Function:** [How options are compared/pruned, including user-value criteria]
 
 ### Candidates Considered
 
@@ -232,6 +206,9 @@ Users report the dashboard is slow. Loading takes 8 seconds.
 
 **Problem:** Dashboard loads in 8 seconds; users expect <2 seconds
 **Key Constraint:** Can't rewrite the entire frontend this quarter
+**Critical Assumption:** Users need useful content quickly more than they need the whole dashboard at once
+**Success Signal:** First useful content appears in under 1 second
+**Scoring Function:** Favor approaches that improve time-to-first-value for users within quarter-scale constraints
 
 ### Candidates Considered
 
@@ -268,12 +245,23 @@ Users report the dashboard is slow. Loading takes 8 seconds.
 
 **Selected:** Option C - Lazy Loading
 **Level:** Reframe
+**Ladders back to:** Help users reach value before abandoning the dashboard
+**Tactic justification:** It improves the user outcome under current constraints without requiring a quarter-scale rewrite
 
-**Rationale:** The problem isn't "dashboard is slow" - it's "users wait before seeing anything useful." Lazy loading shows useful content in <1s while loading the rest. Lower cost than streaming, better than caching.
+**Rationale:** The problem isn't "dashboard is slow" — it's "users wait before seeing anything useful." Lazy loading shows useful content in <1s while loading the rest. Lower cost than streaming, better than caching.
 
 **Accepted trade-offs:**
 - Content will shift as sections load
 - Need to prioritize which sections load first
+
+### Execution Contract
+
+**Preserve:**
+- First useful content appears quickly
+- Users still reach the most important dashboard information reliably
+
+**Verify later via:**
+- Measure time to first useful content and confirm prioritized sections appear first
 ```
 
 ### Example 2: The Third Config Flag
@@ -291,6 +279,9 @@ config flag we're adding to work around notification timing issues.
 
 **Problem:** Notifications fire twice; third config flag proposed
 **Key Constraint:** Pattern of band-aids suggests systemic issue
+**Critical Assumption:** Duplicate notifications are caused by unclear ownership/triggering, not by timing alone
+**Success Signal:** A chosen approach should reduce duplicate notifications without adding another unstable flag
+**Scoring Function:** Prefer options that remove recurring operational pain and clarify ownership over options that merely suppress symptoms
 
 ### Candidates Considered
 
@@ -323,27 +314,39 @@ config flag we're adding to work around notification timing issues.
 
 **Selected:** Option C - Reframe, then possibly D
 **Level:** Reframe (investigation)
+**Ladders back to:** Stop recurring operational pain instead of normalizing another workaround
+**Tactic justification:** It is the cheapest path that can still reveal whether the real problem is trigger ownership rather than timing
 
 **Rationale:** Three config flags is a code smell. Before adding a fourth, understand why notifications are triggered from multiple paths. The duplication likely indicates unclear ownership of the notification concern.
 
-**Next step:** Map all notification trigger points. If >3 paths trigger the same notification, the problem isn't timing - it's architecture.
+**Accepted trade-offs:**
+- May uncover a larger redesign need
+- Does not promise an immediate patch without investigation
+
+### Execution Contract
+
+**Preserve:**
+- Do not add another unexamined config flag as the default move
+- Make trigger ownership explicit before deepening implementation
+
+**Verify later via:**
+- Map all notification trigger points; if more than three paths trigger the same notification, treat the problem as architectural, not timing-related
 ```
 
 ## Session Persistence
 
-This skill can persist context to `.oh/<session>.md` for use by subsequent skills.
+Persists to `.oh/<session>.md` for subsequent skills.
 
 **If session name provided** (`/solution-space auth-refactor`):
 - Reads/writes `.oh/auth-refactor.md` directly
 
 **If no session name provided** (`/solution-space`):
-- After producing the solution space analysis, offer to save it:
-  > "Save to session? [suggested-name] [custom] [skip]"
-- Suggest a name based on git branch or the problem being solved
+- Offer to save: `"Save to session? [suggested-name] [custom] [skip]"`
+- Suggest name from git branch or problem being solved
 
-**Reading:** Check for existing session file. Read prior skill outputs—**Aim**, **Problem Statement**, **Problem Space**—to understand what we're solving and the constraints.
+**Reading:** Check for existing session file. Read prior outputs — **Aim**, **Problem Statement**, **Problem Space** — to understand constraints.
 
-**Writing:** After producing output, write the solution space analysis to the session file so `/execute` can reuse the selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate directly:
+**Writing:** Write solution space analysis so `/execute` can reuse selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate:
 
 ```markdown
 ## Solution Space
@@ -359,14 +362,14 @@ Works anywhere. Produces solution space analysis for discussion. No persistence.
 
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for prior context (aim, problem statement, constraints)
-- Writes solution analysis and recommendation to the session file
-- `/execute` can read the selected approach, critical assumption, success signal, scoring function, execution contract, and readiness gate
+- Writes analysis and recommendation to session file
+- `/execute` reads selected approach, critical assumption, success signal, scoring function, execution contract, readiness gate
 
 ### With RNA MCP (repo-native-alignment)
 
-When the RNA MCP server is available (`oh_search_context` tool present), surface repo-local situated knowledge at two moments in the solution space process.
+When RNA MCP is available (`oh_search_context` tool present), surface repo-local knowledge at two moments.
 
-**Before Step 2 (Generate Candidates):** Call `oh_search_context` with the problem statement + active outcome + `phase: "solution-space"`. Surface relevant metis — prior solution evaluations, approaches tried and their outcomes, patterns that recurred. Present as candidates:
+**Before Step 2 (Generate Candidates):** Call `oh_search_context` with problem statement + active outcome + `phase: "solution-space"`. Surface relevant metis — prior evaluations, approaches tried, recurring patterns:
 
 ```
 **Relevant metis from this repo:**
@@ -374,38 +377,27 @@ When the RNA MCP server is available (`oh_search_context` tool present), surface
   → Keep / Dismiss?
 ```
 
-Human selects before candidates are generated. Selected metis informs the candidate list (may reveal options to include, anti-patterns to name explicitly, or prior attempts that constrain the space).
+Human selects before candidates are generated. Selected metis informs the candidate list.
 
-**Before Step 3 (Evaluate Trade-offs):** Call `oh_search_context` with the active outcome. Surface applicable guardrails. These are not trade-offs to evaluate — they are constraints that rule options out before evaluation begins. Fold confirmed guardrails into the evaluation as hard constraints.
+**Before Step 3 (Evaluate Trade-offs):** Call `oh_search_context` with active outcome. Surface applicable guardrails — these are constraints that rule options out before evaluation, not trade-offs. Fold confirmed guardrails as hard constraints.
 
 **What this prevents:**
-- Proposing solutions the team has already tried and rejected (without knowing)
-- Ignoring guardrails that eliminate certain options entirely
-- Treating the solution space as empty when the repo has situated judgment
+- Proposing solutions already tried and rejected
+- Ignoring guardrails that eliminate options
+- Treating space as empty when the repo has situated judgment
 
-**Phase tag:** Pass `phase: "solution-space"` strictly. Problem-space metis and implementation notes are noise at this stage. Guardrails are always relevant regardless of phase tag.
+**Phase tag:** Pass `phase: "solution-space"` strictly. Problem-space metis and implementation notes are noise here. Guardrails always relevant regardless of phase.
 
-**Human judgment is required:** Do not auto-apply selected metis as constraints. Surface it; let the human decide how much weight it carries in this specific context.
+**Human judgment required:** Do not auto-apply metis as constraints. Surface it; let the human decide weight.
 
 ### With Open Horizons MCP
 - Queries related past solution decisions
 - Finds similar problems across endeavors
-- Logs the solution space exploration and decision
-- Session file serves as local cache
+- Logs exploration and decision
+- Session file as local cache
 
 ## Position in Framework
 
-**Comes after:** `/problem-statement` (you need a framed problem to evaluate solutions against).
+**Comes after:** `/problem-statement` (need a framed problem to evaluate against).
 **Leads to:** `/execute` to implement, or `/dissent` to challenge the recommendation.
 **Can loop back to:** `/problem-statement` (if exploration reveals the problem is mis-framed).
-
-## Leads To
-
-After solution-space, typically:
-- `/execute` - Implement the selected approach
-- `/dissent` - If the recommendation feels too easy
-- `/problem-statement` - If exploration revealed the problem is mis-framed
-
----
-
-**Remember:** The goal isn't to always pick Redesign. It's to know you explored before committing. A deliberate Band-Aid beats an accidental one.
