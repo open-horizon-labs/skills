@@ -15,6 +15,17 @@ Invoke `/dissent` when: about to lock in a one-way door (architecture, public AP
 
 **Do not use when:** Gathering initial options or brainstorming. Dissent stress-tests decisions, not generates them.
 
+## Dissent Lenses
+
+Default to the core dissent process in this file. When the decision needs sharper domain pressure, load the matching supporting reference:
+
+- Architecture, public APIs, technical direction, or hard-to-reverse implementation choices: [references/architecture.md](references/architecture.md)
+- Narrative, positioning, documentation strategy, or conceptual framing: [references/writing-framing.md](references/writing-framing.md)
+- Teaching, onboarding, curriculum, or explanation strategy: [references/learning.md](references/learning.md)
+- Product, operations, workflow, prioritization, or process decisions: [references/product-process.md](references/product-process.md)
+
+Use these as lenses, not replacement workflows. The final dissent still steel-mans the current approach, seeks contrary evidence, pre-mortems failure, surfaces hidden assumptions, and decides.
+
 ## The Dissent Process
 
 ### Step 1: Steel-Man the Current Approach
@@ -31,9 +42,6 @@ If you can't state it charitably, you don't understand it well enough to challen
 - Who disagrees? What's their argument?
 - What similar approaches have failed elsewhere? Why?
 - What are we ignoring because it's inconvenient?
-- Are we mistaking easy, familiar, or quick for simple?
-- What concerns, audiences, or outcomes are being entangled?
-- Are we optimizing the construct we are making instead of the artifact or outcome users experience?
 
 > "If this approach were wrong, what would we expect to see? Are we seeing any of that?"
 
@@ -47,8 +55,7 @@ Generate at least three plausible failure scenarios:
 
 1. **Functional failure** — it doesn't work as expected
 2. **Adoption failure** — it works but nobody uses it / changes nothing
-3. **Complexity failure** — it works at first but entangles concerns and becomes hard to change
-4. **Opportunity cost** — it works but we should have done something else
+3. **Opportunity cost** — it works but we should have done something else
 
 ### Step 4: Surface Hidden Assumptions
 
@@ -58,8 +65,6 @@ Every decision rests on unstated assumptions. Find them:
 - What are we assuming about the system/codebase?
 - What are we assuming about timeline/resources?
 - What are we assuming won't change?
-- What distinctions are we collapsing because the familiar term is easier?
-- What domain are we borrowing evidence from, and does it actually transfer?
 
 For each:
 ```
@@ -69,15 +74,6 @@ Risk if wrong: [what happens]
 Test: [how to validate before committing]
 ```
 
-### Cross-Domain Pressure Tests
-
-Use the same dissent shape across domains:
-
-- **Code:** Does the approach reduce entanglement, or merely move complexity behind new names?
-- **Writing:** Does the framing preserve important distinctions, or make the argument feel easier by blurring them?
-- **Learning:** Does it build transferable judgment, or only make the current answer feel easy?
-- **Product/process:** Does it improve the artifact users experience, or only the internal construct the team prefers?
-
 ### Step 5: Decide
 
 - **PROCEED** — no critical flaws found; decision strengthened
@@ -85,20 +81,6 @@ Use the same dissent shape across domains:
 - **RECONSIDER** — fundamental problems revealed; back to solution space
 
 > "PROCEED: The counter-argument is [X], but it's addressed by [Y]. The key assumption is [Z], which we've validated by [how]."
-
-### ADR Generation
-
-If the decision is a **one-way door** and you recommend PROCEED or ADJUST, offer to create an Architecture Decision Record. The dissent report maps directly:
-
-| Dissent Section | ADR Section |
-|-----------------|-------------|
-| Decision under review | Title |
-| Steel-Man Position | Context |
-| Contrary Evidence + Pre-Mortem | Options Considered |
-| Hidden Assumptions | Consequences |
-| Decision + Reasoning | Decision |
-
-Write to `docs/adr/NNNN-<decision-slug>.md` if accepted.
 
 ## Output Format
 
@@ -133,7 +115,7 @@ Write to `docs/adr/NNNN-<decision-slug>.md` if accepted.
 **Reasoning:** [Why]
 **If ADJUST:** [Specific modifications]
 **Confidence after dissent:** [HIGH/MEDIUM/LOW]
-**Create ADR?** [Yes - offer path / No - not a one-way door]
+**Follow-up artifact?** [ADR / decision note / none — include path if needed]
 ```
 
 ## Session Persistence
