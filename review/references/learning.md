@@ -8,6 +8,7 @@
 - **Practice:** Can the learner do something, observe a result, and adjust?
 - **Verification:** Can they test the claim in their own context?
 - **Transfer:** Are they getting a reusable mental model, not isolated facts?
+- **Simplicity vs. ease:** Does it distinguish what is unfamiliar from what is actually complex?
 - **Scaffolding:** Are steps sequenced from what they know, without invisible jumps?
 
 ## Response Shape

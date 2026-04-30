@@ -39,7 +39,7 @@ Ask five questions. Keep them artifact-neutral; load a review lens only when the
 
 1. **Necessary?** — Does this still need to exist now, or did speculative work creep in?
 2. **Aligned?** — Does the current work still serve the original aim?
-3. **Sufficient?** — Is this enough for the aim without unnecessary scope or abstraction?
+3. **Sufficient?** — Is this enough for the aim without unnecessary scope, abstraction, or entanglement?
 4. **Mechanism clear?** — Can you state why this approach should produce the intended outcome?
 5. **Complete?** — Are promised characteristics, dependencies, verification, and handoff covered?
 
