@@ -15,6 +15,16 @@ Invoke `/review` when: before committing, at natural pause points, something fee
 
 **Do not use when:** You're in deep flow and making progress. Review at natural breaks, not arbitrary intervals.
 
+## Review Lenses
+
+Default to the core workflow review in this file. When the artifact being reviewed needs a sharper domain lens, load the matching supporting reference:
+
+- Code, PRs, technical plans, or implementation work: [references/code.md](references/code.md)
+- Prose, documentation, essays, prompts, or release notes: [references/writing.md](references/writing.md)
+- Tutorials, explanations, onboarding, or teaching behavior: [references/learning.md](references/learning.md)
+
+Use these as lenses, not replacement workflows. The final review still answers the core `/review` questions: aim, alignment, sufficiency, mechanism, drift, completion, and next action.
+
 ## The Review Process
 
 ### Step 1: State the Original Aim
@@ -23,38 +33,15 @@ Invoke `/review` when: before committing, at natural pause points, something fee
 
 If you can't state the aim clearly, that's the first finding.
 
-### Step 2: Check Alignment (Five Questions)
+### Step 2: Check Alignment
 
-#### 1. Still Necessary?
-Is this solving a real, current problem — not a hypothetical future one? Are we improving user value, or just producing internal output?
+Ask five questions. Keep them artifact-neutral; load a review lens only when the artifact needs domain-specific judgment.
 
-> If unnecessary work crept in: "This adds [X] which wasn't part of the original aim."
-
-#### 2. Still Aligned?
-Is the work pointed at the original aim, or did we drift to tangents?
-
-Signs of drift: "While I'm at it…", refactoring unrelated code, solving problems the user didn't mention.
-
-> If misaligned: "The aim was X, but current work addresses Y."
-
-#### 3. Still Sufficient?
-Could this be done with less code, fewer files, less abstraction? Are we building infrastructure for a one-off task?
-
-- RED: 3+ files for simple feature; new patterns for one-offs
-- YELLOW: proliferating Manager/Handler/Service classes
-- GREEN: direct solution; one file when possible; reuses existing patterns
-
-> If over-complex: "A simpler approach would work. Consider [alternative]."
-
-#### 4. Mechanism Clear?
-Can you articulate WHY this approach works? If the mechanism can't be stated clearly, the problem may not be understood.
-
-> If unclear: "What's the mechanism? Why will this solve the problem?"
-
-#### 5. Changes Complete?
-Are all ripple effects handled? New fields initialized everywhere? Persistence changes have migration paths? Contract changes updated in all callers? Declared success criteria carried through to deployment or verification where applicable?
-
-> If incomplete: "This adds [X] but doesn't update [related site]."
+1. **Necessary?** — Does this still need to exist now, or did speculative work creep in?
+2. **Aligned?** — Does the current work still serve the original aim?
+3. **Sufficient?** — Is this enough for the aim without unnecessary scope, abstraction, or entanglement?
+4. **Mechanism clear?** — Can you state why this approach should produce the intended outcome?
+5. **Complete?** — Are promised characteristics, dependencies, verification, and handoff covered?
 
 If RNA MCP is available, check work against guardrails (`oh_search_context` with `artifact_types: ["guardrail"]`) and declared outcomes (`outcome_progress`).
 
@@ -122,13 +109,12 @@ If this section is empty, say why. Model-generated review of model-generated wor
 
 When the user or agent claims work is complete, verify:
 
-1. **PR Intent Clear?** — Can you state what the PR delivers in one sentence?
-2. **Changes Reviewed?** — Has the branch diff been reviewed against intent?
-3. **CI Passing?** — Have automated checks been run and passed?
-4. **Feedback Addressed?** — Have reviewer comments been resolved?
-5. **Declared Criteria Delivered?** — Were the promised characteristics verified, not just claimed?
-6. **User Value Improved?** — Is there evidence this change improves the intended user outcome rather than increasing output?
-7. **Needs Human Verification surfaced?** — Have claims that the model cannot self-check been explicitly flagged for human attention? (See output format below.)
+1. **Intent clear?** — Can you state what changed and why in one sentence?
+2. **Work reviewed?** — Has the actual artifact been checked against the stated intent?
+3. **Evidence present?** — Are the relevant checks, examples, or observations recorded?
+4. **Feedback handled?** — Have review comments or open objections been resolved or explicitly deferred?
+5. **Declared criteria delivered?** — Were promised characteristics verified, not merely claimed?
+6. **Needs Human Verification surfaced?** — Have claims the model cannot self-check been flagged for human attention?
 
 If incomplete:
  > "Completion gate: [missing step]. Run the check before marking complete."

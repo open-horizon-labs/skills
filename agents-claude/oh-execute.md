@@ -65,7 +65,7 @@ Do the work. Keep it focused.
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
 3. Stage changes
-4. Run review if available (`sg review` or equivalent)
+4. Run `/review` or the repo's current review workflow when available
 5. Handle review findings (fix trivial, create tasks for non-trivial)
 6. Commit with clear message
 
