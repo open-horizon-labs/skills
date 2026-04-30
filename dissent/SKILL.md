@@ -31,6 +31,9 @@ If you can't state it charitably, you don't understand it well enough to challen
 - Who disagrees? What's their argument?
 - What similar approaches have failed elsewhere? Why?
 - What are we ignoring because it's inconvenient?
+- Are we mistaking easy, familiar, or quick for simple?
+- What concerns, audiences, or outcomes are being entangled?
+- Are we optimizing the construct we are making instead of the artifact or outcome users experience?
 
 > "If this approach were wrong, what would we expect to see? Are we seeing any of that?"
 
@@ -42,9 +45,10 @@ Imagine it's six months from now and this decision failed. Work backward:
 
 Generate at least three plausible failure scenarios:
 
-1. **Technical failure** — it doesn't work as expected
+1. **Functional failure** — it doesn't work as expected
 2. **Adoption failure** — it works but nobody uses it / changes nothing
-3. **Opportunity cost** — it works but we should have done something else
+3. **Complexity failure** — it works at first but entangles concerns and becomes hard to change
+4. **Opportunity cost** — it works but we should have done something else
 
 ### Step 4: Surface Hidden Assumptions
 
@@ -54,6 +58,8 @@ Every decision rests on unstated assumptions. Find them:
 - What are we assuming about the system/codebase?
 - What are we assuming about timeline/resources?
 - What are we assuming won't change?
+- What distinctions are we collapsing because the familiar term is easier?
+- What domain are we borrowing evidence from, and does it actually transfer?
 
 For each:
 ```
@@ -62,6 +68,15 @@ Evidence: [what supports this]
 Risk if wrong: [what happens]
 Test: [how to validate before committing]
 ```
+
+### Cross-Domain Pressure Tests
+
+Use the same dissent shape across domains:
+
+- **Code:** Does the approach reduce entanglement, or merely move complexity behind new names?
+- **Writing:** Does the framing preserve important distinctions, or make the argument feel easier by blurring them?
+- **Learning:** Does it build transferable judgment, or only make the current answer feel easy?
+- **Product/process:** Does it improve the artifact users experience, or only the internal construct the team prefers?
 
 ### Step 5: Decide
 
