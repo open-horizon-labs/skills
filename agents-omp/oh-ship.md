@@ -272,7 +272,7 @@ Works anywhere. Produces ship checklist for manual execution. No persistence.
 ### With .oh/ session file
 - Reads `.oh/<session>.md` for context on what was built and why
 - Writes deployment status to the session file
-- review skill can check if shipping achieved the aim
+- `/review` can check if shipping achieved the aim
 
 ### With CI/CD Configuration
 - Reads pipeline definitions (GitHub Actions, CircleCI, etc.)
@@ -294,14 +294,14 @@ Ship is part of the execution phase, but it has its own mini-loop:
 3. **Review:** Verify the deployment worked
 
 After shipping, the outer loop continues:
-- review skill - Did the shipped change achieve the aim?
+- `/review` - Did the shipped change achieve the aim?
 - `/salvage` - If shipping revealed problems, capture learnings
 - Back to `/aim` - What's the next outcome to pursue?
 
 ## Position in Framework
 
 **Comes after:** `/execute` (the work is done, now deliver it).
-**Leads to:** the review skill (did the shipped change achieve the aim?), then back to `/aim` for the next outcome.
+**Leads to:** `/review` (did the shipped change achieve the aim?), then back to `/aim` for the next outcome.
 **This is the end of the line:** Ship is where code becomes value. Everything before this is potential; ship makes it real.
 
 ## Key Vocabulary

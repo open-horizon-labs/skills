@@ -65,7 +65,7 @@ Do the work. Keep it focused.
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
 3. Stage changes
-4. Run the review skill or the repo's current review workflow when available
+4. Run `/review` or the repo's current review workflow when available
 5. Handle review findings (fix trivial, create tasks for non-trivial)
 6. Commit with clear message
 
@@ -311,13 +311,13 @@ Works anywhere. Manual pre-flight checklist, drift detection by reasoning. No pe
 ## Position in Framework
 
 **Comes after:** `/solution-space` (you need a chosen approach to execute).
-**Leads to:** `/ship` to deliver, the review skill to verify, `/salvage` if drifting.
+**Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
 **Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.
 
 ## Leads To
 
 After execute, typically:
-- review skill - Verify the work before committing
+- `/review` - Verify the work before committing
 - `/ship` - Deploy the change to users
 - `/salvage` - If drift was detected and restart needed
 

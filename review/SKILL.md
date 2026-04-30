@@ -11,7 +11,7 @@ Part of the **Intent → Execution → Review** loop at every scale — from a s
 
 ## When to Use
 
-Invoke the review skill when: before committing, at natural pause points, something feels off, scope seems to have grown, or before PRs.
+Invoke `/review` when: before committing, at natural pause points, something feels off, scope seems to have grown, or before PRs.
 
 **Do not use when:** You're in deep flow and making progress. Review at natural breaks, not arbitrary intervals.
 
@@ -23,7 +23,7 @@ Default to the core workflow review in this file. When the artifact being review
 - Prose, documentation, essays, prompts, or release notes: [references/writing.md](references/writing.md)
 - Tutorials, explanations, onboarding, or teaching behavior: [references/learning.md](references/learning.md)
 
-Use these as lenses, not replacement workflows. The final review still answers the core review skill questions: aim, alignment, sufficiency, mechanism, drift, completion, and next action.
+Use these as lenses, not replacement workflows. The final review still answers the core `/review` questions: aim, alignment, sufficiency, mechanism, drift, completion, and next action.
 
 ## The Review Process
 

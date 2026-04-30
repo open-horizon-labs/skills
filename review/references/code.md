@@ -1,8 +1,8 @@
 # Code Review Lens
 
-Use this lens when the review skill is evaluating code, technical plans, PRs, implementation work, or engineering workflow.
+Use this lens when `/review` is evaluating code, technical plans, PRs, implementation work, or engineering workflow.
 
-This lens supplements the core review skill workflow. Do not replace the alignment, drift, and completion checks in `review/SKILL.md`; use these prompts to make the engineering-specific parts sharper.
+This lens supplements the core `/review` workflow. Do not replace the alignment, drift, and completion checks in `review/SKILL.md`; use these prompts to make the engineering-specific parts sharper.
 
 ## What to Watch For
 
@@ -38,4 +38,4 @@ Be specific and proportional:
 
 > "The mechanism is not clear yet. State why this change prevents the failure, then verify that exact path."
 
-Avoid formal allow/block judgments. The review skill decides continue, adjust, pause, or salvage; this lens supplies the engineering evidence for that decision.
+Avoid formal allow/block judgments. The core `/review` workflow decides continue, adjust, pause, or salvage; this lens supplies the engineering evidence for that decision.

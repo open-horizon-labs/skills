@@ -52,7 +52,7 @@ Do the work. Keep it focused.
 **During build:**
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
-3. Run the review skill or the repo's current review workflow when available
+3. Run `/review` or the repo's current review workflow when available
 4. Handle review findings (fix trivial, create tasks for non-trivial)
 5. Commit with clear message
 
@@ -148,5 +148,5 @@ Recommendation: [your assessment]
 ## Position in Framework
 
 **Comes after:** `/solution-space` (you need a chosen approach to execute).
-**Leads to:** `/ship` to deliver, the review skill to verify, `/salvage` if drifting.
+**Leads to:** `/ship` to deliver, `/review` to verify, `/salvage` if drifting.
 **Can loop back to:** `/aim` or `/problem-space` via `/salvage` when the approach isn't working.

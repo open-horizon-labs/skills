@@ -114,4 +114,4 @@ If the section exists, replace it.
 
 **Comes after:** Nothing — aim is the entry point.
 **Leads to:** `/problem-space` to map the terrain, or `/solution-space` if the problem is already clear.
-**Can loop back from:** `/salvage` (restart with learning), the review skill (if aim has drifted).
+**Can loop back from:** `/salvage` (restart with learning), `/review` (if aim has drifted).

@@ -101,7 +101,7 @@ Create ad-hoc verification tests if needed — the point is confidence, not perm
 ## Position in Framework
 
 **Comes after:** `/execute` (the work is done, now deliver it).
-**Leads to:** the review skill (did the shipped change achieve the aim?), then back to `/aim`.
+**Leads to:** `/review` (did the shipped change achieve the aim?), then back to `/aim`.
 **This is the end of the line:** Ship is where code becomes value.
 
 ## Key Vocabulary

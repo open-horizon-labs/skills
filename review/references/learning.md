@@ -1,8 +1,8 @@
 # Learning Review Lens
 
-Use this lens when the review skill is evaluating tutorials, teaching material, explanations, onboarding, workshops, or assistant behavior intended to help someone learn.
+Use this lens when `/review` is evaluating tutorials, teaching material, explanations, onboarding, workshops, or assistant behavior intended to help someone learn.
 
-This lens supplements the core review skill workflow. Keep the main review focused on aim, alignment, sufficiency, drift, and completion; use this lens to judge whether the learner can actually build skill in their own context.
+This lens supplements the core `/review` workflow. Keep the main review focused on aim, alignment, sufficiency, drift, and completion; use this lens to judge whether the learner can actually build skill in their own context.
 
 ## What to Watch For
 
