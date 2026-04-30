@@ -1,8 +1,8 @@
 # Writing Review Lens
 
-Use this lens when `/review` is evaluating prose, documentation, essays, release notes, skill text, prompts, or other reader-facing content.
+Use this lens when the review skill is evaluating prose, documentation, essays, release notes, skill text, prompts, or other reader-facing content.
 
-This lens supplements the core `/review` workflow. Keep the main review focused on aim, alignment, sufficiency, drift, and completion; use this lens to judge whether the writing will land with its intended reader.
+This lens supplements the core review skill workflow. Keep the main review focused on aim, alignment, sufficiency, drift, and completion; use this lens to judge whether the writing will land with its intended reader.
 
 ## What to Watch For
 

@@ -266,14 +266,14 @@ Works anywhere. Produces aim statement for discussion. No persistence.
 
 **Comes after:** Nothing—aim is the entry point.
 **Leads to:** `/problem-space` to map the terrain, or `/solution-space` if the problem is already clear.
-**Can loop back from:** `/salvage` (restart with learning), `/review` (if aim has drifted).
+**Can loop back from:** `/salvage` (restart with learning), the review skill (if aim has drifted).
 
 ## Leads To
 
 After establishing aim, typically:
 - `/problem-space` - Map the terrain and constraints
 - `/problem-space` - Map constraints and what you're optimizing
-- `/review` - Check if current work still serves the aim
+- review skill - Check if current work still serves the aim
 
 ## Repo-Native Alignment MCP
 When rna-server tools are available:

@@ -147,7 +147,7 @@ Otherwise use the **skills variant**.
 - Work is drifting or reversing → `/salvage`
 
 **Reflection skills (use anytime):**
-- `/review` - Check alignment before committing
+- review skill - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
 - `/distill` - Curate accumulated metis; surface patterns for promotion
@@ -200,7 +200,7 @@ between phases.
 - Work is drifting or reversing → `/salvage`
 
 **Reflection skills (use anytime, in main session):**
-- `/review` - Check alignment before committing
+- review skill - Check alignment before committing
 - `/dissent` - Seek contrary evidence before one-way doors
 - `/salvage` - Extract learning, restart clean
 - `/distill` - Curate accumulated metis; surface patterns for promotion
@@ -307,7 +307,7 @@ After user answers:
 - About to start coding → `/solution-space`
 - Work is drifting or reversing → `/salvage`
 
-**Reflection skills:** `/review`, `/dissent`, `/salvage`, `/distill`
+**Reflection skills:** review skill, `/dissent`, `/salvage`, `/distill`
 
 **Key insight:** Enter at the altitude you need. Climb back up when you drift.
 

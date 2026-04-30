@@ -1,8 +1,8 @@
 # Code Review Lens
 
-Use this lens when `/review` is evaluating code, technical plans, PRs, implementation work, or engineering workflow.
+Use this lens when the review skill is evaluating code, technical plans, PRs, implementation work, or engineering workflow.
 
-This lens supplements the core `/review` workflow. Do not replace the alignment, drift, and completion checks in `review/SKILL.md`; use these prompts to make the engineering-specific parts sharper.
+This lens supplements the core review skill workflow. Do not replace the alignment, drift, and completion checks in `review/SKILL.md`; use these prompts to make the engineering-specific parts sharper.
 
 ## What to Watch For
 
@@ -24,6 +24,9 @@ This lens supplements the core `/review` workflow. Do not replace the alignment,
 - **Change completeness** — Are ripple effects handled: callers, fixtures, docs, persistence, installation, and verification?
 - **Available capabilities** — Could existing tools, MCPs, hooks, or skills handle this better?
 - **WIP management** — Is too much in flight for a coherent review?
+- **Implementation scope** — Simple changes should not sprawl across many files without a reason.
+- **Contract updates** — New fields, persistence changes, API changes, and migrations must update every affected caller, fixture, and doc.
+- **Delivery readiness** — PR intent, automated checks, CI, and reviewer feedback belong in the code review evidence.
 
 ## How to Respond
 
@@ -35,4 +38,4 @@ Be specific and proportional:
 
 > "The mechanism is not clear yet. State why this change prevents the failure, then verify that exact path."
 
-Avoid formal allow/block judgments. `/review` decides continue, adjust, pause, or salvage; this lens supplies the engineering evidence for that decision.
+Avoid formal allow/block judgments. The review skill decides continue, adjust, pause, or salvage; this lens supplies the engineering evidence for that decision.

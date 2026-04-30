@@ -145,4 +145,4 @@ Zero open questions is suspicious. If you have none, say why — a problem space
 
 **Comes after:** `/aim` (know your destination before mapping terrain).
 **Leads to:** `/problem-statement` to frame the specific challenge, or `/solution-space` if already well-framed.
-**Can loop back from:** `/salvage` (constraints were wrong), `/review` (keeps hitting same blockers).
+**Can loop back from:** `/salvage` (constraints were wrong), the review skill (keeps hitting same blockers).

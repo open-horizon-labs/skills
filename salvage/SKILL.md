@@ -160,5 +160,5 @@ Always produce a salvage summary in this structure:
 
 ## Position in Framework
 
-**Comes after:** `/review` (drift detected) or `/execute` (thrashing recognized).
+**Comes after:** the review skill (drift detected) or `/execute` (thrashing recognized).
 **Leads to:** `/aim` or `/problem-space` with fresh understanding.

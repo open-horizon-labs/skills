@@ -42,7 +42,7 @@ Re-run the install command to pull the latest version.
 
 | Skill | Description |
 |-------|-------------|
-| `/review` | Check work and detect drift. A second opinion before committing, with code, writing, and learning lenses |
+| review skill | Check work and detect drift. A second opinion before committing, with code, writing, and learning lenses |
 | `/dissent` | Devil's advocate. Seek contrary evidence before locking in |
 | `/salvage` | Extract learning before restarting. Code is a draft; learning is the asset |
 | `/distill` | Curate accumulated metis across sessions. Surface patterns, promote to guardrails, compact noise |
@@ -73,7 +73,7 @@ The workflow is strongest when each phase leaves behind explicit fields the next
 - `/solution-space` selects an approach, defines the scoring function, accepted trade-offs, and the execution contract
 - `/execute` preserves declared success criteria and delivered characteristics
 - `/ship` verifies those characteristics in the target environment
-- `/review` judges the result against the original aim, user outcome, and declared contract
+- The review skill judges the result against the original aim, user outcome, and declared contract
 Across the tree, each artifact should satisfy necessity, viability, sufficiency, and connectedness: why this exists, why this path can work, why it is enough for now, and how it connects to the level above and below.
 
 Every step should pair a strategy (`what` and `why`) with a tactic (`how`). Tactics that do not ladder back to a parent objective are busy work; objectives without tactics are wishful thinking.
