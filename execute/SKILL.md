@@ -52,7 +52,7 @@ Do the work. Keep it focused.
 **During build:**
 1. Make the change
 2. Verify it works (tests, manual check, whatever's appropriate)
-3. Run review if available (`sg review` or equivalent)
+3. Run `/review` or the repo's current review workflow when available
 4. Handle review findings (fix trivial, create tasks for non-trivial)
 5. Commit with clear message
 
