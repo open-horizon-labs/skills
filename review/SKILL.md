@@ -15,6 +15,16 @@ Invoke `/review` when: before committing, at natural pause points, something fee
 
 **Do not use when:** You're in deep flow and making progress. Review at natural breaks, not arbitrary intervals.
 
+## Review Lenses
+
+Default to the core workflow review in this file. When the artifact being reviewed needs a sharper domain lens, load the matching supporting reference:
+
+- Code, PRs, technical plans, or implementation work: [references/code.md](references/code.md)
+- Prose, documentation, essays, prompts, or release notes: [references/writing.md](references/writing.md)
+- Tutorials, explanations, onboarding, or teaching behavior: [references/learning.md](references/learning.md)
+
+Use these as lenses, not replacement workflows. The final review still answers the core `/review` questions: aim, alignment, sufficiency, mechanism, drift, completion, and next action.
+
 ## The Review Process
 
 ### Step 1: State the Original Aim

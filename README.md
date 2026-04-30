@@ -42,7 +42,7 @@ Re-run the install command to pull the latest version.
 
 | Skill | Description |
 |-------|-------------|
-| `/review` | Check work and detect drift. A second opinion before committing |
+| `/review` | Check work and detect drift. A second opinion before committing, with code, writing, and learning lenses |
 | `/dissent` | Devil's advocate. Seek contrary evidence before locking in |
 | `/salvage` | Extract learning before restarting. Code is a draft; learning is the asset |
 | `/distill` | Curate accumulated metis across sessions. Surface patterns, promote to guardrails, compact noise |
